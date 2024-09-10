@@ -1,8 +1,9 @@
+import Player from "./Player.js";
 // game.js
 
 // Canvas Setup
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
 // Dynamische Canvas-Größe
 canvas.width = window.innerWidth;
@@ -10,114 +11,114 @@ canvas.height = window.innerHeight;
 
 // Bilder
 const ground = new Image();
-ground.src = 'assets/ground1.png';
+ground.src = "assets/ground1.png";
 
 const stone1 = new Image();
-stone1.src = 'assets/stone1.png';
+stone1.src = "assets/stone1.png";
 
 const stone2 = new Image();
-stone2.src = 'assets/stone2.png';
+stone2.src = "assets/stone2.png";
 
 const playerImg = new Image();
-playerImg.src = 'assets/player.png';
+playerImg.src = "assets/player.png";
 
 const enemyImgs = [
-    'assets/enemy1.png',
-    'assets/enemy2.png',
-    'assets/enemy3.png'
-].map(src => {
-    let img = new Image();
-    img.src = src;
-    return img;
+  "assets/enemy1.png",
+  "assets/enemy2.png",
+  "assets/enemy3.png",
+].map((src) => {
+  let img = new Image();
+  img.src = src;
+  return img;
 });
 
 // Spiellogik
 let player = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    width: 50,
-    height: 50,
-    speed: 5
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  width: 50,
+  height: 50,
+  speed: 5,
 };
 
 let enemies = [];
 
 function spawnEnemy() {
-    let enemyImg = enemyImgs[Math.floor(Math.random() * enemyImgs.length)];
-    enemies.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        width: 50,
-        height: 50,
-        speed: 2 + Math.random() * 3,
-        img: enemyImg
-    });
+  let enemyImg = enemyImgs[Math.floor(Math.random() * enemyImgs.length)];
+  enemies.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    width: 50,
+    height: 50,
+    speed: 2 + Math.random() * 3,
+    img: enemyImg,
+  });
 }
 
 function updatePlayer() {
-    // Steuerung: Beispiel mit Pfeiltasten
-    if (keys.ArrowUp) player.y -= player.speed;
-    if (keys.ArrowDown) player.y += player.speed;
-    if (keys.ArrowLeft) player.x -= player.speed;
-    if (keys.ArrowRight) player.x += player.speed;
+  // Steuerung: Beispiel mit Pfeiltasten
+  if (keys.ArrowUp) player.y -= player.speed;
+  if (keys.ArrowDown) player.y += player.speed;
+  if (keys.ArrowLeft) player.x -= player.speed;
+  if (keys.ArrowRight) player.x += player.speed;
 
-    // Grenzen der Spielfläche
-    player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
-    player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
+  // Grenzen der Spielfläche
+  player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+  player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
 }
 
 function updateEnemies() {
-    enemies.forEach(enemy => {
-        let dx = player.x - enemy.x;
-        let dy = player.y - enemy.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
+  enemies.forEach((enemy) => {
+    let dx = player.x - enemy.x;
+    let dy = player.y - enemy.y;
+    let dist = Math.sqrt(dx * dx + dy * dy);
 
-        enemy.x += (dx / dist) * enemy.speed;
-        enemy.y += (dy / dist) * enemy.speed;
-    });
+    enemy.x += (dx / dist) * enemy.speed;
+    enemy.y += (dy / dist) * enemy.speed;
+  });
 }
 
 function drawGround() {
-    ctx.drawImage(ground, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(ground, 0, 0, canvas.width, canvas.height);
 }
 
 function drawPlayer() {
-    ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 }
 
 function drawEnemies() {
-    enemies.forEach(enemy => {
-        ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-    });
+  enemies.forEach((enemy) => {
+    ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+  });
 }
 
 let keys = {};
-window.addEventListener('keydown', (e) => {
-    keys[e.key] = true;
+window.addEventListener("keydown", (e) => {
+  keys[e.key] = true;
 });
-window.addEventListener('keyup', (e) => {
-    keys[e.key] = false;
+window.addEventListener("keyup", (e) => {
+  keys[e.key] = false;
 });
 
 // Hauptspiel-Loop
 function gameLoop() {
-    // Spiellogik
-    updatePlayer();
-    updateEnemies();
+  // Spiellogik
+  updatePlayer();
+  updateEnemies();
 
-    // Rendern
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawGround();
-    drawPlayer();
-    drawEnemies();
+  // Rendern
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGround();
+  drawPlayer();
+  drawEnemies();
 
-    requestAnimationFrame(gameLoop);
+  requestAnimationFrame(gameLoop);
 }
 
 // Starten des Spiels
 ground.onload = () => {
-    for (let i = 0; i < 5; i++) {
-        spawnEnemy();  // Spawne am Anfang 5 Gegner
-    }
-    gameLoop();
+  for (let i = 0; i < 5; i++) {
+    spawnEnemy(); // Spawne am Anfang 5 Gegner
+  }
+  gameLoop();
 };

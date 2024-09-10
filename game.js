@@ -20,7 +20,7 @@ const stone2 = new Image();
 stone2.src = "assets/stone2.png";
 
 const playerImg = new Image();
-playerImg.src = "assets/player.png";
+playerImg.src = "./assets/player.png";
 
 const enemyImgs = [
   "assets/enemy1.png",
@@ -33,13 +33,7 @@ const enemyImgs = [
 });
 
 // Spiellogik
-let player = {
-  x: canvas.width / 2,
-  y: canvas.height / 2,
-  width: 50,
-  height: 50,
-  speed: 5,
-};
+const player = new Player(canvas.width / 2, canvas.height / 2, playerImg, 1);
 
 let enemies = [];
 
@@ -83,7 +77,8 @@ function drawGround() {
 }
 
 function drawPlayer() {
-  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+  // ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+  player.draw(ctx);
 }
 
 function drawEnemies() {

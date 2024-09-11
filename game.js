@@ -111,7 +111,7 @@ function gameLoop() {
 }
 
 // Starten des Spiels
-ground.onload = () => {
+playerImg.onload = () => {
   for (let i = 0; i < 5; i++) {
     spawnEnemy(); // Spawne am Anfang 5 Gegner
   }

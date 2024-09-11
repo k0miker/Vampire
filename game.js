@@ -12,10 +12,17 @@ let mouseY = undefined;
 
 window.addEventListener("mousemove", mousemoveHandler);
 function animate() {
-  if (mouseX > window.innerWidth / 2) backgroundX += 2;
-  if (mouseX < window.innerWidth / 2) backgroundX -= 2;
-  if (mouseY > window.innerHeight / 2) backgroundY += 2;
-  if (mouseY < window.innerHeight / 2) backgroundY -= 2;
+  if (mouseX > window.innerWidth / 2 + 50) backgroundX += 2;
+  if (backgroundX > canvas.width - window.innerWidth)
+    backgroundX = canvas.width - window.innerWidth;
+  if (mouseX < window.innerWidth / 2 - 50) backgroundX -= 2;
+  if (backgroundX < 0) backgroundX = 0;
+  if (mouseY > window.innerHeight / 2 + 50) backgroundY += 2;
+  if (backgroundY < 0) backgroundY = 0;
+  if (backgroundY > canvas.height - window.innerHeight)
+    backgroundY = canvas.height - window.innerHeight;
+  if (mouseY < window.innerHeight / 2 - 50) backgroundY -= 2;
+
   window.scroll(backgroundX, backgroundY);
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);

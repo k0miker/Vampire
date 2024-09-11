@@ -26,6 +26,5 @@ function animate() {
 }
 animate();
 function mousemoveHandler(e) {
-    console.log(e.x, e.y);
-    if(e.x>window.innerWidth/2)
+  console.log(e.x, e.y);
 }

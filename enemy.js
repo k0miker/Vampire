@@ -15,8 +15,8 @@ export default class Enemy {
 
     update() {
         if (this.isAlive) {
-            let dx = this.enemy.x - this.x;
-            let dy = this.enemy.y - this.y;
+            let dx = window.innerWidth / 2 - (this.x + this.width / 2);
+            let dy = window.innerHeight / 2 - (this.y + this.height / 2);
             let dist = Math.sqrt(dx * dx + dy * dy);
             this.x += (dx / dist) * this.speed;
             this.y += (dy / dist) * this.speed;
@@ -42,10 +42,10 @@ export default class Enemy {
         if (this.isAlive) {
             let damage;
             switch (this.weaponType) {
-                case 'sword':
+                case 'assaultRifle':
                     damage = 10;
                     break;
-                case 'bow':
+                case 'deagle':
                     damage = 7;
                     break;
                 case 'magic':

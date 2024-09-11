@@ -2,8 +2,8 @@ export default class Player {
   constructor(x, y, img, speed) {
     this.x = x;
     this.y = y;
-    this.width = 150;
-    this.height = 150;
+    this.width = 100;
+    this.height = 100;
     this.img = img;
     this.speed = speed;
     this.health = 100;

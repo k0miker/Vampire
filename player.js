@@ -34,7 +34,7 @@ export default class Player {
       }
     }
   }
-  update(key) {}
+
   draw(ctx, backgroundX, backgroundY, mouseX, mouseY) {
     if (this.isAlive) {
       const angle = Math.atan2(

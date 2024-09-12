@@ -1,5 +1,6 @@
 import Enemy from "./enemy.js";
 import Player from "./player.js";
+import Bullet from "./Bullet.js";
 
 const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -12,7 +13,7 @@ let backgroundX = 0;
 let backgroundY = 0;
 let mouseX = canvas.width / 2;
 let mouseY = canvas.height / 2;
-
+const bullets = [];
 const player = new Player();
 player.init();
 player.x = window.innerWidth / 2 - player.width / 2;
@@ -38,10 +39,11 @@ const enemy1 = new Enemy(
 window.addEventListener("mousemove", mousemoveHandler);
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
+document.addEventListener("click", clickHandler);
 function animate() {
   if (player.vx !== 0 && player.vy !== 0) {
-    backgroundX += player.vx / 2;
-    backgroundY += player.vy / 2;
+    backgroundX += player.vx / 1.5;
+    backgroundY += player.vy / 1.5;
   } else {
     backgroundX += player.vx;
     backgroundY += player.vy;
@@ -85,7 +87,21 @@ function animate() {
     player.x + backgroundX + player.width / 2,
     player.y + backgroundY + player.height / 2
   );
-
+  // Update und Zeichne Kugeln
+  for (let i = 0; i < bullets.length; i++) {
+    // if (
+    //   bullets[i].x < backgroundX - bullets[i].width ||
+    //   bullets[i].y < backgroundX - bullets[i].height ||
+    //   bullets[i].x > backgroundX + window.innerWidth ||
+    //   bullets[i].y > backgroundX + window.innerHeight
+    // ) {
+    //   bullets.splice(i, 1);
+    //   i--;
+    // } else {
+    bullets[i].update();
+    bullets[i].draw();
+    // }
+  }
   requestAnimationFrame(animate);
 }
 animate();
@@ -121,4 +137,20 @@ function keyDownHandler(e) {
   if (e.code === "KeyD") {
     player.vx = 2;
   }
+}
+
+function clickHandler(e) {
+  let dx = player.x + player.width / 2 - mouseX;
+  let dy = player.y + player.height / 2 - mouseY;
+  let dist = Math.sqrt(dx * dx + dy * dy);
+
+  const bullet = new Bullet(
+    player.x + player.width / 2 + backgroundX,
+    player.y + player.height / 2 + backgroundY,
+    (dx / dist) * -4,
+    (dy / dist) * -4,
+    ctx
+  );
+  console.log(backgroundX);
+  bullets.push(bullet);
 }

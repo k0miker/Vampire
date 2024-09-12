@@ -31,7 +31,7 @@ const enemy1 = new Enemy(
   1,
   { x: 0, y: 0 },
   100,
-  "./assets/ZombieApocalypse.png",
+  "./assets/tileset.png",
 );
 
 

@@ -1,119 +1,91 @@
-import Player from "./Player.js";
-// game.js
+import Enemy from "./enemy.js";
+import Player from "./player.js";
 
-// Canvas Setup
-const canvas = document.getElementById("gameCanvas");
+const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");
+canvas.width = 6500;
+canvas.height = 3500;
 
-// Dynamische Canvas-Größe
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const backgroundImg = new Image();
+backgroundImg.src = "./assets/ground1.png";
+let backgroundX = 0;
+let backgroundY = 0;
+let mouseX = canvas.width / 2;
+let mouseY = canvas.height / 2;
 
-// Bilder
-const ground = new Image();
-ground.src = "assets/ground1.png";
+const player = new Player();
+player.init();
+player.x = window.innerWidth / 2 - player.width / 2;
+player.y = window.innerHeight / 2 - player.height / 2;
 
-const stone1 = new Image();
-stone1.src = "assets/stone1.png";
-
-const stone2 = new Image();
-stone2.src = "assets/stone2.png";
-
-const playerImg = new Image();
-playerImg.src = "./assets/player.png";
-
-const enemyImgs = [
-  "assets/enemy1.png",
-  "assets/enemy2.png",
-  "assets/enemy3.png",
-].map((src) => {
-  let img = new Image();
-  img.src = src;
-  return img;
-});
-
-// Spiellogik
-const player = new Player(canvas.width / 2, canvas.height / 2, playerImg, 1);
-
-let enemies = [];
-
-function spawnEnemy() {
-  let enemyImg = enemyImgs[Math.floor(Math.random() * enemyImgs.length)];
-  enemies.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    width: 50,
-    height: 50,
-    speed: 2 + Math.random() * 3,
-    img: enemyImg,
-  });
-}
-
-function updatePlayer() {
-  // Steuerung: Beispiel mit Pfeiltasten
-  if (keys.ArrowUp) player.y -= player.speed;
-  if (keys.ArrowDown) player.y += player.speed;
-  if (keys.ArrowLeft) player.x -= player.speed;
-  if (keys.ArrowRight) player.x += player.speed;
-
-  // Grenzen der Spielfläche
-  player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
-  player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
-}
-
-function updateEnemies() {
-  enemies.forEach((enemy) => {
-    let dx = player.x - enemy.x;
-    let dy = player.y - enemy.y;
-    let dist = Math.sqrt(dx * dx + dy * dy);
-
-    enemy.x += (dx / dist) * enemy.speed;
-    enemy.y += (dy / dist) * enemy.speed;
-  });
-}
-
-function drawGround() {
-  ctx.drawImage(ground, 0, 0, canvas.width, canvas.height);
-}
-
-function drawPlayer() {
-  // ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-  player.draw(ctx);
-}
-
-function drawEnemies() {
-  enemies.forEach((enemy) => {
-    ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-  });
-}
-
-let keys = {};
-window.addEventListener("keydown", (e) => {
-  keys[e.key] = true;
-});
-window.addEventListener("keyup", (e) => {
-  keys[e.key] = false;
-});
-
-// Hauptspiel-Loop
-function gameLoop() {
-  // Spiellogik
-  updatePlayer();
-  updateEnemies();
-
-  // Rendern
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawGround();
-  drawPlayer();
-  drawEnemies();
-
-  requestAnimationFrame(gameLoop);
-}
-
-// Starten des Spiels
-playerImg.onload = () => {
-  for (let i = 0; i < 5; i++) {
-    spawnEnemy(); // Spawne am Anfang 5 Gegner
-  }
-  gameLoop();
+Player.prototype.update = function (mouseX, mouseY, backgroundX, backgroundY) {
+  this.x = mouseX - this.width / 2 + backgroundX;
+  this.y = mouseY - this.height / 2 + backgroundY;
 };
+
+const enemy1 = new Enemy(
+  200,
+  200,
+  100,
+  100,
+  1,
+  { x: 0, y: 0 },
+  100,
+  "./assets/enemy1.png",
+  "assaultRifle"
+);
+
+window.addEventListener("mousemove", mousemoveHandler);
+
+function animate() {
+  if (mouseX > window.innerWidth / 2 + 50) backgroundX += 2;
+  if (backgroundX > canvas.width - window.innerWidth)
+    backgroundX = canvas.width - window.innerWidth;
+  if (mouseX < window.innerWidth / 2 - 50) backgroundX -= 2;
+  if (backgroundX < 0) backgroundX = 0;
+  if (mouseY > window.innerHeight / 2 + 50) backgroundY += 2;
+  if (backgroundY < 0) backgroundY = 0;
+  if (backgroundY > canvas.height - window.innerHeight)
+    backgroundY = canvas.height - window.innerHeight;
+  if (mouseY < window.innerHeight / 2 - 50) backgroundY -= 2;
+
+  window.scroll(backgroundX, backgroundY);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.drawImage(
+    backgroundImg,
+    0,
+    0,
+    backgroundImg.width,
+    backgroundImg.height,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  // Update und Zeichne den Spieler
+  player.draw(ctx, backgroundX, backgroundY, mouseX, mouseY);
+  console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
+  console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
+
+  // Update und Zeichne den Gegner
+  enemy1.update(
+    player.x + backgroundX + player.width / 2,
+    player.y + backgroundY + player.height / 2
+  );
+  enemy1.draw(
+    ctx,
+    player.x + backgroundX + player.width / 2,
+    player.y + backgroundY + player.height / 2
+  );
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+function mousemoveHandler(e) {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+}

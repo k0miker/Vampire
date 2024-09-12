@@ -4,7 +4,7 @@ export default class Enemy {
         this.y = y;
         this.width = w;
         this.height = h;
-        this.speed = speed + Math.random() * 3;
+        this.speed = speed + Math.random() ;
         this.image = new Image();
         this.image.src = imageSrc;
         this.enemy = enemy;

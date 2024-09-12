@@ -21,16 +21,25 @@ export default class Enemy {
             this.x += (dx / dist) * this.speed;
             this.y += (dy / dist) * this.speed;
         }
-    }
+    }     
 
     draw(ctx, playerX, playerY) {
         if (this.isAlive) {
-            const angle = Math.atan2(playerY - (this.y + this.height / 2), playerX - (this.x + this.width / 2));
+            // const angle = Math.atan2(playerY - (this.y + this.height / 2), playerX - (this.x + this.width / 2));
             ctx.save();
             ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-            ctx.rotate(angle);
-            ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+            // ctx.rotate(angle);
+            ctx.drawImage(this.image, 527 , 153, 16,16,this.x - playerX, this.y - playerY, this.width, this.height);
+           
+              
             ctx.restore();
+            let delay = 0;
+            delay++;
+            if (delay > 20) {
+                imgIndX -= 17;    
+                if (imgIndX < 493) imgIndX = 527;
+                delay = 0;
+              }
         }
     }
 

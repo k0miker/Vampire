@@ -2,16 +2,18 @@ export default class Player {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.width = 100;
-    this.height = 100;
+    this.width = 80;
+    this.height = 80;
     this.speed = 5;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";
     this.isAlive = true;
-    this.playerImage = "./assets/player_9mm.png";
+    this.playerImage = "./assets/tileset.png";
+    this.indexX = 493;
+    this.indexY = 209;
+    this.walkTimer = 6;
   }
-
   init() {
     this.image.src = this.playerImage;
     this.image.onload = () => {
@@ -33,12 +35,47 @@ export default class Player {
 
   draw(ctx, backgroundX, backgroundY, mouseX, mouseY) {
     if (this.isAlive) {
-      const angle = Math.atan2(mouseY - (this.y + backgroundY + this.height / 2), mouseX - (this.x + backgroundX + this.width / 2));
-      ctx.save();
-      ctx.translate(this.x + backgroundX + this.width / 2, this.y + backgroundY + this.height / 2);
-      ctx.rotate(angle);
-      ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
-      ctx.restore();
+      const angle = Math.atan2(
+        mouseY - (this.y + this.height / 2),
+        mouseX - (this.x + this.width / 2)
+      );
+
+      console.log(this.x, this.y);
+      this.walkTimer -= 1;
+      if (this.walkTimer <= 0) {
+        this.walkTimer = 6;
+        this.indexX += 17;
+        if (this.indexX > 527) this.indexX = 493;
+      }
+      // ctx.save();
+      // ctx.translate(this.x + backgroundX + this.width / 2, this.y + backgroundY + this.height / 2);
+      // ctx.rotate(angle);
+      // if (mouseX < this.x) {
+      //   ctx.save();
+      //   ctx.translate(this.x, this.y);
+      //   ctx.rotate(this.angle);
+      //   ctx.fillStyle = "blue";
+      //   ctx.fillRect(
+      //     -this.width / 2,
+      //     -this.height / 2,
+      //     this.width,
+      //     this.height
+      //   );
+      //   ctx.restore();
+      // } else
+      ctx.drawImage(
+        this.image,
+        this.indexX,
+        this.indexY,
+        16,
+        16,
+        backgroundX - this.width / 2 + window.innerWidth / 2,
+        backgroundY - this.height / 2 + window.innerHeight / 2,
+        this.width,
+        this.height
+      );
+
+      // ctx.restore();
     }
   }
 

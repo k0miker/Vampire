@@ -67,8 +67,8 @@ function animate() {
 
   // Update und Zeichne den Spieler
   player.draw(ctx, backgroundX, backgroundY, mouseX, mouseY);
-  console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
-  console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
+  // console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
+  // console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
 
   // Update und Zeichne den Gegner
   enemy1.update(

@@ -39,43 +39,43 @@ export default class Player {
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
       );
+      const flipHorizontally = mouseX < this.x;
 
-      console.log(this.x, this.y);
       this.walkTimer -= 1;
       if (this.walkTimer <= 0) {
         this.walkTimer = 6;
         this.indexX += 17;
         if (this.indexX > 527) this.indexX = 493;
       }
-      // ctx.save();
-      // ctx.translate(this.x + backgroundX + this.width / 2, this.y + backgroundY + this.height / 2);
-      // ctx.rotate(angle);
-      // if (mouseX < this.x) {
-      //   ctx.save();
-      //   ctx.translate(this.x, this.y);
-      //   ctx.rotate(this.angle);
-      //   ctx.fillStyle = "blue";
-      //   ctx.fillRect(
-      //     -this.width / 2,
-      //     -this.height / 2,
-      //     this.width,
-      //     this.height
-      //   );
-      //   ctx.restore();
-      // } else
+      ctx.save(); // Speichern des aktuellen Zustands des Canvas-Kontexts
+
+      // Spiegeln des Bildes, wenn nötig
+      if (flipHorizontally) {
+        ctx.scale(-1, 1); // Horizontales Spiegeln
+        ctx.translate(
+          -backgroundX - this.width / 2 - window.innerWidth / 2,
+          backgroundY - this.height / 2 + window.innerHeight / 2
+        );
+      } else {
+        ctx.translate(
+          backgroundX - this.width / 2 + window.innerWidth / 2,
+          backgroundY - this.height / 2 + window.innerHeight / 2
+        );
+      }
+
       ctx.drawImage(
         this.image,
         this.indexX,
         this.indexY,
         16,
         16,
-        backgroundX - this.width / 2 + window.innerWidth / 2,
-        backgroundY - this.height / 2 + window.innerHeight / 2,
+        0,
+        0,
         this.width,
         this.height
       );
 
-      // ctx.restore();
+      ctx.restore(); // Wiederherstellen des vorherigen Zustands des Canvas-Kontexts
     }
   }
 

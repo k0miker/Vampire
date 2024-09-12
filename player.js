@@ -30,7 +30,17 @@ export default class Player {
       }
     }
   }
-
+  draw(ctx, backgroundX, backgroundY) {
+    if (this.isAlive) {
+      ctx.drawImage(
+        this.image,
+        this.x + backgroundX,
+        this.y + backgroundY,
+        this.width,
+        this.height
+      );
+    }
+  }
   attack(target) {
     if (this.isAlive) {
       let damage;

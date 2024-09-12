@@ -18,7 +18,7 @@ player.init();
 player.x = window.innerWidth / 2 - player.width / 2;
 player.y = window.innerHeight / 2 - player.height / 2;
 
-Player.prototype.update = function (mouseX, mouseY, backgroundX, backgrounY) {
+Player.prototype.update = function (mouseX, mouseY, backgroundX, backgroundY) {
   this.x = mouseX - this.width / 2 + backgroundX;
   this.y = mouseY - this.height / 2 + backgroundY;
 };

@@ -18,57 +18,67 @@ player.init();
 player.x = window.innerWidth / 2 - player.width / 2;
 player.y = window.innerHeight / 2 - player.height / 2;
 
-Player.prototype.update = function(mouseX, mouseY) {
-    this.x = mouseX - this.width / 2;
-    this.y = mouseY - this.height / 2;
+Player.prototype.update = function (mouseX, mouseY, backgroundX, backgrounY) {
+  this.x = mouseX - this.width / 2 + backgroundX;
+  this.y = mouseY - this.height / 2 + backgroundY;
 };
 
-const enemy1 = new Enemy(200, 200, 100, 100, 1, { x: 0, y: 0 }, 100, "./assets/enemy1.png", "assaultRifle");
+const enemy1 = new Enemy(
+  200,
+  200,
+  100,
+  100,
+  1,
+  { x: 0, y: 0 },
+  100,
+  "./assets/enemy1.png",
+  "assaultRifle"
+);
 
 window.addEventListener("mousemove", mousemoveHandler);
 
 function animate() {
-    if (mouseX > window.innerWidth / 2 + 50) backgroundX += 2;
-    if (backgroundX > canvas.width - window.innerWidth)
-        backgroundX = canvas.width - window.innerWidth;
-    if (mouseX < window.innerWidth / 2 - 50) backgroundX -= 2;
-    if (backgroundX < 0) backgroundX = 0;
-    if (mouseY > window.innerHeight / 2 + 50) backgroundY += 2;
-    if (backgroundY < 0) backgroundY = 0;
-    if (backgroundY > canvas.height - window.innerHeight)
-        backgroundY = canvas.height - window.innerHeight;
-    if (mouseY < window.innerHeight / 2 - 50) backgroundY -= 2;
+  if (mouseX > window.innerWidth / 2 + 50) backgroundX += 2;
+  if (backgroundX > canvas.width - window.innerWidth)
+    backgroundX = canvas.width - window.innerWidth;
+  if (mouseX < window.innerWidth / 2 - 50) backgroundX -= 2;
+  if (backgroundX < 0) backgroundX = 0;
+  if (mouseY > window.innerHeight / 2 + 50) backgroundY += 2;
+  if (backgroundY < 0) backgroundY = 0;
+  if (backgroundY > canvas.height - window.innerHeight)
+    backgroundY = canvas.height - window.innerHeight;
+  if (mouseY < window.innerHeight / 2 - 50) backgroundY -= 2;
 
-    window.scroll(backgroundX, backgroundY);
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  window.scroll(backgroundX, backgroundY);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.drawImage(
-        backgroundImg,
-        0,
-        0,
-        backgroundImg.width,
-        backgroundImg.height,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+  ctx.drawImage(
+    backgroundImg,
+    0,
+    0,
+    backgroundImg.width,
+    backgroundImg.height,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
-    // Update und Zeichne den Spieler
-    player.draw(ctx);
-    console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
-    console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
+  // Update und Zeichne den Spieler
+  player.draw(ctx, backgroundX, backgroundY);
+  console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
+  console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
 
-    // Zeichne den Gegner
-    enemy1.update();
-    enemy1.draw(ctx);
+  // Zeichne den Gegner
+  enemy1.update();
+  enemy1.draw(ctx);
 
-    requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 }
 animate();
 
 function mousemoveHandler(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 }

@@ -13,6 +13,8 @@ export default class Player {
     this.indexX = 493;
     this.indexY = 209;
     this.walkTimer = 6;
+    this.vx = 0;
+    this.vy = 0;
   }
   init() {
     this.image.src = this.playerImage;

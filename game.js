@@ -18,10 +18,10 @@ player.init();
 player.x = window.innerWidth / 2 - player.width / 2;
 player.y = window.innerHeight / 2 - player.height / 2;
 
-Player.prototype.update = function (mouseX, mouseY, backgroundX, backgroundY) {
-  this.x = mouseX - this.width / 2 + backgroundX;
-  this.y = mouseY - this.height / 2 + backgroundY;
-};
+// Player.prototype.update = function (mouseX, mouseY, backgroundX, backgroundY) {
+//   this.x = mouseX - this.width / 2 + backgroundX;
+//   this.y = mouseY - this.height / 2 + backgroundY;
+// };
 
 const enemy1 = new Enemy(
   200,
@@ -36,18 +36,23 @@ const enemy1 = new Enemy(
 );
 
 window.addEventListener("mousemove", mousemoveHandler);
-
+document.addEventListener("keydown", keyDownHandler);
+document.addEventListener("keyup", keyUpHandler);
 function animate() {
-  if (mouseX > window.innerWidth / 2 + 50) backgroundX += 2;
+  if (player.vx !== 0 && player.vy !== 0) {
+    backgroundX += player.vx / 2;
+    backgroundY += player.vy / 2;
+  } else {
+    backgroundX += player.vx;
+    backgroundY += player.vy;
+  }
+
+  if (backgroundY < 0) backgroundY = 0;
+  if (backgroundX < 0) backgroundX = 0;
   if (backgroundX > canvas.width - window.innerWidth)
     backgroundX = canvas.width - window.innerWidth;
-  if (mouseX < window.innerWidth / 2 - 50) backgroundX -= 2;
-  if (backgroundX < 0) backgroundX = 0;
-  if (mouseY > window.innerHeight / 2 + 50) backgroundY += 2;
-  if (backgroundY < 0) backgroundY = 0;
   if (backgroundY > canvas.height - window.innerHeight)
     backgroundY = canvas.height - window.innerHeight;
-  if (mouseY < window.innerHeight / 2 - 50) backgroundY -= 2;
 
   window.scroll(backgroundX, backgroundY);
   ctx.fillStyle = "black";
@@ -88,4 +93,32 @@ animate();
 function mousemoveHandler(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
+}
+function keyUpHandler(e) {
+  if (e.code === "KeyW") {
+    player.vy = 0;
+  }
+  if (e.code === "KeyS") {
+    player.vy = 0;
+  }
+  if (e.code === "KeyA") {
+    player.vx = 0;
+  }
+  if (e.code === "KeyD") {
+    player.vx = 0;
+  }
+}
+function keyDownHandler(e) {
+  if (e.code === "KeyW") {
+    player.vy = -2;
+  }
+  if (e.code === "KeyS") {
+    player.vy = 2;
+  }
+  if (e.code === "KeyA") {
+    player.vx = -2;
+  }
+  if (e.code === "KeyD") {
+    player.vx = 2;
+  }
 }

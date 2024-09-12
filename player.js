@@ -2,7 +2,7 @@ export default class Player {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.width = 100; // Stellen Sie sicher, dass diese Werte korrekt sind
+    this.width = 100;
     this.height = 100;
     this.speed = 5;
     this.image = new Image();
@@ -30,17 +30,18 @@ export default class Player {
       }
     }
   }
-  draw(ctx, backgroundX, backgroundY) {
+
+  draw(ctx, backgroundX, backgroundY, mouseX, mouseY) {
     if (this.isAlive) {
-      ctx.drawImage(
-        this.image,
-        this.x + backgroundX,
-        this.y + backgroundY,
-        this.width,
-        this.height
-      );
+      const angle = Math.atan2(mouseY - (this.y + backgroundY + this.height / 2), mouseX - (this.x + backgroundX + this.width / 2));
+      ctx.save();
+      ctx.translate(this.x + backgroundX + this.width / 2, this.y + backgroundY + this.height / 2);
+      ctx.rotate(angle);
+      ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+      ctx.restore();
     }
   }
+
   attack(target) {
     if (this.isAlive) {
       let damage;

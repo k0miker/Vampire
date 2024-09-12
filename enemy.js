@@ -13,19 +13,24 @@ export default class Enemy {
         this.weaponType = weaponType; 
     }
 
-    update() {
+    update(playerX, playerY) {
         if (this.isAlive) {
-            let dx = window.innerWidth / 2 - (this.x + this.width / 2);
-            let dy = window.innerHeight / 2 - (this.y + this.height / 2);
+            let dx = playerX - (this.x + this.width / 2);
+            let dy = playerY - (this.y + this.height / 2);
             let dist = Math.sqrt(dx * dx + dy * dy);
             this.x += (dx / dist) * this.speed;
             this.y += (dy / dist) * this.speed;
         }
     }
 
-    draw(ctx) {
+    draw(ctx, playerX, playerY) {
         if (this.isAlive) {
-            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+            const angle = Math.atan2(playerY - (this.y + this.height / 2), playerX - (this.x + this.width / 2));
+            ctx.save();
+            ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+            ctx.rotate(angle);
+            ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+            ctx.restore();
         }
     }
 

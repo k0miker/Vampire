@@ -3,15 +3,15 @@ import Player from "./player.js";
 
 const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 3500;
+canvas.width = 6500;
 canvas.height = 3500;
 
 const backgroundImg = new Image();
 backgroundImg.src = "./assets/ground1.png";
 let backgroundX = 0;
 let backgroundY = 0;
-let mouseX = canvas.width / 2; // Initialisieren Sie mouseX in der Mitte des Bildschirms
-let mouseY = canvas.height / 2; // Initialisieren Sie mouseY in der Mitte des Bildschirms
+let mouseX = canvas.width / 2;
+let mouseY = canvas.height / 2;
 
 const player = new Player();
 player.init();
@@ -66,13 +66,13 @@ function animate() {
   );
 
   // Update und Zeichne den Spieler
-  player.draw(ctx, backgroundX, backgroundY);
+  player.draw(ctx, backgroundX, backgroundY, mouseX, mouseY);
   console.log(`Spielerposition: x=${player.x}, y=${player.y}`);
   console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
 
-  // Zeichne den Gegner
-  enemy1.update();
-  enemy1.draw(ctx);
+  // Update und Zeichne den Gegner
+  enemy1.update(player.x + backgroundX + player.width / 2, player.y + backgroundY + player.height / 2);
+  enemy1.draw(ctx, player.x + backgroundX + player.width / 2, player.y + backgroundY + player.height / 2);
 
   requestAnimationFrame(animate);
 }

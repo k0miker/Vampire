@@ -77,6 +77,9 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+window.addEventListener("click", () => {
+  player.shoot(mouseX, mouseY);
+});
 
 function mousemoveHandler(e) {
   mouseX = e.clientX;

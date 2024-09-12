@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-import Player from "./player.js";
+import Player from "./player2.js";
 
 const canvas = document.querySelector("#gameCanvas");
 const ctx = canvas.getContext("2d");

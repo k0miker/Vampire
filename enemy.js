@@ -11,9 +11,11 @@ export default class Enemy {
         this.health = hp; 
         this.isAlive = true; 
         this.weaponType = weaponType; 
+        this.walkTimer = 1;
+        this.indexX = 527;
     }
 
-    update(playerX, playerY) {
+    update(playerX, playerY, backgroundX, backgroundY) {
         if (this.isAlive) {
             let dx = playerX - (this.x + this.width / 2);
             let dy = playerY - (this.y + this.height / 2);
@@ -24,22 +26,33 @@ export default class Enemy {
     }     
 
     draw(ctx, playerX, playerY) {
+       
         if (this.isAlive) {
-            // const angle = Math.atan2(playerY - (this.y + this.height / 2), playerX - (this.x + this.width / 2));
+         
+            this.walkTimer -= 1;
+            if (this.walkTimer <= 0) {
+                this.walkTimer = 20;
+                this.indexX += 17;
+                // console.log(this.indexX);   
+                if (this.indexX > 527) this.indexX = 493;    
+                // console.log(this.indexX);               
+               
+            }
+            
             ctx.save();
             ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
             // ctx.rotate(angle);
-            ctx.drawImage(this.image, 527 , 153, 16,16,this.x - playerX, this.y - playerY, this.width, this.height);
+            ctx.drawImage(
+                this.image,
+                this.indexX,
+                 152, 16,16,
+                 this.x - playerX,
+                 this.y - playerY,
+                 this.width, this.height);
            
               
             ctx.restore();
-            let delay = 0;
-            delay++;
-            if (delay > 20) {
-                imgIndX -= 17;    
-                if (imgIndX < 493) imgIndX = 527;
-                delay = 0;
-              }
+         
         }
     }
 

@@ -71,9 +71,9 @@ function animate() {
   // console.log(`Mausposition: mouseX=${mouseX}, mouseY=${mouseY}`);
 
   // Update und Zeichne den Gegner
-  enemy1.update(player.x + backgroundX + player.width / 2, player.y + backgroundY + player.height / 2);
+  enemy1.update(player.x + backgroundX + player.width / 2, player.y + backgroundY + player.height / 2, backgroundX, backgroundY);
   enemy1.draw(ctx, player.x + backgroundX + player.width / 2, player.y + backgroundY + player.height / 2, player.x ,player.y);
-console.log(player.x ,player.y);
+  console.log(player.x ,player.y);
 
   requestAnimationFrame(animate);
 }

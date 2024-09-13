@@ -1,5 +1,5 @@
 export default class Enemy {
-  constructor(x, y, w, h, speed, enemy, hp, imageSrc, weaponType) {
+  constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
     this.y = y;
     this.width = w;
@@ -7,18 +7,13 @@ export default class Enemy {
     this.speed = speed + Math.random();
     this.image = new Image();
     this.image.src = imageSrc;
-    this.enemy = enemy;
+
     this.health = hp;
     this.isAlive = true;
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
   }
-  enemys = [];
-  pushEnemy() {
-    this.enemys.push(this);
-  }
-
 
   update(playerX, playerY) {
     if (this.isAlive) {

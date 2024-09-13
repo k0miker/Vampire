@@ -139,7 +139,13 @@ function keyDownHandler(e) {
     player.vx = 2;
   }
 }
-
+window.onresize(resizeHandler);
+function resizeHandler() {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  player.x = window.innerWidth / 2 - player.width / 2;
+  player.y = window.innerHeight / 2 - player.height / 2;
+}
 function clickHandler(e) {
   let dx = player.x + player.width / 2 - mouseX;
   let dy = player.y + player.height / 2 - mouseY;

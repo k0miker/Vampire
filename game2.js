@@ -1,5 +1,6 @@
 import Player from "./player.js";
 import Enemy from "./enemy.js";
+import Bullet from "./Bullet.js";
 export default class Game {
   constructor() {
     this.canvas = document.querySelector("#gameCanvas");

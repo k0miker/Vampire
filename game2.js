@@ -38,20 +38,25 @@ export default class Game {
     document.addEventListener("click", this.clickHandler.bind(this));
     window.onresize = this.resizeHandler.bind(this);
 
-    this.animate();
+    this.lastTime = 0;
+    this.animate(0);
   }
 
   pushEnemy(enemy) {
     this.enemys.push(enemy);
   }
 
-  animate() {
+  animate(currentTime) {
+    const deltaTime = (currentTime - this.lastTime) / 1000;
+    this.lastTime = currentTime;
+    console.log(deltaTime);
+
     if (this.player.vx !== 0 && this.player.vy !== 0) {
-      this.backgroundX += this.player.vx / 1.5;
-      this.backgroundY += this.player.vy / 1.5;
+      this.backgroundX += (this.player.vx / 1.5) * deltaTime * 30;
+      this.backgroundY += (this.player.vy / 1.5) * deltaTime * 30;
     } else {
-      this.backgroundX += this.player.vx;
-      this.backgroundY += this.player.vy;
+      this.backgroundX += this.player.vx * deltaTime * 30;
+      this.backgroundY += this.player.vy * deltaTime * 30;
     }
 
     if (this.backgroundY < 0) this.backgroundY = 0;
@@ -111,7 +116,7 @@ export default class Game {
         i--;
         console.log(this.bullets.length);
       } else {
-        this.bullets[i].update();
+        this.bullets[i].update(deltaTime);
         this.bullets[i].draw();
       }
     }
@@ -140,16 +145,16 @@ export default class Game {
 
   keyDownHandler(e) {
     if (e.code === "KeyW") {
-      this.player.vy = -2;
+      this.player.vy = -4;
     }
     if (e.code === "KeyS") {
-      this.player.vy = 2;
+      this.player.vy = 4;
     }
     if (e.code === "KeyA") {
-      this.player.vx = -2;
+      this.player.vx = -4;
     }
     if (e.code === "KeyD") {
-      this.player.vx = 2;
+      this.player.vx = 4;
     }
   }
 

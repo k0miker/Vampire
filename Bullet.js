@@ -9,9 +9,9 @@ export default class Bullet {
     this.width = 10;
     this.height = 10;
   }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
+  update(deltaTime) {
+    this.x += this.vx * deltaTime * 60;
+    this.y += this.vy * deltaTime * 60;
     this.draw();
   }
   draw() {

@@ -154,8 +154,8 @@ export default class Game {
   }
 
   resizeHandler() {
-    this.canvas.height = window.innerHeight;
-    this.canvas.width = window.innerWidth;
+    // this.canvas.height = window.innerHeight;
+    // this.canvas.width = window.innerWidth;
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
   }
@@ -170,6 +170,7 @@ export default class Game {
       this.player.y + this.player.height / 2 + this.backgroundY,
       (dx / dist) * -4,
       (dy / dist) * -4,
+      10,
       this.ctx
     );
 

@@ -89,18 +89,19 @@ function animate() {
   );
   // Update und Zeichne Kugeln
   for (let i = 0; i < bullets.length; i++) {
-    // if (
-    //   bullets[i].x < backgroundX - bullets[i].width ||
-    //   bullets[i].y < backgroundX - bullets[i].height ||
-    //   bullets[i].x > backgroundX + window.innerWidth ||
-    //   bullets[i].y > backgroundX + window.innerHeight
-    // ) {
-    //   bullets.splice(i, 1);
-    //   i--;
-    // } else {
-    bullets[i].update();
-    bullets[i].draw();
-    // }
+    if (
+      bullets[i].x < backgroundX ||
+      bullets[i].y < backgroundY ||
+      bullets[i].x > backgroundX + window.innerWidth + bullets[i].width ||
+      bullets[i].y > backgroundY + window.innerHeight + bullets[i].height
+    ) {
+      bullets.splice(i, 1);
+      i--;
+      console.log(bullets.length);
+    } else {
+      bullets[i].update();
+      bullets[i].draw();
+    }
   }
   requestAnimationFrame(animate);
 }
@@ -151,6 +152,7 @@ function clickHandler(e) {
     (dy / dist) * -4,
     ctx
   );
-  console.log(backgroundX);
+
   bullets.push(bullet);
+  console.log(bullets.length);
 }

@@ -32,9 +32,9 @@ const enemy1 = new Enemy(
   1,
   { x: 0, y: 0 },
   100,
-  "./assets/enemy1.png",
-  "assaultRifle"
+  "./assets/tileset.png",
 );
+
 
 window.addEventListener("mousemove", mousemoveHandler);
 document.addEventListener("keydown", keyDownHandler);
@@ -106,6 +106,9 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+window.addEventListener("click", () => {
+  player.shoot(mouseX, mouseY);
+});
 
 function mousemoveHandler(e) {
   mouseX = e.clientX;

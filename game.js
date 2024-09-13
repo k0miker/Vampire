@@ -23,6 +23,7 @@ player.y = window.innerHeight / 2 - player.height / 2;
 //   this.x = mouseX - this.width / 2 + backgroundX;
 //   this.y = mouseY - this.height / 2 + backgroundY;
 // };
+const enemys = [];
 
 const enemy1 = new Enemy(
   200,
@@ -34,7 +35,7 @@ const enemy1 = new Enemy(
   100,
   "./assets/tileset.png",
 );
-
+enemys.push(enemy1);
 
 window.addEventListener("mousemove", mousemoveHandler);
 document.addEventListener("keydown", keyDownHandler);

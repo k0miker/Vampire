@@ -15,7 +15,7 @@ export default class Enemy {
         this.indexX = 527;
     }
 
-    update(playerX, playerY, backgroundX, backgroundY) {
+    update(playerX, playerY,) {
         if (this.isAlive) {
             let dx = playerX - (this.x + this.width / 2);
             let dy = playerY - (this.y + this.height / 2);

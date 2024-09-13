@@ -1,10 +1,11 @@
 export default class Bullet {
-  constructor(x, y, vx, vy, ctx) {
+  constructor(x, y, vx, vy, dmg, ctx) {
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.vy = vy;
     this.ctx = ctx;
+    this.dmg = dmg;
     this.width = 10;
     this.height = 10;
   }

@@ -56,32 +56,32 @@ export default class Enemy {
         }
     }
 
-    takeDamage(damage) {
-        if (this.isAlive) {
-            this.health -= damage;
-            if (this.health <= 0) {
-                this.isAlive = false;
-            }
-        }
+  takeDamage(damage) {
+    if (this.isAlive) {
+      this.health -= damage;
+      if (this.health <= 0) {
+        this.isAlive = false;
+      }
     }
+  }
 
-    attack(target) {
-        if (this.isAlive) {
-            let damage;
-            switch (this.weaponType) {
-                case 'assaultRifle':
-                    damage = 10;
-                    break;
-                case 'deagle':
-                    damage = 7;
-                    break;
-                case 'magic':
-                    damage = 12;
-                    break;
-                default:
-                    damage = 5;
-            }
-            target.takeDamage(damage);
-        }
+  attack(target) {
+    if (this.isAlive) {
+      let damage;
+      switch (this.weaponType) {
+        case "assaultRifle":
+          damage = 10;
+          break;
+        case "deagle":
+          damage = 7;
+          break;
+        case "magic":
+          damage = 12;
+          break;
+        default:
+          damage = 5;
+      }
+      target.takeDamage(damage);
     }
+  }
 }

@@ -25,13 +25,21 @@ export default class Game {
     this.enemies = [];
     const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
     setInterval(() => {
-      const enemy = new Enemy(0,0,100,100,1,100,"./assets/tileset.png","pistol");
-    
-      
+      const enemy = new Enemy(
+        0,
+        0,
+        100,
+        100,
+        1,
+        100,
+        "./assets/tileset.png",
+        "pistol"
+      );
+
       enemy.x = Math.random() * 6000;
       enemy.y = Math.random() * 3000;
       this.enemies.push(enemy);
-    }, settings1.spawnTime)
+    }, settings1.spawnTime);
     // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
@@ -89,13 +97,13 @@ export default class Game {
 
     this.enemies.forEach((enemy) => {
       enemy.update(
-        this.player.x + this.backgroundX + this.player.width / 2,
-        this.player.y + this.backgroundY + this.player.height / 2
+        this.player.x + this.player.width / 2,
+        this.player.y + this.player.height / 2
       );
       enemy.draw(
         this.ctx,
-        this.player.x + this.backgroundX + this.player.width / 2,
-        this.player.y + this.backgroundY + this.player.height / 2
+        this.player.x + this.player.width / 2,
+        this.player.y + this.player.height / 2
       );
     });
 
@@ -192,9 +200,3 @@ export default class Game {
 
 // Initialisiere das Spiel
 const game = new Game();
-
-
-
-
-
-

@@ -23,7 +23,15 @@ export default class Game {
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
-
+    const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
+    setInterval(() => {
+      const enemy = new Enemy(0,0,100,100,1,100,"./assets/tileset.png","pistol");
+    
+      
+      enemy.x = Math.random() * 6000;
+      enemy.y = Math.random() * 3000;
+      this.enemies.push(enemy);
+    }, settings1.spawnTime)
     // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
@@ -78,6 +86,18 @@ export default class Game {
       this.mouseX,
       this.mouseY
     );
+
+    this.enemies.forEach((enemy) => {
+      enemy.update(
+        this.player.x + this.backgroundX + this.player.width / 2,
+        this.player.y + this.backgroundY + this.player.height / 2
+      );
+      enemy.draw(
+        this.ctx,
+        this.player.x + this.backgroundX + this.player.width / 2,
+        this.player.y + this.backgroundY + this.player.height / 2
+      );
+    });
 
     // Update und Zeichne den Gegner
     // this.enemy1.update(
@@ -174,13 +194,7 @@ export default class Game {
 const game = new Game();
 
 
-const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
 
 
-setInterval((Enemy,settings1) => {
-  const enemy = new Enemy(0,0,100,100,1,100,"./assets/enemy.png","pistol");
-  enemy.init();
-  enemy.x = Math.random() * 6000;
-  enemy.y = Math.random() * 3000;
-  this.enemies.push(enemy);
-}, settings1.spawnTime);
+
+

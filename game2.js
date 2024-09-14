@@ -20,17 +20,7 @@ export default class Game {
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
-    const enemy = new Enemy(
-      400,
-      400,
-      100,
-      100,
-      4,
-      100,
-      "./assets/enemy1.png",
-      1
-    );
-    this.enemies.push(enemy);
+
     // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
@@ -167,8 +157,8 @@ export default class Game {
     const bullet = new Bullet(
       this.player.x + this.player.width / 2 + this.backgroundX,
       this.player.y + this.player.height / 2 + this.backgroundY,
-      (dx / dist) * -4,
-      (dy / dist) * -4,
+      (dx / dist) * -15,
+      (dy / dist) * -15,
       10,
       this.ctx
     );

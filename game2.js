@@ -89,10 +89,10 @@ export default class Game {
     // Update und Zeichne den Spieler
     this.player.draw(
       this.ctx,
-      this.backgroundX,
-      this.backgroundY,
+
       this.mouseX,
-      this.mouseY
+      this.mouseY,
+      deltaTime
     );
 
     this.enemies.forEach((enemy) => {

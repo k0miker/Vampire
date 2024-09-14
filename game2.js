@@ -139,16 +139,16 @@ export default class Game {
 
   keyDownHandler(e) {
     if (e.code === "KeyW") {
-      this.player.vy = -4;
+      this.player.vy = -8;
     }
     if (e.code === "KeyS") {
-      this.player.vy = 4;
+      this.player.vy = 8;
     }
     if (e.code === "KeyA") {
-      this.player.vx = -4;
+      this.player.vx = -8;
     }
     if (e.code === "KeyD") {
-      this.player.vx = 4;
+      this.player.vx = 8;
     }
   }
 

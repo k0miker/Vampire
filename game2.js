@@ -1,6 +1,7 @@
 import Player from "./player.js";
 import Enemy from "./enemy.js";
 import Bullet from "./Bullet.js";
+import Settings from "./settings.js";
 export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -171,3 +172,15 @@ export default class Game {
 
 // Initialisiere das Spiel
 const game = new Game();
+
+
+const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
+
+
+setInterval((Enemy,settings1) => {
+  const enemy = new Enemy(0,0,100,100,1,100,"./assets/enemy.png","pistol");
+  enemy.init();
+  enemy.x = Math.random() * 6000;
+  enemy.y = Math.random() * 3000;
+  this.enemies.push(enemy);
+}, settings1.spawnTime);

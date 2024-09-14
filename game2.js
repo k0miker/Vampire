@@ -2,7 +2,7 @@ import Player from "./player.js";
 import Enemy from "./enemy.js";
 import Bullet from "./Bullet.js";
 export default class Game {
-  constructor() {
+  constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.canvas.width = 6500;
@@ -31,25 +31,21 @@ export default class Game {
       1
     );
     this.enemies.push(enemy);
-    console.log(this.enemies, this.enemies.length);
+    // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
     document.addEventListener("keyup", this.keyUpHandler.bind(this));
     document.addEventListener("click", this.clickHandler.bind(this));
     window.onresize = this.resizeHandler.bind(this);
-
+    this.fps = fps;
     this.lastTime = 0;
     this.animate(0);
-  }
-
-  pushEnemy(enemy) {
-    this.enemys.push(enemy);
   }
 
   animate(currentTime) {
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
-    console.log(deltaTime);
+    // console.log(deltaTime);
 
     if (this.player.vx !== 0 && this.player.vy !== 0) {
       this.backgroundX += (this.player.vx / 1.5) * deltaTime * 30;
@@ -67,8 +63,6 @@ export default class Game {
       this.backgroundY = this.canvas.height - window.innerHeight;
 
     window.scroll(this.backgroundX, this.backgroundY);
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.drawImage(
       this.backgroundImg,
@@ -114,7 +108,7 @@ export default class Game {
       ) {
         this.bullets.splice(i, 1);
         i--;
-        console.log(this.bullets.length);
+        // console.log(this.bullets.length);
       } else {
         this.bullets[i].update(deltaTime);
         this.bullets[i].draw();
@@ -180,7 +174,7 @@ export default class Game {
     );
 
     this.bullets.push(bullet);
-    console.log(this.bullets.length);
+    // console.log(this.bullets.length);
   }
 }
 

@@ -19,7 +19,7 @@ export default class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.player = new Player();
-    this.player.init();
+
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];

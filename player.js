@@ -9,7 +9,7 @@ export default class Player {
     this.health = 100;
     this.weaponType = "default";
     this.isAlive = true;
-    this.playerImage = "./assets/tileset.png";
+    this.image.src = "./assets/tileset.png";
     this.indexX = 493;
     this.indexY = 209;
     this.weaponY = -12;
@@ -17,15 +17,6 @@ export default class Player {
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
-  }
-  init() {
-    this.image.src = this.playerImage;
-    this.image.onload = () => {
-      console.log("Spielerbild erfolgreich geladen.");
-    };
-    this.image.onerror = (err) => {
-      console.error("Fehler beim Laden des Spielerbildes:", err);
-    };
   }
 
   takeDamage(damage) {

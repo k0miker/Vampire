@@ -47,7 +47,7 @@ export default class Player {
 
       this.walkTimer -= 1;
       if (this.walkTimer <= 0) {
-        this.walkTimer = 6;
+        this.walkTimer = 12;
         this.indexX += 17;
         this.weaponY += 2;
         this.weaponX += 3;

@@ -43,7 +43,7 @@ export default class Player {
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
       );
-      const flipHorizontally = mouseX < this.x;
+      const flipHorizontally = mouseX < this.x + this.width / 2;
 
       this.walkTimer -= 1;
       if (this.walkTimer <= 0) {
@@ -63,13 +63,13 @@ export default class Player {
       if (flipHorizontally) {
         ctx.scale(-1, 1); // Horizontales Spiegeln
         ctx.translate(
-          -backgroundX - this.width / 2 - window.innerWidth / 2,
-          backgroundY - this.height / 2 + window.innerHeight / 2
+          -this.width / 2 - window.innerWidth / 2,
+          -this.height / 2 + window.innerHeight / 2
         );
       } else {
         ctx.translate(
-          backgroundX - this.width / 2 + window.innerWidth / 2,
-          backgroundY - this.height / 2 + window.innerHeight / 2
+          -this.width / 2 + window.innerWidth / 2,
+          -this.height / 2 + window.innerHeight / 2
         );
       }
 

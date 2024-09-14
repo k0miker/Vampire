@@ -13,8 +13,8 @@ export default class Game {
     this.backgroundImg.src = "./assets/ground1.png";
     this.backgroundX = 0;
     this.backgroundY = 0;
-    this.backgroundXSize = 6000;
-    this.backgroundYSize = 3000;
+    this.backgroundXSize = 4690;
+    this.backgroundYSize = 4690;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];

@@ -104,19 +104,58 @@ export default class Player {
     if (this.isAlive) {
       let damage;
       switch (this.weaponType) {
-        case "assaultRifle":
-          damage = 10;
+        case "grenade":
+          damage = weapons[1].damage;
           break;
-        case "deagle":
-          damage = 7;
-          break;
-        case "magic":
-          damage = 12;
+        case "pumpgun":
+          damage = weapons[2].damage;
           break;
         case "pistol":
-          damage = 5;
+          damage = weapons[3].damage;
+          break;
+        case "magic":
+          damage = weapons[4].damage;
+          break;
       }
       target.takeDamage(damage);
     }
   }
 }
+
+const weapons = [
+  {
+    name: "granade",
+    damage: 30,
+    range: 10,
+    type: "ranged",
+    speed: 15,
+  },
+  {
+    name: "pumpgun",
+    damage: 7,
+    range: 20,
+    type: "melee",
+    speed: 20,
+  },
+  {
+    name: "pistol",
+    damage: 5,
+    range: 60,
+    type: "range",
+    speed: 15,
+  },
+  {
+    name: "knife",
+    damage: 10,
+    range: 1,
+    type: "melee",
+  },
+  {
+    name: "fireball",
+    damage: 50,
+    range: 75,
+    type: "magic",
+    speed: 10,
+    mana: 10,
+  },
+];

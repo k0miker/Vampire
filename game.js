@@ -1,10 +1,23 @@
 import Game from "./game2.js";
+import Settings from "./settings.js";
 
 // CALC framerate checking how many frames were counted after one second
 // depending on the monitor fps: usually something close to 60 or 120
 
 let framesTest = 0;
 
+// create settings object
+const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
+setInterval((Enemy,settings1) => {
+  const enemy = new Enemy();
+  enemy.init();
+  enemy.x = Math.random() * 6000;
+  enemy.y = Math.random() * 3000;
+  this.enemies.push(enemy);
+}, settings1.spawnTime);
+
+
+// count frames for one second
 const framesCount = () => {
   framesTest++;
   if (framesTest < 200) requestAnimationFrame(framesCount);

@@ -2,6 +2,7 @@ import Player from "./player.js";
 import Enemy from "./enemy.js";
 import Bullet from "./Bullet.js";
 import Settings from "./settings.js";
+import Bloodsplosion from "./Bloodsplosion.js";
 export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -23,6 +24,7 @@ export default class Game {
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
+    this.bloodsplosions = [];
     const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
     setInterval(() => {
       const enemy = new Enemy(
@@ -130,8 +132,32 @@ export default class Game {
         i--;
         // console.log(this.bullets.length);
       } else {
-        this.bullets[i].update(deltaTime);
-        this.bullets[i].draw();
+        let hitIndex = undefined;
+        hitIndex = this.bullets[i].update(deltaTime, this.enemies);
+        if (hitIndex) {
+          this.bloodsplosions.push(
+            new Bloodsplosion(
+              this.enemies[hitIndex].x + this.enemies[hitIndex].width / 2,
+              this.enemies[hitIndex].y + this.enemies[hitIndex].height / 2,
+              this.bullets[i].vx,
+              this.bullets[i].vy,
+              20
+            )
+          );
+
+          this.bullets.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    //Explosionen update
+    for (let i = 0; i < this.bloodsplosions.length; i++) {
+      let finished = undefined;
+      finished = this.bloodsplosions[i].update(this.ctx);
+      if (finished <= 0) {
+        this.bloodsplosions.splice(i, 1);
+        i--;
       }
     }
     requestAnimationFrame(this.animate.bind(this));

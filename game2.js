@@ -5,13 +5,15 @@ export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
-    this.canvas.width = 6500;
-    this.canvas.height = 3500;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
 
     this.backgroundImg = new Image();
     this.backgroundImg.src = "./assets/ground1.png";
     this.backgroundX = 0;
     this.backgroundY = 0;
+    this.backgroundXSize = 6000;
+    this.backgroundYSize = 3000;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
@@ -47,24 +49,25 @@ export default class Game {
 
     if (this.backgroundY < 0) this.backgroundY = 0;
     if (this.backgroundX < 0) this.backgroundX = 0;
-    if (this.backgroundX > this.canvas.width - window.innerWidth)
-      this.backgroundX = this.canvas.width - window.innerWidth;
-    if (this.backgroundY > this.canvas.height - window.innerHeight)
-      this.backgroundY = this.canvas.height - window.innerHeight;
+    if (this.backgroundX > this.backgroundXSize - window.innerWidth)
+      this.backgroundX = this.backgroundXSize - window.innerWidth;
+    if (this.backgroundY > this.backgroundYSize - window.innerHeight)
+      this.backgroundY = this.backgroundYSize - window.innerHeight;
 
-    window.scroll(this.backgroundX, this.backgroundY);
+    // window.scroll(this.backgroundX, this.backgroundY);
 
     this.ctx.drawImage(
       this.backgroundImg,
+      this.backgroundX,
+      this.backgroundY,
+      window.innerWidth,
+      window.innerHeight,
       0,
       0,
-      this.backgroundImg.width,
-      this.backgroundImg.height,
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
+      window.innerWidth,
+      window.innerHeight
     );
+    console.log(this.backgroundX, window.innerWidth);
 
     // Update und Zeichne den Spieler
     this.player.draw(
@@ -89,12 +92,10 @@ export default class Game {
     // Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       if (
-        this.bullets[i].x < this.backgroundX ||
-        this.bullets[i].y < this.backgroundY ||
-        this.bullets[i].x >
-          this.backgroundX + window.innerWidth + this.bullets[i].width ||
-        this.bullets[i].y >
-          this.backgroundY + window.innerHeight + this.bullets[i].height
+        this.bullets[i].x < 0 ||
+        this.bullets[i].y < 0 ||
+        this.bullets[i].x > window.innerWidth + this.bullets[i].width ||
+        this.bullets[i].y > window.innerHeight + this.bullets[i].height
       ) {
         this.bullets.splice(i, 1);
         i--;
@@ -155,8 +156,8 @@ export default class Game {
     let dist = Math.sqrt(dx * dx + dy * dy);
 
     const bullet = new Bullet(
-      this.player.x + this.player.width / 2 + this.backgroundX,
-      this.player.y + this.player.height / 2 + this.backgroundY,
+      this.player.x + this.player.width / 2,
+      this.player.y + this.player.height / 2,
       (dx / dist) * -15,
       (dy / dist) * -15,
       10,

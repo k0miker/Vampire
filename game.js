@@ -7,7 +7,7 @@ import Settings from "./settings.js";
 let framesTest = 0;
 
 // create settings object
-const settings1 = new Settings("easy", 4000, 60, 2, 1, 100, 50, 10, 5);
+const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
 setInterval((Enemy,settings1) => {
   const enemy = new Enemy();
   enemy.init();

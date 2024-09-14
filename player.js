@@ -12,6 +12,8 @@ export default class Player {
     this.playerImage = "./assets/tileset.png";
     this.indexX = 493;
     this.indexY = 209;
+    this.weaponY = -12;
+    this.weaponX = -3;
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
@@ -47,7 +49,13 @@ export default class Player {
       if (this.walkTimer <= 0) {
         this.walkTimer = 6;
         this.indexX += 17;
-        if (this.indexX > 527) this.indexX = 493;
+        this.weaponY += 2;
+        this.weaponX += 3;
+        if (this.indexX > 527) {
+          this.indexX = 493;
+          this.weaponY = -12;
+          this.weaponX = -3;
+        }
       }
       ctx.save(); // Speichern des aktuellen Zustands des Canvas-Kontexts
 
@@ -73,6 +81,17 @@ export default class Player {
         16,
         0,
         0,
+        this.width,
+        this.height
+      );
+      ctx.drawImage(
+        this.image,
+        17,
+        149,
+        16,
+        16,
+        this.weaponX,
+        this.weaponY,
         this.width,
         this.height
       );

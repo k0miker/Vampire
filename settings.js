@@ -1,6 +1,7 @@
 export default class Settings {
-    constructor(diff, fps, pSpeed, eSpeed, pHealth, eHealth, pDmg, eDmg) {
+    constructor(diff,spawnTime, fps, pSpeed, eSpeed, pHealth, eHealth, pDmg, eDmg) {
         this.difficulty = diff;
+        this.spawnTime = spawnTime;
         this.fps = fps;
         this.playerSpeed = pSpeed;
         this.enemySpeed = eSpeed;

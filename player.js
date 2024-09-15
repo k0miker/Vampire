@@ -21,10 +21,10 @@ export default class Player {
   init() {
     this.image.src = this.playerImage;
     this.image.onload = () => {
-      console.log("Spielerbild erfolgreich geladen.");
+      // console.log("Spielerbild erfolgreich geladen.");
     };
     this.image.onerror = (err) => {
-      console.error("Fehler beim Laden des Spielerbildes:", err);
+      // console.error("Fehler beim Laden des Spielerbildes:", err);
     };
   }
 

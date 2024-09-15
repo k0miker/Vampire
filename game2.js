@@ -13,8 +13,8 @@ export default class Game {
     this.backgroundImg.src = "./assets/ground1.png";
     this.backgroundX = 0;
     this.backgroundY = 0;
-    this.backgroundXSize = 6000;
-    this.backgroundYSize = 3000;
+    this.backgroundXSize = 4690;
+    this.backgroundYSize = 4690;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
@@ -23,13 +23,13 @@ export default class Game {
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
-    const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
+    const settings1 = new Settings(1, 40, 60, 2, 1, 100, 50, 10, 5);
     setInterval(() => {
       const enemy = new Enemy(0,0,100,100,1,100,"./assets/tileset.png","pistol");
     
       
-      enemy.x = Math.random() * 6000;
-      enemy.y = Math.random() * 3000;
+      enemy.x = Math.random() * 4690;
+      enemy.y = Math.random() * 4690;
       this.enemies.push(enemy);
     }, settings1.spawnTime)
     // console.log(this.enemies, this.enemies.length);
@@ -81,21 +81,22 @@ export default class Game {
     // Update und Zeichne den Spieler
     this.player.draw(
       this.ctx,
-      this.backgroundX,
-      this.backgroundY,
       this.mouseX,
       this.mouseY
     );
 
     this.enemies.forEach((enemy) => {
       enemy.update(
-        this.player.x + this.backgroundX + this.player.width / 2,
-        this.player.y + this.backgroundY + this.player.height / 2
+               
+        this.player.x + this.player.width / 2 ,
+        this.player.y + this.player.height / 2,
+        deltaTime,
       );
-      enemy.draw(
+      enemy.draw(  
+        // deltaTime,      
         this.ctx,
-        this.player.x + this.backgroundX + this.player.width / 2,
-        this.player.y + this.backgroundY + this.player.height / 2
+        this.player.x + this.player.width / 2,
+        this.player.y + this.player.height / 2
       );
     });
 

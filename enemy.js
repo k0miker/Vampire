@@ -15,7 +15,10 @@ export default class Enemy {
     this.indexX = 527;
   }
 
-  update(playerX, playerY) {
+  update(playerX, playerY, deltaTime) {
+   
+    console.log(deltaTime);
+    
     if (this.isAlive) {
       let dx = playerX - (this.x + this.width / 2);
       let dy = playerY - (this.y + this.height / 2);
@@ -27,7 +30,7 @@ export default class Enemy {
 
   draw(ctx, playerX, playerY) {
     if (this.isAlive) {
-      this.walkTimer -= 1;
+      this.walkTimer -= 1 ;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;

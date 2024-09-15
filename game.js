@@ -46,8 +46,8 @@ const initGame = async () => {
   // example: fps 60 => do something every 10 frames (60/6)
   // example: fps 120 => do something every 20 frames! (120/6)
   frameAction = fps / 6;
-  console.log("FPS: ", fps);
-  console.log("Update UI each", frameAction, "frames");
+  // console.log("FPS: ", fps);
+  // console.log("Update UI each", frameAction, "frames");
   // start game loop...
   const game = new Game(fps);
 };

@@ -16,9 +16,8 @@ export default class Enemy {
   }
 
   update(playerX, playerY, deltaTime) {
-   
     console.log(deltaTime);
-    
+
     if (this.isAlive) {
       let dx = playerX - (this.x + this.width / 2);
       let dy = playerY - (this.y + this.height / 2);
@@ -30,7 +29,7 @@ export default class Enemy {
 
   draw(ctx, playerX, playerY) {
     if (this.isAlive) {
-      this.walkTimer -= 1 ;
+      this.walkTimer -= 1;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;
@@ -40,7 +39,7 @@ export default class Enemy {
       }
 
       ctx.save();
-      ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+      // ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
       // ctx.rotate(angle);
       ctx.drawImage(
         this.image,
@@ -48,8 +47,8 @@ export default class Enemy {
         152,
         16,
         16,
-        this.x - playerX,
-        this.y - playerY,
+        this.x,
+        this.y,
         this.width,
         this.height
       );
@@ -67,7 +66,6 @@ export default class Enemy {
     }
   }
 
-  
   attack(target) {
     if (this.isAlive) {
       let damage;

@@ -67,6 +67,7 @@ export default class Enemy {
     }
   }
 
+  
   attack(target) {
     if (this.isAlive) {
       let damage;

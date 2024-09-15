@@ -101,13 +101,11 @@ export default class Game {
       } else {
         let hitIndex = undefined;
         hitIndex = this.bullets[i].update(deltaTime, this.enemies);
-        if (hitIndex) {
+        if (hitIndex > -1) {
           this.bloodsplosions.push(
             new Bloodsplosion(
               this.bullets[i].x,
               this.bullets[i].y,
-              // this.enemies[hitIndex].x + this.enemies[hitIndex].width / 2,
-              // this.enemies[hitIndex].y + this.enemies[hitIndex].height / 2,
               this.bullets[i].vx,
               this.bullets[i].vy,
               20

@@ -13,10 +13,11 @@ export default class Player {
     this.indexX = 493;
     this.indexY = 209;
     this.weaponY = -12;
-    this.weaponX = -3;
+    this.weaponXIndex = 0;
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
+    this.wx = [0, 3, -3];
   }
 
   takeDamage(damage) {
@@ -34,18 +35,37 @@ export default class Player {
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
       );
-      const flipHorizontally = mouseX < this.x + this.width / 2;
+      console.log(angle);
+      let indexY = this.indexY;
+      let weaponAnimX = 0;
+      let weaponYShift = 0;
+      let flipHorizontally = false;
+
+      /////////////////Up or down////////////////////////
+      if (angle < 2.1 && angle > 1) {
+        indexY -= 19;
+        weaponAnimX = 34;
+        weaponYShift = 20;
+      } else if (angle > -2.1 && angle < -1) {
+        indexY -= 38;
+        weaponAnimX = 17;
+        weaponYShift = -20;
+      } else {
+        //////////////////left or right looking/////////////////
+        flipHorizontally = mouseX < this.x + this.width / 2;
+      }
 
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
         this.walkTimer = 12;
         this.indexX += 17;
         this.weaponY += 2;
-        this.weaponX += 3;
+        this.weaponXIndex += 1;
+
         if (this.indexX > 527) {
           this.indexX = 493;
           this.weaponY = -12;
-          this.weaponX = -3;
+          this.weaponXIndex = 0;
         }
       }
       ctx.save(); // Speichern des aktuellen Zustands des Canvas-Kontexts
@@ -67,7 +87,7 @@ export default class Player {
       ctx.drawImage(
         this.image,
         this.indexX,
-        this.indexY,
+        indexY,
         16,
         16,
         0,
@@ -77,12 +97,12 @@ export default class Player {
       );
       ctx.drawImage(
         this.image,
-        17,
-        149,
+        weaponAnimX + 17,
+        150,
         16,
         16,
-        this.weaponX,
-        this.weaponY,
+        this.wx[this.weaponXIndex],
+        this.weaponY + weaponYShift,
         this.width,
         this.height
       );

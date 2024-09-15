@@ -12,17 +12,15 @@ export default class Bullet {
     this.height = 8;
   }
   update(deltaTime, enemies) {
-    // let bulletDelete = undefined;
-    // if ((bulletDelete = this.collisionEnemy(enemies, deltaTime)))
-    //   return bulletDelete;
+    let bulletDelete = -1;
     this.x += this.vx * deltaTime * 30;
     this.y += this.vy * deltaTime * 30;
     this.draw();
-    const bulletDelete = this.collisionEnemy(enemies, deltaTime);
+    bulletDelete = this.collisionEnemy(enemies, deltaTime);
     return bulletDelete;
   }
   draw() {
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "grey";
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
   collisionEnemy(enemies, deltaTime) {

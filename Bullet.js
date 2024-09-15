@@ -1,3 +1,5 @@
+import Bloodsplosion from "./Bloodsplosion.js";
+
 export default class Bullet {
   constructor(x, y, vx, vy, dmg, ctx) {
     this.x = x;
@@ -6,16 +8,35 @@ export default class Bullet {
     this.vy = vy;
     this.ctx = ctx;
     this.dmg = dmg;
-    this.width = 10;
-    this.height = 10;
+    this.width = 8;
+    this.height = 8;
   }
-  update(deltaTime) {
-    this.x += this.vx * deltaTime * 60;
-    this.y += this.vy * deltaTime * 60;
+  update(deltaTime, enemies) {
+    let bulletDelete = -1;
+    this.x += this.vx * deltaTime * 30;
+    this.y += this.vy * deltaTime * 30;
     this.draw();
+    bulletDelete = this.collisionEnemy(enemies, deltaTime);
+    return bulletDelete;
   }
   draw() {
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "grey";
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+  collisionEnemy(enemies, deltaTime) {
+    for (let i = 0; i < enemies.length; i++) {
+      if (
+        this.x < enemies[i].x + enemies[i].width &&
+        this.x + this.width > enemies[i].x &&
+        this.y < enemies[i].y + enemies[i].height &&
+        this.y + this.height > enemies[i].y
+      ) {
+        enemies[i].x += this.vx * deltaTime * 120;
+        enemies[i].y += this.vy * deltaTime * 120;
+        enemies[i].health -= this.dmg;
+
+        return i;
+      }
+    }
   }
 }

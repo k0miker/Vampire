@@ -5,8 +5,8 @@ export default class Bloodsplosion {
       this.particles.push({
         x: x + vx,
         y: y + vy,
-        vx: vx + (Math.random() * 8 - 3),
-        vy: vy + (Math.random() * 8 - 3),
+        vx: vx + (Math.random() * 8 - 4),
+        vy: vy + (Math.random() * 8 - 4),
       });
     }
     this.duration = 30;

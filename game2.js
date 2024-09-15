@@ -86,7 +86,39 @@ export default class Game {
       window.innerWidth,
       window.innerHeight
     );
-    console.log(this.backgroundX, window.innerWidth);
+
+    // Update und Zeichne Kugeln
+    for (let i = 0; i < this.bullets.length; i++) {
+      if (
+        this.bullets[i].x < 0 ||
+        this.bullets[i].y < 0 ||
+        this.bullets[i].x > window.innerWidth + this.bullets[i].width ||
+        this.bullets[i].y > window.innerHeight + this.bullets[i].height
+      ) {
+        this.bullets.splice(i, 1);
+        i--;
+        // console.log(this.bullets.length);
+      } else {
+        let hitIndex = undefined;
+        hitIndex = this.bullets[i].update(deltaTime, this.enemies);
+        if (hitIndex) {
+          this.bloodsplosions.push(
+            new Bloodsplosion(
+              this.bullets[i].x,
+              this.bullets[i].y,
+              // this.enemies[hitIndex].x + this.enemies[hitIndex].width / 2,
+              // this.enemies[hitIndex].y + this.enemies[hitIndex].height / 2,
+              this.bullets[i].vx,
+              this.bullets[i].vy,
+              20
+            )
+          );
+
+          this.bullets.splice(i, 1);
+          i--;
+        }
+      }
+    }
 
     // Update und Zeichne den Spieler
     this.player.draw(
@@ -119,37 +151,6 @@ export default class Game {
     //   this.player.x + this.backgroundX + this.player.width / 2,
     //   this.player.y + this.backgroundY + this.player.height / 2
     // );
-
-    // Update und Zeichne Kugeln
-    for (let i = 0; i < this.bullets.length; i++) {
-      if (
-        this.bullets[i].x < 0 ||
-        this.bullets[i].y < 0 ||
-        this.bullets[i].x > window.innerWidth + this.bullets[i].width ||
-        this.bullets[i].y > window.innerHeight + this.bullets[i].height
-      ) {
-        this.bullets.splice(i, 1);
-        i--;
-        // console.log(this.bullets.length);
-      } else {
-        let hitIndex = undefined;
-        hitIndex = this.bullets[i].update(deltaTime, this.enemies);
-        if (hitIndex) {
-          this.bloodsplosions.push(
-            new Bloodsplosion(
-              this.enemies[hitIndex].x + this.enemies[hitIndex].width / 2,
-              this.enemies[hitIndex].y + this.enemies[hitIndex].height / 2,
-              this.bullets[i].vx,
-              this.bullets[i].vy,
-              20
-            )
-          );
-
-          this.bullets.splice(i, 1);
-          i--;
-        }
-      }
-    }
 
     //Explosionen update
     for (let i = 0; i < this.bloodsplosions.length; i++) {

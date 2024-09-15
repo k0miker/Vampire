@@ -8,12 +8,15 @@ export default class Bullet {
     this.vy = vy;
     this.ctx = ctx;
     this.dmg = dmg;
-    this.width = 10;
-    this.height = 10;
+    this.width = 8;
+    this.height = 8;
   }
   update(deltaTime, enemies) {
-    this.x += this.vx * deltaTime * 60;
-    this.y += this.vy * deltaTime * 60;
+    // let bulletDelete = undefined;
+    // if ((bulletDelete = this.collisionEnemy(enemies, deltaTime)))
+    //   return bulletDelete;
+    this.x += this.vx * deltaTime * 30;
+    this.y += this.vy * deltaTime * 30;
     this.draw();
     const bulletDelete = this.collisionEnemy(enemies, deltaTime);
     return bulletDelete;

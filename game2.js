@@ -20,13 +20,14 @@ export default class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.player = new Player();
-
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
     this.bloodsplosions = [];
-    const settings1 = new Settings(1, 400, 60, 2, 1, 100, 50, 10, 5);
-    setInterval(() => {
+    const settings1 = new Settings(1, 120, 60, 2, 1, 100, 50, 10, 5);
+
+    if (this.enemies.length < 10) {
+      setInterval(() => {     
       const enemy = new Enemy(
         0,
         0,
@@ -37,11 +38,15 @@ export default class Game {
         "./assets/tileset.png",
         "pistol"
       );
-
       enemy.x = Math.random() * 4680;
       enemy.y = Math.random() * 4680;
       this.enemies.push(enemy);
-    }, settings1.spawnTime);
+      }, settings1.spawnTime);
+    }
+    
+
+ 
+  
     // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
@@ -142,7 +147,9 @@ export default class Game {
         this.ctx,
         deltaTime,
         this.backgroundX,
-        this.backgroundY
+        this.backgroundY,
+        this.player.x + this.player.width / 2,
+        this.player.y + this.player.height / 2
       );
     });
 

@@ -16,20 +16,16 @@ export default class Enemy {
   }
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
-    // console.log(deltaTime);
-
     if (this.isAlive) {
-      let dx = playerX - (this.x -backgroundX + this.width / 2);
+      let dx = playerX - (this.x - backgroundX + this.width / 2);
       let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
-      this.x += (dx / dist) * this.speed * deltaTime *60 ;
-      this.y += (dy / dist) * this.speed * deltaTime *60;
-    } else {
-      
+      this.x += (dx / dist) * this.speed * deltaTime * 60;
+      this.y += (dy / dist) * this.speed * deltaTime * 60;
     }
-  } 
+  }
 
-  draw(ctx, deltaTime,backgroundX, backgroundY) {
+  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
     if (this.isAlive) {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
@@ -38,11 +34,34 @@ export default class Enemy {
         if (this.indexX > 527) this.indexX = 493;
       }
 
+      // Berechne den Winkel zwischen dem Gegner und dem Spieler
+      const angle = Math.atan2(
+        (this.y - backgroundY + this.height / 2) - playerY,
+        (this.x - backgroundX + this.width / 2) - playerX
+      );
+
+      // Wähle das entsprechende Bild basierend auf dem Winkel
+      let spriteY;
+      if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
+        // Rechts
+        spriteY = 152;
+      } else if (angle > Math.PI / 4 && angle <= (3 * Math.PI) / 4) {
+        // Unten
+        spriteY = 114;
+      } else if (angle > (3 * Math.PI) / 4 || angle <= -(3 * Math.PI) / 4) {
+        // Links
+        spriteY = 152;
+
+      } else {
+        // Oben
+        spriteY = 133;
+      }
+
       ctx.save();
       ctx.drawImage(
         this.image,
         this.indexX,
-        152,
+        spriteY,
         16,
         16,
         this.x - backgroundX,
@@ -50,7 +69,6 @@ export default class Enemy {
         this.width,
         this.height
       );
-
       ctx.restore();
     }
   }

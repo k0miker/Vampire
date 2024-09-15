@@ -12,12 +12,12 @@ export default class Player {
     this.image.src = "./assets/tileset.png";
     this.indexX = 493;
     this.indexY = 209;
-    this.weaponY = -12;
+    this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
-    this.wx = [0, 3, -3];
+    this.wx = [1, 4, -2];
   }
 
   takeDamage(damage) {
@@ -35,7 +35,6 @@ export default class Player {
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
       );
-      console.log(angle);
       let indexY = this.indexY;
       let weaponAnimX = 0;
       let weaponYShift = 0;
@@ -64,7 +63,7 @@ export default class Player {
 
         if (this.indexX > 527) {
           this.indexX = 493;
-          this.weaponY = -12;
+          this.weaponY = -2;
           this.weaponXIndex = 0;
         }
       }

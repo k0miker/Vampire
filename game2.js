@@ -3,6 +3,7 @@ import Enemy from "./enemy.js";
 import Bullet from "./Bullet.js";
 import Settings from "./settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
+import Hud from "./Hud.js";
 export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -24,29 +25,27 @@ export default class Game {
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
     this.bloodsplosions = [];
-    const settings1 = new Settings(1, 120, 60, 2, 1, 100, 50, 10, 5);
+    const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
+    this.hud = new Hud(this.ctx);
     if (this.enemies.length < 10) {
-      setInterval(() => {     
-      const enemy = new Enemy(
-        0,
-        0,
-        100,
-        100,
-        1,
-        100,
-        "./assets/tileset.png",
-        "pistol"
-      );
-      enemy.x = Math.random() * 4680;
-      enemy.y = Math.random() * 4680;
-      this.enemies.push(enemy);
+      setInterval(() => {
+        const enemy = new Enemy(
+          0,
+          0,
+          100,
+          100,
+          1,
+          100,
+          "./assets/tileset.png",
+          "pistol"
+        );
+        enemy.x = Math.random() * 4680;
+        enemy.y = Math.random() * 4680;
+        this.enemies.push(enemy);
       }, settings1.spawnTime);
     }
-    
 
- 
-  
     // console.log(this.enemies, this.enemies.length);
     window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
@@ -78,8 +77,6 @@ export default class Game {
     if (this.backgroundY > this.backgroundYSize - window.innerHeight)
       this.backgroundY = this.backgroundYSize - window.innerHeight;
 
-    // window.scroll(this.backgroundX, this.backgroundY);
-
     this.ctx.drawImage(
       this.backgroundImg,
       this.backgroundX,
@@ -105,7 +102,12 @@ export default class Game {
         // console.log(this.bullets.length);
       } else {
         let hitIndex = undefined;
-        hitIndex = this.bullets[i].update(deltaTime, this.enemies);
+        hitIndex = this.bullets[i].update(
+          deltaTime,
+          this.enemies,
+          this.backgroundX,
+          this.backgroundY
+        );
         if (hitIndex > -1) {
           this.bloodsplosions.push(
             new Bloodsplosion(
@@ -116,7 +118,10 @@ export default class Game {
               20
             )
           );
-
+          if (this.enemies[hitIndex].health <= 0) {
+            this.enemies.splice([hitIndex], 1);
+            this.hud.score += 1;
+          }
           this.bullets.splice(i, 1);
           i--;
         }
@@ -124,13 +129,9 @@ export default class Game {
     }
 
     // Update und Zeichne den Spieler
-    this.player.draw(
-      this.ctx,
-      this.mouseX,
-      this.mouseY,
-      deltaTime
-    );
+    this.player.draw(this.ctx, this.mouseX, this.mouseY, deltaTime);
 
+    // update und zeichne Gegner
     this.enemies.forEach((enemy) => {
       enemy.update(
         this.player.x + this.player.width / 2,
@@ -138,12 +139,9 @@ export default class Game {
         deltaTime,
         this.backgroundX,
         this.backgroundY
-       
-        
       );
-      console.log(this.backgroundX, this.backgroundY);
-      enemy.draw(  
-        //       
+      enemy.draw(
+        //
         this.ctx,
         deltaTime,
         this.backgroundX,
@@ -152,18 +150,6 @@ export default class Game {
         this.player.y + this.player.height / 2
       );
     });
-
-    // Update und Zeichne den Gegner
-    // this.enemy1.update(
-    //   this.player.x + this.backgroundX + this.player.width / 2,
-    //   this.player.y + this.backgroundY + this.player.height / 2
-    // );
-    // this.enemy1.draw(
-    //   this.ctx,
-    //   this.player.x + this.backgroundX + this.player.width / 2,
-    //   this.player.y + this.backgroundY + this.player.height / 2
-    // );
-
     //Explosionen update
     for (let i = 0; i < this.bloodsplosions.length; i++) {
       let finished = undefined;
@@ -173,6 +159,8 @@ export default class Game {
         i--;
       }
     }
+    /////Hud anzeigen
+    this.hud.draw();
     requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -228,7 +216,7 @@ export default class Game {
       this.player.y + this.player.height / 2,
       (dx / dist) * -15,
       (dy / dist) * -15,
-      10,
+      25,
       this.ctx
     );
 

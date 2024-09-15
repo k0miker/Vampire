@@ -25,7 +25,7 @@ export default class Game {
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
     this.bloodsplosions = [];
-    const settings1 = new Settings(1, 4000, 60, 2, 1, 100, 50, 10, 5);
+    const settings1 = new Settings(1, 400, 60, 2, 1, 100, 50, 10, 5);
     setInterval(() => {
       const enemy = new Enemy(
         0,
@@ -38,8 +38,8 @@ export default class Game {
         "pistol"
       );
 
-      enemy.x = Math.random() * 6000;
-      enemy.y = Math.random() * 3000;
+      enemy.x = Math.random() * 4680;
+      enemy.y = Math.random() * 4680;
       this.enemies.push(enemy);
     }, settings1.spawnTime);
     // console.log(this.enemies, this.enemies.length);
@@ -121,7 +121,6 @@ export default class Game {
     // Update und Zeichne den Spieler
     this.player.draw(
       this.ctx,
-
       this.mouseX,
       this.mouseY,
       deltaTime
@@ -130,13 +129,20 @@ export default class Game {
     this.enemies.forEach((enemy) => {
       enemy.update(
         this.player.x + this.player.width / 2,
-        this.player.y + this.player.height / 2
+        this.player.y + this.player.height / 2,
+        deltaTime,
+        this.backgroundX,
+        this.backgroundY
+       
+        
       );
+      console.log(this.backgroundX, this.backgroundY);
       enemy.draw(  
-        // deltaTime,      
+        //       
         this.ctx,
-        this.player.x + this.player.width / 2,
-        this.player.y + this.player.height / 2
+        deltaTime,
+        this.backgroundX,
+        this.backgroundY
       );
     });
 

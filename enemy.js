@@ -15,40 +15,38 @@ export default class Enemy {
     this.indexX = 527;
   }
 
-  update(playerX, playerY, deltaTime) {
-    console.log(deltaTime);
+  update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
+    // console.log(deltaTime);
 
     if (this.isAlive) {
-      let dx = playerX - (this.x + this.width / 2);
-      let dy = playerY - (this.y + this.height / 2);
+      let dx = playerX - (this.x -backgroundX + this.width / 2);
+      let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
-      this.x += (dx / dist) * this.speed;
-      this.y += (dy / dist) * this.speed;
+      this.x += (dx / dist) * this.speed * deltaTime *60 ;
+      this.y += (dy / dist) * this.speed * deltaTime *60;
+    } else {
+      
     }
-  }
+  } 
 
-  draw(ctx, playerX, playerY) {
+  draw(ctx, deltaTime,backgroundX, backgroundY) {
     if (this.isAlive) {
-      this.walkTimer -= 1;
+      this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;
-        // console.log(this.indexX);
         if (this.indexX > 527) this.indexX = 493;
-        // console.log(this.indexX);
       }
 
       ctx.save();
-      // ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-      // ctx.rotate(angle);
       ctx.drawImage(
         this.image,
         this.indexX,
         152,
         16,
         16,
-        this.x,
-        this.y,
+        this.x - backgroundX,
+        this.y - backgroundY,
         this.width,
         this.height
       );

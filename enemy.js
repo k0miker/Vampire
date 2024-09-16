@@ -77,7 +77,7 @@ export default class Enemy {
       ctx.save();
       ctx.drawImage(
         this.image,
-        544, // X-Position der Todesanimation im Sprite
+        646, // X-Position der Todesanimation im Sprite
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,

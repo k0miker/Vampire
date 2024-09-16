@@ -9,6 +9,7 @@ export default class Settings {
         this.enemyHealth = eHealth *this.difficulty;
         this.playerDamage = pDmg *this.difficulty;
         this.enemyDamage = eDmg *this.difficulty;
+        this.aggroRange = 500;
 
 
     }

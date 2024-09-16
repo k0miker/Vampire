@@ -1,3 +1,4 @@
+
 export default class Enemy {
   constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
@@ -13,6 +14,8 @@ export default class Enemy {
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
+    this.aggroRange = 800; 
+    this.isAggro = false;
   }
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
@@ -20,8 +23,17 @@ export default class Enemy {
       let dx = playerX - (this.x - backgroundX + this.width / 2);
       let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
-      this.x += (dx / dist) * this.speed * deltaTime * 60;
-      this.y += (dy / dist) * this.speed * deltaTime * 60;
+
+      // Überprüfe, ob der Spieler innerhalb der Aggro-Range ist
+      if (dist < this.aggroRange) {
+        this.isAggro = true;
+      }
+
+      // Bewege den Zombie nur, wenn er aggro ist
+      if (this.isAggro) {
+        this.x += (dx / dist) * this.speed * deltaTime * 60;
+        this.y += (dy / dist) * this.speed * deltaTime * 60;
+      }
     }
   }
 
@@ -34,26 +46,19 @@ export default class Enemy {
         if (this.indexX > 527) this.indexX = 493;
       }
 
-      // Berechne den Winkel zwischen dem Gegner und dem Spieler
       const angle = Math.atan2(
         (this.y - backgroundY + this.height / 2) - playerY,
         (this.x - backgroundX + this.width / 2) - playerX
       );
 
-      // Wähle das entsprechende Bild basierend auf dem Winkel
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
-        // Rechts
         spriteY = 152;
       } else if (angle > Math.PI / 4 && angle <= (3 * Math.PI) / 4) {
-        // Unten
         spriteY = 114;
       } else if (angle > (3 * Math.PI) / 4 || angle <= -(3 * Math.PI) / 4) {
-        // Links
         spriteY = 152;
-
       } else {
-        // Oben
         spriteY = 133;
       }
 
@@ -78,6 +83,8 @@ export default class Enemy {
       this.health -= damage;
       if (this.health <= 0) {
         this.isAlive = false;
+      } else {
+        this.isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
       }
     }
   }

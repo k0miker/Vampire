@@ -11,12 +11,17 @@ export default class Bloodsplosion {
     }
     this.duration = 30;
   }
-  update(ctx) {
+  update(ctx, backgroundX, backgroundY) {
     ctx.fillStyle = "#bb0000";
     for (let i = 0; i < this.particles.length; i++) {
       this.particles[i].x += this.particles[i].vx / 2;
       this.particles[i].y += this.particles[i].vy / 2;
-      ctx.fillRect(this.particles[i].x, this.particles[i].y, 8, 8);
+      ctx.fillRect(
+        this.particles[i].x - backgroundX,
+        this.particles[i].y - backgroundY,
+        8,
+        8
+      );
     }
     this.duration -= 1;
     return this.duration;

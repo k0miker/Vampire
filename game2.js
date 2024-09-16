@@ -92,10 +92,12 @@ export default class Game {
     // Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       if (
-        this.bullets[i].x < 0 ||
-        this.bullets[i].y < 0 ||
-        this.bullets[i].x > window.innerWidth + this.bullets[i].width ||
-        this.bullets[i].y > window.innerHeight + this.bullets[i].height
+        this.bullets[i].x < this.backgroundX ||
+        this.bullets[i].y < this.backgroundY ||
+        this.bullets[i].x >
+          window.innerWidth + this.bullets[i].width + this.backgroundX ||
+        this.bullets[i].y >
+          window.innerHeight + this.bullets[i].height + this.backgroundY
       ) {
         this.bullets.splice(i, 1);
         i--;
@@ -118,9 +120,10 @@ export default class Game {
               20
             )
           );
+
           if (this.enemies[hitIndex].health <= 0) {
             this.enemies.splice([hitIndex], 1);
-            this.hud.score += 1;          
+            this.hud.score += 1;
           }
           this.bullets.splice(i, 1);
           i--;
@@ -153,14 +156,18 @@ export default class Game {
     //Explosionen update
     for (let i = 0; i < this.bloodsplosions.length; i++) {
       let finished = undefined;
-      finished = this.bloodsplosions[i].update(this.ctx);
+      finished = this.bloodsplosions[i].update(
+        this.ctx,
+        this.backgroundX,
+        this.backgroundY
+      );
       if (finished <= 0) {
         this.bloodsplosions.splice(i, 1);
         i--;
       }
     }
     /////Hud anzeigen
-    this.hud.draw();
+    this.hud.draw(this.enemies.length, this.bullets.length);
     requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -212,8 +219,8 @@ export default class Game {
     let dist = Math.sqrt(dx * dx + dy * dy);
 
     const bullet = new Bullet(
-      this.player.x + this.player.width / 2,
-      this.player.y + this.player.height / 2,
+      this.player.x + this.backgroundX + this.player.width / 2,
+      this.player.y + this.backgroundY + this.player.height / 2,
       (dx / dist) * -15,
       (dy / dist) * -15,
       25,

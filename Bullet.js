@@ -16,7 +16,7 @@ export default class Bullet {
     let bulletDelete = -1;
     this.x += this.vx * deltaTime * 30;
     this.y += this.vy * deltaTime * 30;
-    this.draw();
+    this.draw(backgroundX, backgroundY);
     bulletDelete = this.collisionEnemy(
       enemies,
       deltaTime,
@@ -26,18 +26,27 @@ export default class Bullet {
     return bulletDelete;
   }
 
-  draw() {
-    this.ctx.fillStyle = "grey";
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+  draw(backgroundX, backgroundY) {
+    this.ctx.fillStyle = "white";
+    this.ctx.fillRect(
+      this.x - backgroundX,
+      this.y - backgroundY,
+      this.width,
+      this.height
+    );
   }
 
   collisionEnemy(enemies, deltaTime, backgroundX, backgroundY) {
     for (let i = 0; i < enemies.length; i++) {
       if (
-        this.x < enemies[i].x - backgroundX + enemies[i].width &&
-        this.x + this.width > enemies[i].x - backgroundX &&
-        this.y < enemies[i].y - backgroundY + enemies[i].height &&
-        this.y + this.height > enemies[i].y - backgroundY
+        this.x < enemies[i].x + enemies[i].width &&
+        this.x + this.width > enemies[i].x &&
+        this.y < enemies[i].y + enemies[i].height &&
+        this.y + this.height > enemies[i].y
+        // this.x < enemies[i].x - backgroundX + enemies[i].width &&
+        // this.x + this.width > enemies[i].x - backgroundX &&
+        // this.y < enemies[i].y - backgroundY + enemies[i].height &&
+        // this.y + this.height > enemies[i].y - backgroundY
       ) {
         enemies[i].x += this.vx * 4;
         enemies[i].y += this.vy * 4;

@@ -73,7 +73,8 @@ export default class Enemy {
       );
       ctx.restore();
     } else {
-      // Zeichne die Todesanimation, wenn der Zombie tot ist
+      // Zeichne die Todesanimation, wenn der Zombie tot ist    
+
       ctx.save();
       ctx.drawImage(
         this.image,

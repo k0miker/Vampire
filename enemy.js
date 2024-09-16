@@ -1,4 +1,3 @@
-
 export default class Enemy {
   constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
@@ -14,7 +13,7 @@ export default class Enemy {
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 800; 
+    this.aggroRange = 500; 
     this.isAggro = false;
   }
 
@@ -24,12 +23,10 @@ export default class Enemy {
       let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Überprüfe, ob der Spieler innerhalb der Aggro-Range ist
       if (dist < this.aggroRange) {
         this.isAggro = true;
       }
 
-      // Bewege den Zombie nur, wenn er aggro ist
       if (this.isAggro) {
         this.x += (dx / dist) * this.speed * deltaTime * 60;
         this.y += (dy / dist) * this.speed * deltaTime * 60;
@@ -75,16 +72,35 @@ export default class Enemy {
         this.height
       );
       ctx.restore();
+    } else {
+      // Zeichne die Todesanimation, wenn der Zombie tot ist
+      ctx.save();
+      ctx.drawImage(
+        this.image,
+        544, // X-Position der Todesanimation im Sprite
+        152, // Y-Position der Todesanimation im Sprite
+        16,
+        16,
+        this.x - backgroundX,
+        this.y - backgroundY,
+        this.width,
+        this.height
+      );
+      ctx.restore();
     }
   }
 
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;
-      if (this.health <= 0) {
-        this.isAlive = false;
+      if (this.health <= 0) {        
+        setTimeout(() => {          
+          this.isAlive = false;
+        }, 1000);
+       
+
       } else {
-        this.isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
+        this.isAggro = true;
       }
     }
   }

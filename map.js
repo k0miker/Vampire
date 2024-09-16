@@ -1,9 +1,9 @@
 export default class Tileset {
-    constructor(image, tileWidth, tileHeight, gap) {
-        this.image = image;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
-        this.gap = gap;
+    constructor() {
+        this.image = "./tileset.png";
+        this.tileWidth = 16;
+        this.tileHeight = 16;
+        this.gap = 1;
         this.tiles = this.createTileMap();
     }
 

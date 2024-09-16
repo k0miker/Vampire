@@ -41,7 +41,7 @@ export default class Bullet {
       ) {
         enemies[i].x += this.vx * 4;
         enemies[i].y += this.vy * 4;
-        enemies[i].health -= this.dmg;
+        enemies[i].takeDamage(this.dmg);
         enemies[i].isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
 
         return i;

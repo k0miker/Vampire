@@ -30,7 +30,7 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
-    if (this.isAlive) {
+    if (this.isAlive ) {
       const angle = Math.atan2(
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
@@ -53,8 +53,8 @@ export default class Player {
         //////////////////left or right looking/////////////////
         flipHorizontally = mouseX < this.x + this.width / 2;
       }
-
       this.walkTimer -= 1 * deltaTime * 60;
+      if (this.vx !== 0 || this.vy !== 0) this.walkTimer -=  deltaTime;
       if (this.walkTimer <= 0) {
         this.walkTimer = 12;
         this.indexX += 17;

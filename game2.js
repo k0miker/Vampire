@@ -120,7 +120,7 @@ export default class Game {
           );
           if (this.enemies[hitIndex].health <= 0) {
             this.enemies.splice([hitIndex], 1);
-            this.hud.score += 1;
+            this.hud.score += 1;          
           }
           this.bullets.splice(i, 1);
           i--;

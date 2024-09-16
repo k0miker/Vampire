@@ -77,7 +77,7 @@ export default class Enemy {
       ctx.save();
       ctx.drawImage(
         this.image,
-        544, // X-Position der Todesanimation im Sprite
+        646, // X-Position der Todesanimation im Sprite
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
@@ -93,11 +93,8 @@ export default class Enemy {
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;
-      if (this.health <= 0) {        
-        setTimeout(() => {          
-          this.isAlive = false;
-        }, 1000);
-       
+      if (this.health <= 0) {          
+          this.isAlive = false;   
 
       } else {
         this.isAggro = true;

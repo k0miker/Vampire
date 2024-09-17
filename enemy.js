@@ -9,18 +9,17 @@ export default class Enemy {
     this.image.src = imageSrc;
 
     this.health = hp;
-    this.isAlive = true;
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 500; 
+    this.aggroRange = 500;
     this.isAggro = false;
-    this.deathInitialized = false;
-    this.deathTimer = 0;
+    this.status = "alive";
+    this.deathTimer = 15;
   }
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       let dx = playerX - (this.x - backgroundX + this.width / 2);
       let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
@@ -37,19 +36,19 @@ export default class Enemy {
   }
 
   draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;
         if (this.indexX > 527) this.indexX = 493;
       }
-  
+
       const angle = Math.atan2(
-        (this.y - backgroundY + this.height / 2) - playerY,
-        (this.x - backgroundX + this.width / 2) - playerX
+        this.y - backgroundY + this.height / 2 - playerY,
+        this.x - backgroundX + this.width / 2 - playerX
       );
-  
+
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
         spriteY = 152;
@@ -60,7 +59,7 @@ export default class Enemy {
       } else {
         spriteY = 133;
       }
-  
+
       ctx.save();
       ctx.drawImage(
         this.image,
@@ -74,22 +73,24 @@ export default class Enemy {
         this.height
       );
       ctx.restore();
-    } else {
+    }
+    if (this.status === "dying") {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
-      if (!this.deathInitialized) {
-        this.indexX = 561;
-        this.deathTimer = 20;
-        this.deathInitialized = true;
-      }
-  
-      this.deathTimer -= 1 * deltaTime * 60;
-  
+        
+      
+      this.deathTimer -= 1 * deltaTime * 60;      
       if (this.deathTimer <= 0) {
-        this.deathTimer = 20;
         this.indexX += 17;
-        if (this.indexX > 663) this.indexX = 661;
+        this.deathTimer = 15;
       }
-  
+      
+        
+        if (this.indexX > 661) {
+          this.status = "dead";
+          
+      }
+      
+
       ctx.save();
       ctx.drawImage(
         this.image,
@@ -107,19 +108,18 @@ export default class Enemy {
   }
 
   takeDamage(damage) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       this.health -= damage;
       if (this.health <= 0) {
         console.log("Enemy is dead. Starting death animation.");
-        this.isAlive = false;
-      } else {
-        this.isAggro = true;
+        this.status = "dying";
+        this.indexX = 561;
       }
     }
   }
 
   attack(target) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       let damage;
       switch (this.weaponType) {
         case "assaultRifle":

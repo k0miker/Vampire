@@ -1,4 +1,4 @@
-export default class Tileset {
+export default class Map {
     constructor(imageSrc, tileWidth, tileHeight, gap) {
         this.image = new Image();
         this.image.src = imageSrc;
@@ -6,6 +6,7 @@ export default class Tileset {
         this.tileHeight = tileHeight;
         this.gap = gap;
         this.tiles = [];
+        this.map=[{index:0, x:0, y:0},{index:1, x:17,y:0},{index:2, x:34,}]; 
         
         // Erstelle die Tilemap, sobald das Bild geladen wurde
         this.image.onload = () => {
@@ -42,6 +43,8 @@ export default class Tileset {
         }
         return null;
     }
+    
+    
 
     // Methode, um ein Tile für eine bestimmte Position zu holen
     getTileAtPosition(xPos, yPos) {
@@ -53,31 +56,28 @@ export default class Tileset {
 
     // Methode, um ein Tile an einer bestimmten Position zu zeichnen
     drawTile(ctx, xPos, yPos, tileX, tileY) {
-        const tile = this.getTileAtPosition(tileX, tileY);
-        if (tile) {
+    //   console.log(this.image);
+      
             ctx.drawImage(
                 this.image,
-                tile.xStart,
-                tile.yStart,
-                this.tileWidth,
-                this.tileHeight,
-                xPos,
-                yPos,
-                this.tileWidth,
-                this.tileHeight
+                tileX,tileY,16,16,
+                xPos,yPos,400,400
+                
+                
+       
             );
         }
     }
-}
+
 
 // Beispielnutzung:
-const tilesetImageSrc = 'tileset2.png'; // Lade das Tileset-Bild
+const tilesetImageSrc = './assets/tileset.png'; // Lade das Tileset-Bild
 const tileWidth = 16;
 const tileHeight = 16;
 const gap = 1; // 1-Pixel-Abstand zwischen den Kacheln
 
 // Erstelle das Tileset-Objekt
-const tileset = new Tileset(tilesetImageSrc, tileWidth, tileHeight, gap);
+const tileset = new Map(tilesetImageSrc, tileWidth, tileHeight, gap);
 
 // Zeichne ein Tile, sobald das Bild geladen wurde
 tileset.image.onload = function() {

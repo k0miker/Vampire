@@ -1,5 +1,6 @@
+// player.js
 export default class Player {
-  constructor() {
+  constructor(map) {
     this.x = 150;
     this.y = 150;
     this.width = 50;
@@ -18,6 +19,7 @@ export default class Player {
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
+    this.map = map; // Speichere die Map-Instanz
   }
 
   takeDamage(damage) {
@@ -26,6 +28,32 @@ export default class Player {
       if (this.health <= 0) {
         this.isAlive = false;
       }
+    }
+  }
+
+  update(deltaTime, objects) {
+    if (this.isAlive) {
+      // Berechne die neue Position
+      let newX = this.x + this.vx * this.speed * deltaTime;
+      let newY = this.y + this.vy * this.speed * deltaTime;
+
+      // Berechne die Tile-Koordinaten
+      let tileX = Math.floor(newX / this.map.tileWidth);
+      let tileY = Math.floor(newY / this.map.tileHeight);
+
+      // Hole den Tile-Index aus der Map
+      let tileIndex = this.map.map[tileY][tileX];
+      let tile = this.map.mapDefinition[tileIndex];
+
+      // Überprüfe die pass-Eigenschaft des Tiles
+      if (tile.pass) {
+        // Aktualisiere die Position des Spielers nur, wenn das Tile passierbar ist
+        this.x = newX;
+        this.y = newY;
+      }
+
+      // Kollisionserkennung mit anderen Objekten
+      handleCollisions(this, objects);
     }
   }
 
@@ -109,62 +137,72 @@ export default class Player {
     }
   }
 
-  attack(target) {
-    if (this.isAlive) {
-      let damage;
-      switch (this.weaponType) {
-        case "grenade":
-          damage = weapons[1].damage;
-          break;
-        case "pumpgun":
-          damage = weapons[2].damage;
-          break;
-        case "pistol":
-          damage = weapons[3].damage;
-          break;
-        case "magic":
-          damage = weapons[4].damage;
-          break;
-      }
-      target.takeDamage(damage);
+}
+
+// Hilfsfunktionen zur Kollisionserkennung
+function getBoundingBox(object) {
+  return {
+    x: object.x,
+    y: object.y,
+    width: object.width,
+    height: object.height
+  };
+}
+
+function isColliding(rect1, rect2) {
+  return (
+    rect1.x < rect2.x + rect2.width &&
+    rect1.x + rect1.width > rect2.x &&
+    rect1.y < rect2.y + rect2.height &&
+    rect1.y + rect1.height > rect2.y
+  );
+}
+
+function handleCollisions(player, objects) {
+  const playerBox = getBoundingBox(player);
+  for (let obj of objects) {
+    const objBox = getBoundingBox(obj);
+    if (isColliding(playerBox, objBox)) {
+      // Kollision behandeln
+      player.takeDamage(obj.damage);
     }
   }
 }
 
-const weapons = [
-  {
-    name: "granade",
-    damage: 30,
-    range: 10,
-    type: "ranged",
-    speed: 15,
-  },
-  {
-    name: "pumpgun",
-    damage: 7,
-    range: 20,
-    type: "melee",
-    speed: 20,
-  },
-  {
-    name: "pistol",
-    damage: 5,
-    range: 60,
-    type: "range",
-    speed: 15,
-  },
-  {
-    name: "knife",
-    damage: 10,
-    range: 1,
-    type: "melee",
-  },
-  {
-    name: "fireball",
-    damage: 50,
-    range: 75,
-    type: "magic",
-    speed: 10,
-    mana: 10,
-  },
-];
+// const weapons = [
+//   {
+//     name: "granade",
+//     damage: 30,
+//     range: 10,
+//     type: "ranged",
+//     speed: 15,
+//   },
+//   {
+//     name: "pumpgun",
+//     damage: 7,
+//     range: 20,
+//     type: "melee",
+//     speed: 20,
+//   },
+//   {
+//     name: "pistol",
+//     damage: 5,
+//     range: 60,
+//     type: "range",
+//     speed: 15,
+//   },
+//   {
+//     name: "knife",
+//     damage: 10,
+//     range: 1,
+//     type: "melee",
+//   },
+//   {
+//     name: "fireball",
+//     damage: 50,
+//     range: 75,
+//     type: "magic",
+//     speed: 10,
+//     mana: 10,
+//   },
+// ];

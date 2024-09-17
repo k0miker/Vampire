@@ -16,51 +16,12 @@ export default class Game {
 
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
-
+    this.currentMap = new Map(); 
+    this.spawnZoneTiles = [17, 11, 5, 105, 107];
 
     this.bullets = [];
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
-    this.enemies = [];
-    this.enemies.push(new Enemy(
-      450,
-      600,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      850,
-      650,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      400,
-      200,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      300,
-      700,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
+    this.enemies = [];    
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
@@ -68,6 +29,9 @@ export default class Game {
 
     this.currentMap = new Map1(this.ctx); // Erstellen Sie eine Instanz der Karte
     this.map = new Map(this.ctx, this.currentMap.map, this.currentMap.mapDefinition);
+
+    // Zombies spawnen
+    this.spawnZombies();
 
     // Setzen Sie die Größe des Canvas-Elements nach der Initialisierung des Spielers
     this.resizeCanvas();
@@ -79,6 +43,45 @@ export default class Game {
     this.fps = fps;
     this.lastTime = 0;
     this.animate(0);
+  }
+
+  getSpawnPositions() {
+    const positions = [];
+    const map = this.currentMap.map;
+
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (this.spawnZoneTiles.includes(map[y][x])) {
+          positions.push({ x, y });
+          // Füge umliegende Felder hinzu
+         
+        }
+      }
+    }
+    return positions;
+  }
+
+  spawnZombie() {
+    const spawnPositions = this.getSpawnPositions();
+    const pos = spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
+    const x = pos.x * 48; // Tile-Größe anpassen
+    const y = pos.y * 48; // Tile-Größe anpassen
+    this.enemies.push(new Enemy(
+      x,
+      y,
+      48,
+      48,
+      1,
+      100,
+      "./assets/tileset.png",
+      "pistol"
+    ));
+  }
+
+  spawnZombies() {
+    for (let i = 0; i < 15; i++) { // Spawne 15 Zombies
+      this.spawnZombie();
+    }
   }
 
   resizeCanvas() {
@@ -111,6 +114,7 @@ export default class Game {
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
         this.hud.score += 1;
+        this.spawnZombie(); // Spawne einen neuen Zombie
       }
       enemy.update(
         this.player.x + this.player.width / 2,

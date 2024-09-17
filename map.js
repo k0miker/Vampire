@@ -6,7 +6,7 @@ export default class Map {
         this.tileHeight = tileHeight;
         this.gap = gap;
         this.tiles = [];
-        this.map=[{index:0, x:0, y:0},{index:1, x:17,y:0},{index:2, x:34,}]; 
+        
         
         // Erstelle die Tilemap, sobald das Bild geladen wurde
         this.image.onload = () => {

@@ -22,8 +22,38 @@ export default class Game {
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.enemies.push(new Enemy(
-      400,
+      450,
       600,
+      32,
+      32,
+      1,
+      100,
+      "./assets/tileset.png",
+      "pistol"
+    ));
+    this.enemies.push(new Enemy(
+      850,
+      650,
+      32,
+      32,
+      1,
+      100,
+      "./assets/tileset.png",
+      "pistol"
+    ));
+    this.enemies.push(new Enemy(
+      400,
+      200,
+      32,
+      32,
+      1,
+      100,
+      "./assets/tileset.png",
+      "pistol"
+    ));
+    this.enemies.push(new Enemy(
+      300,
+      700,
       32,
       32,
       1,

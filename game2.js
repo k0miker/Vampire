@@ -201,6 +201,8 @@ export default class Game {
             )
           );
 
+          
+
           this.bullets.splice(i, 1);
           i--;
         }

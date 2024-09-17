@@ -24,8 +24,8 @@ export default class Game {
     this.enemies.push(new Enemy(
       450,
       600,
-      32,
-      32,
+      48,
+      48,
       1,
       100,
       "./assets/tileset.png",
@@ -34,8 +34,8 @@ export default class Game {
     this.enemies.push(new Enemy(
       850,
       650,
-      32,
-      32,
+      48,
+      48,
       1,
       100,
       "./assets/tileset.png",
@@ -44,8 +44,8 @@ export default class Game {
     this.enemies.push(new Enemy(
       400,
       200,
-      32,
-      32,
+      48,
+      48,
       1,
       100,
       "./assets/tileset.png",
@@ -54,8 +54,8 @@ export default class Game {
     this.enemies.push(new Enemy(
       300,
       700,
-      32,
-      32,
+      48,
+      48,
       1,
       100,
       "./assets/tileset.png",

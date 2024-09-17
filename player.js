@@ -164,45 +164,11 @@ function handleCollisions(player, objects) {
     const objBox = getBoundingBox(obj);
     if (isColliding(playerBox, objBox)) {
       // Kollision behandeln
-      player.takeDamage(obj.damage);
-    }
+      if (obj instanceof Bullet) {
+        player.takeDamage(obj.damage);
+        obj.isAlive = false;
+      }
+     
   }
 }
-
-// const weapons = [
-//   {
-//     name: "granade",
-//     damage: 30,
-//     range: 10,
-//     type: "ranged",
-//     speed: 15,
-//   },
-//   {
-//     name: "pumpgun",
-//     damage: 7,
-//     range: 20,
-//     type: "melee",
-//     speed: 20,
-//   },
-//   {
-//     name: "pistol",
-//     damage: 5,
-//     range: 60,
-//     type: "range",
-//     speed: 15,
-//   },
-//   {
-//     name: "knife",
-//     damage: 10,
-//     range: 1,
-//     type: "melee",
-//   },
-//   {
-//     name: "fireball",
-//     damage: 50,
-//     range: 75,
-//     type: "magic",
-//     speed: 10,
-//     mana: 10,
-//   },
-// ];
+}

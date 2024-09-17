@@ -20,8 +20,8 @@ export default class Enemy {
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
     if (this.status === "alive") {
-      let dx = playerX - (this.x  + this.width / 2);
-      let dy = playerY - (this.y  + this.height / 2);
+      let dx = playerX - (this.x + this.width);
+      let dy = playerY - (this.y + this.height);
       let dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.aggroRange) {
@@ -76,20 +76,16 @@ export default class Enemy {
     }
     if (this.status === "dying") {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
-        
-      
-      this.deathTimer -= 1 * deltaTime * 60;      
+
+      this.deathTimer -= 1 * deltaTime * 60;
       if (this.deathTimer <= 0) {
         this.indexX += 17;
         this.deathTimer = 15;
       }
-      
-        
-        if (this.indexX > 661) {
-          this.status = "dead";
-          
+
+      if (this.indexX > 661) {
+        this.status = "dead";
       }
-      
 
       ctx.save();
       ctx.drawImage(

@@ -2,8 +2,8 @@ export default class Player {
   constructor() {
     this.x = 150;
     this.y = 150;
-    this.width = 40;
-    this.height = 40;
+    this.width = 50;
+    this.height = 50;
     this.speed = 2;
     this.image = new Image();
     this.health = 100;
@@ -17,7 +17,7 @@ export default class Player {
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
-    this.wx = [1, 4, -1];
+    this.wx = [1, 3, -1];
   }
 
   takeDamage(damage) {
@@ -39,24 +39,23 @@ export default class Player {
       let weaponAnimX = 0;
       let weaponYShift = 0;
       let flipHorizontally = false;
-  
+
       // Check if the player is looking up or down
-      if (angle < -Math.PI / 4 && angle > -3 * Math.PI / 4) {
+      if (angle < -Math.PI / 4 && angle > (-3 * Math.PI) / 4) {
         // Player is looking up
         indexY -= 38;
         weaponAnimX = 17;
-        weaponYShift = -20;
-      } else if (angle > Math.PI / 4 && angle < 3 * Math.PI / 4) {
+        weaponYShift = -12;
+      } else if (angle > Math.PI / 4 && angle < (3 * Math.PI) / 4) {
         // Player is looking down
         indexY -= 19;
         weaponAnimX = 34;
-        weaponYShift = 20;
-        
+        weaponYShift = 10;
       } else {
         // Check if the player is looking left or right
         flipHorizontally = mouseX < this.x + this.width / 2;
       }
-  
+
       // Update the walk animation
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.vx !== 0 || this.vy !== 0) this.walkTimer -= deltaTime;
@@ -65,30 +64,24 @@ export default class Player {
         this.indexX += 17;
         this.weaponY += 2;
         this.weaponXIndex += 1;
-  
+
         if (this.indexX > 527) {
           this.indexX = 493;
           this.weaponY = -2;
           this.weaponXIndex = 0;
         }
       }
-  
+
       ctx.save(); // Save the current state of the canvas context
-  
+
       // Flip the image if necessary
       if (flipHorizontally) {
         ctx.scale(-1, 1); // Horizontal flip
-        ctx.translate(
-          -this.x - this.width / 2,
-          this.y - this.height / 2
-        );
+        ctx.translate(-this.x - this.width / 2, this.y - this.height / 2);
       } else {
-        ctx.translate(
-          this.x - this.width / 2,
-          this.y - this.height / 2
-        );
+        ctx.translate(this.x - this.width / 2, this.y - this.height / 2);
       }
-  
+
       ctx.drawImage(
         this.image,
         this.indexX,
@@ -111,7 +104,7 @@ export default class Player {
         this.width,
         this.height
       );
-  
+
       ctx.restore(); // Restore the previous state of the canvas context
     }
   }

@@ -74,10 +74,18 @@ export default class Enemy {
       ctx.restore();
     } else {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
+    
+      this.walkTimer -= 1 * deltaTime * 30;
+      if (this.walkTimer <= 0) {
+        this.walkTimer = 20;
+        this.indexX += 17;
+        if (this.indexX > 663) 
+          this.indexX = 561;
+      }
       ctx.save();
       ctx.drawImage(
         this.image,
-        544, // X-Position der Todesanimation im Sprite
+        this.indexX, // X-Position der Todesanimation im Sprite
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
@@ -93,12 +101,9 @@ export default class Enemy {
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;
-      if (this.health <= 0) {        
-        setTimeout(() => {          
-          this.isAlive = false;
-        }, 1000);
-       
-
+      if (this.health <= 0) {
+        console.log("Enemy is dead. Starting death animation.");
+        this.isAlive = false;
       } else {
         this.isAggro = true;
       }

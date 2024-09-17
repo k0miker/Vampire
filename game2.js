@@ -28,7 +28,11 @@ export default class Game {
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
+
+
     if (this.enemies.length < 10) {
+      console.log(this.enemies.length);
+      
       setInterval(() => {
         const enemy = new Enemy(
           0,
@@ -121,8 +125,10 @@ export default class Game {
             )
           );
 
-          if (this.enemies[hitIndex].health <= 0) {
+          if (this.enemies[hitIndex].isAlive === false) {
+            setTimeout(() => {
             this.enemies.splice([hitIndex], 1);
+            }, 1500);
             this.hud.score += 1;
           }
           this.bullets.splice(i, 1);

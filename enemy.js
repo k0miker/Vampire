@@ -87,7 +87,7 @@ export default class Enemy {
       if (this.deathTimer <= 0) {
         this.deathTimer = 20;
         this.indexX += 17;
-        if (this.indexX > 763) this.indexX = 661;
+        if (this.indexX > 663) this.indexX = 661;
       }
   
       ctx.save();

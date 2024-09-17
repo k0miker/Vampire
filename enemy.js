@@ -15,6 +15,8 @@ export default class Enemy {
     this.indexX = 527;
     this.aggroRange = 500; 
     this.isAggro = false;
+    this.deathInitialized = false;
+    this.deathTimer = 0;
   }
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
@@ -42,12 +44,12 @@ export default class Enemy {
         this.indexX += 17;
         if (this.indexX > 527) this.indexX = 493;
       }
-
+  
       const angle = Math.atan2(
         (this.y - backgroundY + this.height / 2) - playerY,
         (this.x - backgroundX + this.width / 2) - playerX
       );
-
+  
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
         spriteY = 152;
@@ -58,7 +60,7 @@ export default class Enemy {
       } else {
         spriteY = 133;
       }
-
+  
       ctx.save();
       ctx.drawImage(
         this.image,
@@ -74,14 +76,20 @@ export default class Enemy {
       ctx.restore();
     } else {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
-    
-      this.walkTimer -= 1 * deltaTime * 30;
-      if (this.walkTimer <= 0) {
-        this.walkTimer = 20;
-        this.indexX += 17;
-        if (this.indexX > 663) 
-          this.indexX = 561;
+      if (!this.deathInitialized) {
+        this.indexX = 561;
+        this.deathTimer = 20;
+        this.deathInitialized = true;
       }
+  
+      this.deathTimer -= 1 * deltaTime * 60;
+  
+      if (this.deathTimer <= 0) {
+        this.deathTimer = 20;
+        this.indexX += 17;
+        if (this.indexX > 763) this.indexX = 661;
+      }
+  
       ctx.save();
       ctx.drawImage(
         this.image,

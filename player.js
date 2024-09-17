@@ -31,32 +31,6 @@ export default class Player {
     }
   }
 
-  update(deltaTime, objects) {
-    if (this.isAlive) {
-      // Berechne die neue Position
-      let newX = this.x + this.vx * this.speed * deltaTime;
-      let newY = this.y + this.vy * this.speed * deltaTime;
-
-      // Berechne die Tile-Koordinaten
-      let tileX = Math.floor(newX / this.map.tileWidth);
-      let tileY = Math.floor(newY / this.map.tileHeight);
-
-      // Hole den Tile-Index aus der Map
-      let tileIndex = this.map.map[tileY][tileX];
-      let tile = this.map.mapDefinition[tileIndex];
-
-      // Überprüfe die pass-Eigenschaft des Tiles
-      if (tile.pass) {
-        // Aktualisiere die Position des Spielers nur, wenn das Tile passierbar ist
-        this.x = newX;
-        this.y = newY;
-      }
-
-      // Kollisionserkennung mit anderen Objekten
-      handleCollisions(this, objects);
-    }
-  }
-
   draw(ctx, mouseX, mouseY, deltaTime) {
     if (this.isAlive) {
       const angle = Math.atan2(
@@ -139,36 +113,3 @@ export default class Player {
 
 }
 
-// Hilfsfunktionen zur Kollisionserkennung
-function getBoundingBox(object) {
-  return {
-    x: object.x,
-    y: object.y,
-    width: object.width,
-    height: object.height
-  };
-}
-
-function isColliding(rect1, rect2) {
-  return (
-    rect1.x < rect2.x + rect2.width &&
-    rect1.x + rect1.width > rect2.x &&
-    rect1.y < rect2.y + rect2.height &&
-    rect1.y + rect1.height > rect2.y
-  );
-}
-
-function handleCollisions(player, objects) {
-  const playerBox = getBoundingBox(player);
-  for (let obj of objects) {
-    const objBox = getBoundingBox(obj);
-    if (isColliding(playerBox, objBox)) {
-      // Kollision behandeln
-      if (obj instanceof Bullet) {
-        player.takeDamage(obj.damage);
-        obj.isAlive = false;
-      }
-     
-  }
-}
-}

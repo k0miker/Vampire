@@ -17,57 +17,32 @@ export default class Game {
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
 
-
     this.bullets = [];
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
-    this.enemies.push(new Enemy(
-      450,
-      600,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      850,
-      650,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      400,
-      200,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      300,
-      700,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
+    this.enemies.push(
+      new Enemy(450, 600, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+    );
+    this.enemies.push(
+      new Enemy(850, 650, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+    );
+    this.enemies.push(
+      new Enemy(400, 200, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+    );
+    this.enemies.push(
+      new Enemy(300, 700, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+    );
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
 
     this.currentMap = new Map1(this.ctx); // Erstellen Sie eine Instanz der Karte
-    this.map = new Map(this.ctx, this.currentMap.map, this.currentMap.mapDefinition);
+    this.map = new Map(
+      this.ctx,
+      this.currentMap.map,
+      this.currentMap.mapDefinition
+    );
 
     // Setzen Sie die Größe des Canvas-Elements nach der Initialisierung des Spielers
     this.resizeCanvas();
@@ -141,12 +116,7 @@ export default class Game {
         i--;
       } else {
         let hitIndex = undefined;
-        hitIndex = this.bullets[i].update(
-          deltaTime,
-          this.enemies,
-          0,
-          0
-        );
+        hitIndex = this.bullets[i].update(deltaTime, this.enemies, 0, 0);
         if (hitIndex > -1) {
           this.bloodsplosions.push(
             new Bloodsplosion(
@@ -165,16 +135,12 @@ export default class Game {
     }
 
     // Update und Zeichne den Spieler
-    this.player.draw(this.ctx, this.player.x, this.player.y, deltaTime);
+    this.player.draw(this.ctx, this.mouseX, this.mouseY, deltaTime);
 
     // Explosionen update
     for (let i = 0; i < this.bloodsplosions.length; i++) {
       let finished = undefined;
-      finished = this.bloodsplosions[i].update(
-        this.ctx,
-        0,
-        0
-      );
+      finished = this.bloodsplosions[i].update(this.ctx, 0, 0);
       if (finished <= 0) {
         this.bloodsplosions.splice(i, 1);
         i--;
@@ -211,27 +177,37 @@ export default class Game {
       this.player.vy = -this.player.speed;
     }
     if (e.code === "KeyS") {
-      this.player.vy =  this.player.speed;
+      this.player.vy = this.player.speed;
     }
     if (e.code === "KeyA") {
-      this.player.vx = - this.player.speed;
+      this.player.vx = -this.player.speed;
     }
     if (e.code === "KeyD") {
-      this.player.vx =  this.player.speed;
+      this.player.vx = this.player.speed;
     }
-    if (e.code === "KeyShiftLeft" && (e.code === "KeyW" || e.code === "KeyS" || e.code === "KeyA" || e.code === "KeyD")) {
+    if (
+      e.code === "KeyShiftLeft" &&
+      (e.code === "KeyW" ||
+        e.code === "KeyS" ||
+        e.code === "KeyA" ||
+        e.code === "KeyD")
+    ) {
       this.player.speed = 2;
     }
   }
 
   clickHandler(e) {
-    let dx = this.player.x + this.player.width / 2 - this.mouseX;
-    let dy = this.player.y + this.player.height / 2 - this.mouseY;
+    let dx = this.player.x - this.mouseX;
+    let dy = this.player.y - this.mouseY;
     let dist = Math.sqrt(dx * dx + dy * dy);
+    console.log(
+      this.player.x + this.player.width / 2,
+      this.player.y + this.player.height / 2
+    );
 
     const bullet = new Bullet(
-      this.player.x + this.player.width / 2,
-      this.player.y + this.player.height / 2,
+      this.player.x,
+      this.player.y,
       (dx / dist) * -15,
       (dy / dist) * -15,
       25,

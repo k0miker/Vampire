@@ -6,6 +6,12 @@ import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import Map from "./map.js";
 import Map1 from "./map/map1.js";
+import {
+  mousemoveHandler,
+  keyUpHandler,
+  keyDownHandler,
+  clickHandler
+} from "./controlls.js";
 
 export default class Game {
   constructor(fps) {
@@ -22,46 +28,7 @@ export default class Game {
     this.bullets = [];
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
-    this.enemies.push(new Enemy(
-      450,
-      600,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      850,
-      650,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      400,
-      200,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
-    this.enemies.push(new Enemy(
-      300,
-      700,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ));
+   
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
@@ -79,10 +46,10 @@ export default class Game {
 
     // Setzen Sie die Größe des Canvas-Elements nach der Initialisierung des Spielers
     this.resizeCanvas();
-    window.addEventListener("mousemove", this.mousemoveHandler.bind(this));
-    document.addEventListener("keydown", this.keyDownHandler.bind(this));
-    document.addEventListener("keyup", this.keyUpHandler.bind(this));
-    document.addEventListener("click", this.clickHandler.bind(this));
+    window.addEventListener("mousemove", mousemoveHandler.bind(this));
+    document.addEventListener("keydown", keyDownHandler.bind(this));
+    document.addEventListener("keyup", keyUpHandler.bind(this));
+    document.addEventListener("click", clickHandler.bind(this));
     window.addEventListener("resize", this.resizeCanvas.bind(this)); // Event-Listener für Fenstergrößenänderung
     this.fps = fps;
     this.lastTime = 0;
@@ -225,70 +192,6 @@ export default class Game {
     requestAnimationFrame(this.animate.bind(this));
   }
 
-  mousemoveHandler(e) {
-    this.mouseX = e.clientX;
-    this.mouseY = e.clientY;
-  }
-
-  keyUpHandler(e) {
-    if (e.code === "KeyW") {
-      this.player.vy = 0;
-    }
-    if (e.code === "KeyS") {
-      this.player.vy = 0;
-    }
-    if (e.code === "KeyA") {
-      this.player.vx = 0;
-    }
-    if (e.code === "KeyD") {
-      this.player.vx = 0;
-    }
-  }
-
-  keyDownHandler(e) {
-    if (e.code === "KeyW") {
-      this.player.vy = -this.player.speed;
-    }
-    if (e.code === "KeyS") {
-      this.player.vy = this.player.speed;
-    }
-    if (e.code === "KeyA") {
-      this.player.vx = -this.player.speed;
-    }
-    if (e.code === "KeyD") {
-      this.player.vx = this.player.speed;
-    }
-    if (
-      e.code === "KeyShiftLeft" &&
-      (e.code === "KeyW" ||
-        e.code === "KeyS" ||
-        e.code === "KeyA" ||
-        e.code === "KeyD")
-    ) {
-      this.player.speed = 2;
-    }
-  }
-
-  clickHandler(e) {
-    let dx = this.player.x - this.mouseX;
-    let dy = this.player.y - this.mouseY;
-    let dist = Math.sqrt(dx * dx + dy * dy);
-    console.log(
-      this.player.x + this.player.width / 2,
-      this.player.y + this.player.height / 2
-    );
-
-    const bullet = new Bullet(
-      this.player.x,
-      this.player.y,
-      (dx / dist) * -15,
-      (dy / dist) * -15,
-      25,
-      this.ctx
-    );
-
-    this.bullets.push(bullet);
-  }
 }
 
 // Initialisiere das Spiel

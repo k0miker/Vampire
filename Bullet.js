@@ -8,14 +8,14 @@ export default class Bullet {
     this.vy = vy;
     this.ctx = ctx;
     this.dmg = dmg;
-    this.width = 8;
-    this.height = 8;
+    this.width = 2;
+    this.height = 2;
   }
 
   update(deltaTime, enemies, backgroundX, backgroundY) {
     let bulletDelete = -1;
-    this.x += this.vx * deltaTime * 60;
-    this.y += this.vy * deltaTime * 60;
+    this.x += this.vx * deltaTime * 10;
+    this.y += this.vy * deltaTime * 10;
     this.draw(backgroundX, backgroundY);
     bulletDelete = this.collisionEnemy(
       enemies,
@@ -48,8 +48,8 @@ export default class Bullet {
         // this.y < enemies[i].y - backgroundY + enemies[i].height &&
         // this.y + this.height > enemies[i].y - backgroundY
       ) {
-        enemies[i].x += this.vx * 4;
-        enemies[i].y += this.vy * 4;
+        enemies[i].x += this.vx * 1;
+        enemies[i].y += this.vy * 1;
         enemies[i].takeDamage(this.dmg);
         enemies[i].isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
 

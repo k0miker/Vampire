@@ -12,7 +12,7 @@ export default class Enemy {
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 500;
+    this.aggroRange = 150;
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
@@ -20,8 +20,8 @@ export default class Enemy {
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
     if (this.status === "alive") {
-      let dx = playerX - (this.x - backgroundX + this.width / 2);
-      let dy = playerY - (this.y - backgroundY + this.height / 2);
+      let dx = playerX - (this.x  + this.width / 2);
+      let dy = playerY - (this.y  + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.aggroRange) {

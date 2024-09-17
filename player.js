@@ -1,10 +1,10 @@
 export default class Player {
   constructor() {
-    this.x = 0;
-    this.y = 0;
-    this.width = 55;
-    this.height = 55;
-    this.speed = 5;
+    this.x = 150;
+    this.y = 150;
+    this.width = 40;
+    this.height = 40;
+    this.speed = 2;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";
@@ -17,7 +17,7 @@ export default class Player {
     this.walkTimer = 6;
     this.vx = 0;
     this.vy = 0;
-    this.wx = [1, 4, -2];
+    this.wx = [1, 4, -1];
   }
 
   takeDamage(damage) {
@@ -30,7 +30,7 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
-    if (this.isAlive ) {
+    if (this.isAlive) {
       const angle = Math.atan2(
         mouseY - (this.y + this.height / 2),
         mouseX - (this.x + this.width / 2)
@@ -39,50 +39,56 @@ export default class Player {
       let weaponAnimX = 0;
       let weaponYShift = 0;
       let flipHorizontally = false;
-
-      /////////////////Up or down////////////////////////
-      if (angle < 2.1 && angle > 1) {
-        indexY -= 19;
-        weaponAnimX = 34;
-        weaponYShift = 20;
-      } else if (angle > -2.1 && angle < -1) {
+  
+      // Check if the player is looking up or down
+      if (angle < -Math.PI / 4 && angle > -3 * Math.PI / 4) {
+        // Player is looking up
         indexY -= 38;
         weaponAnimX = 17;
         weaponYShift = -20;
+      } else if (angle > Math.PI / 4 && angle < 3 * Math.PI / 4) {
+        // Player is looking down
+        indexY -= 19;
+        weaponAnimX = 34;
+        weaponYShift = 20;
+        
       } else {
-        //////////////////left or right looking/////////////////
+        // Check if the player is looking left or right
         flipHorizontally = mouseX < this.x + this.width / 2;
       }
+  
+      // Update the walk animation
       this.walkTimer -= 1 * deltaTime * 60;
-      if (this.vx !== 0 || this.vy !== 0) this.walkTimer -=  deltaTime;
+      if (this.vx !== 0 || this.vy !== 0) this.walkTimer -= deltaTime;
       if (this.walkTimer <= 0) {
         this.walkTimer = 12;
         this.indexX += 17;
         this.weaponY += 2;
         this.weaponXIndex += 1;
-
+  
         if (this.indexX > 527) {
           this.indexX = 493;
           this.weaponY = -2;
           this.weaponXIndex = 0;
         }
       }
-      ctx.save(); // Speichern des aktuellen Zustands des Canvas-Kontexts
-
-      // Spiegeln des Bildes, wenn nötig
+  
+      ctx.save(); // Save the current state of the canvas context
+  
+      // Flip the image if necessary
       if (flipHorizontally) {
-        ctx.scale(-1, 1); // Horizontales Spiegeln
+        ctx.scale(-1, 1); // Horizontal flip
         ctx.translate(
-          -this.width / 2 - window.innerWidth / 2,
-          -this.height / 2 + window.innerHeight / 2
+          -this.x - this.width / 2,
+          this.y - this.height / 2
         );
       } else {
         ctx.translate(
-          -this.width / 2 + window.innerWidth / 2,
-          -this.height / 2 + window.innerHeight / 2
+          this.x - this.width / 2,
+          this.y - this.height / 2
         );
       }
-
+  
       ctx.drawImage(
         this.image,
         this.indexX,
@@ -105,8 +111,8 @@ export default class Player {
         this.width,
         this.height
       );
-
-      ctx.restore(); // Wiederherstellen des vorherigen Zustands des Canvas-Kontexts
+  
+      ctx.restore(); // Restore the previous state of the canvas context
     }
   }
 

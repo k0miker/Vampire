@@ -3,8 +3,8 @@ export default class Map {
         this.ctx = ctx;
         this.map = map;
         this.mapDefinition = mapDefinition;
-        this.width = 128;// px auf dem monitor für ein tile
-        this.height = 128;
+        this.width = 64;// px auf dem monitor für ein tile
+        this.height = 64;
         this.image = new Image();
         this.image.src = "./assets/tileset.png";
         this.tileWidth = 16;

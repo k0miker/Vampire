@@ -5,11 +5,11 @@ export default class Bloodsplosion {
       this.particles.push({
         x: x + vx,
         y: y + vy,
-        vx: vx + (Math.random() * 8 - 4),
-        vy: vy + (Math.random() * 8 - 4),
+        vx: vx + (Math.random() * 4 - 2),
+        vy: vy + (Math.random() * 4 - 2),
       });
     }
-    this.duration = 30;
+    this.duration = 15;
   }
   update(ctx, backgroundX, backgroundY) {
     ctx.fillStyle = "#bb0000";
@@ -19,8 +19,8 @@ export default class Bloodsplosion {
       ctx.fillRect(
         this.particles[i].x - backgroundX,
         this.particles[i].y - backgroundY,
-        8,
-        8
+        3,
+        3
       );
     }
     this.duration -= 1;

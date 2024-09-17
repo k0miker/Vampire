@@ -1,10 +1,16 @@
 export default class Tileset {
-    constructor() {
-        this.image = "./tileset.png";
-        this.tileWidth = 16;
-        this.tileHeight = 16;
-        this.gap = 1;
-        this.tiles = this.createTileMap();
+    constructor(imageSrc, tileWidth, tileHeight, gap) {
+        this.image = new Image();
+        this.image.src = imageSrc;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.gap = gap;
+        this.tiles = [];
+        
+        // Erstelle die Tilemap, sobald das Bild geladen wurde
+        this.image.onload = () => {
+            this.tiles = this.createTileMap();
+        };
     }
 
     // Methode, um die Tilemap zu erstellen
@@ -44,25 +50,40 @@ export default class Tileset {
         const index = row * Math.floor(this.image.width / (this.tileWidth + this.gap)) + col;
         return this.getTile(index);
     }
+
+    // Methode, um ein Tile an einer bestimmten Position zu zeichnen
+    drawTile(ctx, xPos, yPos, tileX, tileY) {
+        const tile = this.getTileAtPosition(tileX, tileY);
+        if (tile) {
+            ctx.drawImage(
+                this.image,
+                tile.xStart,
+                tile.yStart,
+                this.tileWidth,
+                this.tileHeight,
+                xPos,
+                yPos,
+                this.tileWidth,
+                this.tileHeight
+            );
+        }
+    }
 }
 
 // Beispielnutzung:
-const tilesetImage = new Image();
-tilesetImage.src = 'tileset2.png'; // Lade das Tileset-Bild
-
-// Definiere die Kachelgröße (16x16) und den Abstand (1 Pixel)
+const tilesetImageSrc = 'tileset2.png'; // Lade das Tileset-Bild
 const tileWidth = 16;
 const tileHeight = 16;
 const gap = 1; // 1-Pixel-Abstand zwischen den Kacheln
 
-// Erstelle das Tileset-Objekt, sobald das Bild geladen wurde
-tilesetImage.onload = function() {
-    const tileset = new Tileset(tilesetImage, tileWidth, tileHeight, gap);
-    
-    // Zeige die erstellte Tilemap in der Konsole an
-    console.log(tileset.tiles);
+// Erstelle das Tileset-Objekt
+const tileset = new Tileset(tilesetImageSrc, tileWidth, tileHeight, gap);
 
-    // Hole ein spezifisches Tile, z.B. das 10. Tile in der Map
-    const tileInfo = tileset.getTile(10);
-    console.log(tileInfo);
+// Zeichne ein Tile, sobald das Bild geladen wurde
+tileset.image.onload = function() {
+    const canvas = document.querySelector("#gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Beispiel: Zeichne das Tile an der Position (32, 32) auf dem Canvas
+    tileset.drawTile(ctx, 32, 32, 0, 0); // Zeichne das Tile an der Position (0, 0) im Tileset
 };

@@ -4,6 +4,8 @@ import Bullet from "./Bullet.js";
 import Settings from "./settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
+import Map from "./map.js";
+import Tileset from "./map.js"; 
 export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");

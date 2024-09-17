@@ -4,13 +4,15 @@ import Bullet from "./Bullet.js";
 import Settings from "./settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
+import Map from "./map.js";
+// import Tileset from "./map.js"; 
 export default class Game {
   constructor(fps) {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-
+    this.testTile=new Map('./assets/tileset2.png',64,64,1)
     this.backgroundImg = new Image();
     this.backgroundImg.src = "./assets/ground1.png";
     this.backgroundX = 0;
@@ -24,11 +26,24 @@ export default class Game {
     this.player.x = window.innerWidth / 2 - this.player.width / 2;
     this.player.y = window.innerHeight / 2 - this.player.height / 2;
     this.enemies = [];
+    this.enemies.push(new Enemy(
+      200,
+      200,
+      100,
+      100,
+      1,
+      100,
+      "./assets/tileset.png",
+      "pistol"))
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
+
+
     if (this.enemies.length < 10) {
+      console.log(this.enemies.length);
+      
       setInterval(() => {
         const enemy = new Enemy(
           0,
@@ -88,7 +103,8 @@ export default class Game {
       window.innerWidth,
       window.innerHeight
     );
-
+    this.testTile.drawTile(this.ctx, 140, 140, 270, 190);
+    
     // Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       if (
@@ -121,10 +137,7 @@ export default class Game {
             )
           );
 
-          if (this.enemies[hitIndex].health <= 0) {
-            this.enemies.splice([hitIndex], 1);
-            this.hud.score += 1;
-          }
+          
           this.bullets.splice(i, 1);
           i--;
         }
@@ -135,7 +148,13 @@ export default class Game {
     this.player.draw(this.ctx, this.mouseX, this.mouseY, deltaTime);
 
     // update und zeichne Gegner
-    this.enemies.forEach((enemy) => {
+    this.enemies.forEach((enemy,i) => {
+      if (this.enemies[i].status==="dead" ) {
+            
+        this.enemies.splice([i], 1);
+        
+        this.hud.score += 1;
+      }
       enemy.update(
         this.player.x + this.player.width / 2,
         this.player.y + this.player.height / 2,

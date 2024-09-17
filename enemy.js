@@ -9,16 +9,17 @@ export default class Enemy {
     this.image.src = imageSrc;
 
     this.health = hp;
-    this.isAlive = true;
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 500; 
+    this.aggroRange = 500;
     this.isAggro = false;
+    this.status = "alive";
+    this.deathTimer = 15;
   }
 
   update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       let dx = playerX - (this.x - backgroundX + this.width / 2);
       let dy = playerY - (this.y - backgroundY + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
@@ -35,7 +36,7 @@ export default class Enemy {
   }
 
   draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
@@ -44,8 +45,8 @@ export default class Enemy {
       }
 
       const angle = Math.atan2(
-        (this.y - backgroundY + this.height / 2) - playerY,
-        (this.x - backgroundX + this.width / 2) - playerX
+        this.y - backgroundY + this.height / 2 - playerY,
+        this.x - backgroundX + this.width / 2 - playerX
       );
 
       let spriteY;
@@ -72,12 +73,24 @@ export default class Enemy {
         this.height
       );
       ctx.restore();
-    } else {
+    }
+    if (this.status === "dying") {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
+
+      this.deathTimer -= 1 * deltaTime * 60;
+      if (this.deathTimer <= 0) {
+        this.indexX += 17;
+        this.deathTimer = 15;
+      }
+
+      if (this.indexX > 661) {
+        this.status = "dead";
+      }
+
       ctx.save();
       ctx.drawImage(
         this.image,
-        646, // X-Position der Todesanimation im Sprite
+        this.indexX, // X-Position der Todesanimation im Sprite
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
@@ -91,11 +104,12 @@ export default class Enemy {
   }
 
   takeDamage(damage) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       this.health -= damage;
-      if (this.health <= 0) {          
-          this.isAlive = false;   
-
+      if (this.health <= 0) {
+        setTimeout(() => {
+          this.isAlive = false;
+        }, 1000);
       } else {
         this.isAggro = true;
       }
@@ -103,7 +117,7 @@ export default class Enemy {
   }
 
   attack(target) {
-    if (this.isAlive) {
+    if (this.status === "alive") {
       let damage;
       switch (this.weaponType) {
         case "assaultRifle":

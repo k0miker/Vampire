@@ -14,8 +14,8 @@ export default class Bullet {
 
   update(deltaTime, enemies, backgroundX, backgroundY) {
     let bulletDelete = -1;
-    this.x += this.vx * deltaTime * 30;
-    this.y += this.vy * deltaTime * 30;
+    this.x += this.vx * deltaTime * 60;
+    this.y += this.vy * deltaTime * 60;
     this.draw(backgroundX, backgroundY);
     bulletDelete = this.collisionEnemy(
       enemies,

@@ -1,11 +1,11 @@
 // player.js
 export default class Player {
-  constructor(map) {
-    this.x = 150;
-    this.y = 150;
+  constructor() {
+    this.x = 170;
+    this.y = 170;
     this.width = 50;
     this.height = 50;
-    this.speed = 2;
+    this.speed = 4;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";
@@ -19,7 +19,8 @@ export default class Player {
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
-    this.map = map; // Speichere die Map-Instanz
+    // this.map = map; // Speichere die Map-Instanz
+    
   }
 
   takeDamage(damage) {
@@ -113,4 +114,17 @@ export default class Player {
   }
 
 }
+
+
+// function isColliding(rect1, rect2) {
+//   return (
+//     rect1.x < rect2.x + rect2.width &&
+//     rect1.x + rect1.width > rect2.x &&
+//     rect1.y < rect2.y + rect2.height &&
+//     rect1.y + rect1.height > rect2.y
+//   );
+// }
+
+
+
 

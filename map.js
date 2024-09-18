@@ -33,7 +33,7 @@ export default class Map {
                 
             }
         }
-        console.log(this.obstacles[2]);
+        // console.log(this.obstacles[2]);
     }
  
  
@@ -64,7 +64,7 @@ export default class Map {
             // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
 
             this.ctx.strokeRect(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-            console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+            // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
         }
     }
         

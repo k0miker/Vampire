@@ -1,4 +1,4 @@
-import Player from "./player.js";
+import Player from "./Player.js";
 import Enemy from "./enemy.js";
 import Bullet from "./Bullet.js";
 import Settings from "./settings.js";
@@ -6,6 +6,7 @@ import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import Map from "./map.js";
 import Map1 from "./map/map1.js";
+import ObstacleCollision from "./ObstaclesCollision.js";
 import {
   mousemoveHandler,
   keyUpHandler,
@@ -14,18 +15,26 @@ import {
 } from "./controlls.js";
 
 export default class Game {
-  constructor(fps) {
+  constructor() {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
-    this.backgroundXSize = 4690;
-    this.backgroundYSize = 4690;
-
+    this.gameWindowHeight = 832;
+    this.gameWindowWidth = 1728;
+    this.zombiCount = 5;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.currentMap = new Map(); 
     this.spawnZoneTiles = [17, 11, 5, 105, 107];
 
     this.bullets = [];
+    this.currentMap = new Map1(this.ctx);
+    this.map = new Map(
+      this.ctx,
+      this.currentMap.map,
+      this.currentMap.mapDefinition
+    );
+    this.map.init();
+    this.obstacleCollision = new ObstacleCollision(this.map.obstacles);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
    
@@ -34,13 +43,8 @@ export default class Game {
 
     this.hud = new Hud(this.ctx);
 
-    this.currentMap = new Map1(this.ctx); // Erstellen Sie eine Instanz der Karte
-    this.map = new Map(
-      this.ctx,
-      this.currentMap.map,
-      this.currentMap.mapDefinition
-    );
-    this.map.init();
+     // Erstellen Sie eine Instanz der Karte
+    
     // Zombies spawnen
     this.spawnZombies();
 
@@ -51,7 +55,7 @@ export default class Game {
     document.addEventListener("keyup", keyUpHandler.bind(this));
     document.addEventListener("click", clickHandler.bind(this));
     window.addEventListener("resize", this.resizeCanvas.bind(this)); // Event-Listener für Fenstergrößenänderung
-    this.fps = fps;
+    
     this.lastTime = 0;
     this.animate(0);
   }
@@ -72,11 +76,12 @@ export default class Game {
     return positions;
   }
 
-  spawnZombie() {
+  spawnZombie(i) {
     const spawnPositions = this.getSpawnPositions();
     const pos = spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
     const x = pos.x * 48; // Tile-Größe anpassen
     const y = pos.y * 48; // Tile-Größe anpassen
+    if(!this.obstacleCollision.collision({x:x,y:y,width:48,height:48}))
     this.enemies.push(new Enemy(
       x,
       y,
@@ -86,28 +91,42 @@ export default class Game {
       100,
       "./assets/tileset.png",
       "pistol"
-    ));
+    ))
+    else {
+    return false;
+
+    }
+    return true;
   }
 
   spawnZombies() {
-    for (let i = 0; i < 15; i++) { // Spawne 15 Zombies
-      this.spawnZombie();
+    for (let i = 0; i < this.zombiCount; i++) { // Spawne 15 Zombies
+      let spawned = false;
+      while (!spawned) {
+        spawned=this.spawnZombie();
+      }
     }
   }
 
   resizeCanvas() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
+    this.ctx.scale(
+      window.innerWidth / this.gameWindowWidth,
+      window.innerHeight / this.gameWindowHeight
+    );
   }
 
   animate(currentTime) {
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
-    // Spielerbewegung innerhalb der Grenzen der Karte
+    // Spielerbewegung innerhalb der Grenzen der Karte+collision
     this.player.x += this.player.vx * deltaTime * 30;
+    if(this.obstacleCollision.collision(this.player))this.player.x -=this.player.vx;
     this.player.y += this.player.vy * deltaTime * 30;
-// console.log(this.player.x, this.player.y);
+    if(this.obstacleCollision.collision(this.player))this.player.y-=this.player.vy;
+
 
     if (this.player.x < 0) this.player.x = 0;
     if (this.player.y < 0) this.player.y = 0;
@@ -126,14 +145,20 @@ export default class Game {
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
         this.hud.score += 1;
-        this.spawnZombie(); // Spawne einen neuen Zombie
+        // Spawne einen neuen Zombie
+        let spawned = false;
+        while(!spawned){
+          spawned=this.spawnZombie();
+        }
+         
       }
       enemy.update(
         this.player.x + this.player.width / 2,
         this.player.y + this.player.height / 2,
         deltaTime,
         0,
-        0
+        0,
+        this.obstacleCollision
       );
       enemy.draw(
         this.ctx,
@@ -144,6 +169,9 @@ export default class Game {
         this.player.y + this.player.height / 2
       );
     });
+
+    // Kollisionserkennung
+    this.obstacleCollision.collision(this.player);
 
     // Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
@@ -157,15 +185,21 @@ export default class Game {
         i--;
       } else {
         let hitIndex = undefined;
-        hitIndex = this.bullets[i].update(deltaTime, this.enemies, 0, 0);
-        if (hitIndex > -1) {
+        hitIndex = this.bullets[i].update(deltaTime, this.enemies, 0, 0, this.obstacleCollision);
+        if (hitIndex === 1000) {  
+        
+
+        this.bullets.splice(i, 1);
+        i--;}
+
+        else if (hitIndex > -1) {
           this.bloodsplosions.push(
             new Bloodsplosion(
               this.bullets[i].x,
               this.bullets[i].y,
               this.bullets[i].vx,
               this.bullets[i].vy,
-              20
+              10
             )
           );
 

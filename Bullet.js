@@ -8,8 +8,10 @@ export default class Bullet {
     this.vy = vy;
     this.ctx = ctx;
     this.dmg = dmg;
-    this.width = 2;
-    this.height = 2;
+    this.width = 4;
+    this.height = 4;
+    
+    this.speed = 20;
   }
 
   static createBullet(player, mouseX, mouseY, ctx) {
@@ -58,16 +60,18 @@ export default class Bullet {
     }
   }
 
-  update(deltaTime, enemies, backgroundX, backgroundY) {
+  update(deltaTime, enemies, backgroundX, backgroundY,obstacleCollision) {
     let bulletDelete = -1;
-    this.x += this.vx * deltaTime * 10;
-    this.y += this.vy * deltaTime * 10;
+    this.x += this.vx * deltaTime * this.speed;
+    this.y += this.vy * deltaTime * this.speed;
     this.draw(backgroundX, backgroundY);
+    if (obstacleCollision.collision(this)) return 1000;
+
     bulletDelete = this.collisionEnemy(
       enemies,
       deltaTime,
       backgroundX,
-      backgroundY
+      backgroundY,obstacleCollision
     );
     return bulletDelete;
   }
@@ -81,17 +85,22 @@ export default class Bullet {
       this.height
     );
   }
-
-  collisionEnemy(enemies, deltaTime, backgroundX, backgroundY) {
+  collisionObstacles() {
+    
+  }
+  collisionEnemy(enemies, deltaTime, backgroundX, backgroundY,obstacleCollision) {
+    
     for (let i = 0; i < enemies.length; i++) {
       if (
-        this.x < enemies[i].x + enemies[i].width &&
-        this.x + this.width > enemies[i].x &&
-        this.y < enemies[i].y + enemies[i].height &&
-        this.y + this.height > enemies[i].y
+        this.x < enemies[i].x + enemies[i].width/2 &&
+        this.x + this.width > enemies[i].x -enemies[i].width/2&&
+        this.y < enemies[i].y + enemies[i].height/2 &&
+        this.y + this.height > enemies[i].y-enemies[i].height/2
       ) {
         enemies[i].x += this.vx * 1;
+        if(obstacleCollision.collision(enemies[i]))enemies[i].x -= this.vx * 1;
         enemies[i].y += this.vy * 1;
+        if(obstacleCollision.collision(enemies[i]))enemies[i].y -= this.vy * 1;
         enemies[i].takeDamage(this.dmg);
         enemies[i].isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
 

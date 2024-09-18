@@ -1,3 +1,4 @@
+
 export default class Enemy {
   constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
@@ -7,21 +8,20 @@ export default class Enemy {
     this.speed = speed + Math.random();
     this.image = new Image();
     this.image.src = imageSrc;
-
     this.health = hp;
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 150;
+    this.aggroRange = 650;
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
   }
 
-  update(playerX, playerY, deltaTime, backgroundX, backgroundY) {
+  update(playerX, playerY, deltaTime, backgroundX, backgroundY,obstacleCollision) {
     if (this.status === "alive") {
-      let dx = playerX - (this.x + this.width);
-      let dy = playerY - (this.y + this.height);
+      let dx = playerX - (this.x + this.width/2);
+      let dy = playerY - (this.y + this.height/2);
       let dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.aggroRange) {
@@ -29,8 +29,13 @@ export default class Enemy {
       }
 
       if (this.isAggro) {
+        
+        
         this.x += (dx / dist) * this.speed * deltaTime * 60;
+        if(obstacleCollision.collision(this))this.x -=(dx / dist) * this.speed * deltaTime * 60;
         this.y += (dy / dist) * this.speed * deltaTime * 60;
+        if(obstacleCollision.collision(this))this.y-= (dy / dist) * this.speed * deltaTime * 60;
+
       }
     }
   }
@@ -45,8 +50,8 @@ export default class Enemy {
       }
 
       const angle = Math.atan2(
-        this.y - backgroundY + this.height / 2 - playerY,
-        this.x - backgroundX + this.width / 2 - playerX
+        this.y - backgroundY - playerY,
+        this.x - backgroundX - playerX
       );
 
       let spriteY;
@@ -67,8 +72,8 @@ export default class Enemy {
         spriteY,
         16,
         16,
-        this.x - backgroundX,
-        this.y - backgroundY,
+        this.x - backgroundX-this.width/2,
+        this.y - backgroundY-this.height /2,
         this.width,
         this.height
       );
@@ -94,8 +99,8 @@ export default class Enemy {
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
-        this.x - backgroundX,
-        this.y - backgroundY,
+        this.x - backgroundX-this.width/2,
+        this.y - backgroundY - this.height/2,
         this.width,
         this.height
       );

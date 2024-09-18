@@ -12,7 +12,7 @@ export default class Enemy {
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 650;
+    this.aggroRange = 350; //* Settings.difficulty; 
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;

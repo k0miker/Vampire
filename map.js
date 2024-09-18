@@ -58,14 +58,14 @@ export default class Map {
                 
             }
         }
-        for (let i = 0; i < this.obstacles.length; i++){
-            this.ctx.strokeStyle = ("white");
-            // this.ctx.strokeRect = (this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-            // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+        // for (let i = 0; i < this.obstacles.length; i++){
+        //     this.ctx.strokeStyle = ("white");
+        //     // this.ctx.strokeRect = (this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+        //     // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
 
-            this.ctx.strokeRect(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-            // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-        }
+        //     this.ctx.strokeRect(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+        //     // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+        // }
     }
         
 

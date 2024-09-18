@@ -3,4 +3,4 @@ import Settings from "./settings.js";
 
 
 const game = new Game(0);
-initGame();
+// initGame();

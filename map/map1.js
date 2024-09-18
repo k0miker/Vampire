@@ -87,10 +87,10 @@ export default class Map1 {
       { index: 60, src: this.streetSheet, x: 17, y: 51 , pass:true ,spawn:false},
       { index: 61, src: this.streetSheet, x: 34, y: 51 , pass:true ,spawn:false},
       { index: 62, src: this.streetSheet, x: 51, y: 51 , pass:true ,spawn:false},
-      { index: 63, src: this.streetSheet, x: 0, y: 68 , pass:true ,spawn:false},
-      { index: 64, src: this.streetSheet, x: 17, y: 68 , pass:true ,spawn:false},
-      { index: 65, src: this.streetSheet, x: 34, y: 68 , pass:true ,spawn:false},
-      { index: 66, src: this.streetSheet, x: 51, y: 68 , pass:true ,spawn:false},
+      { index: 63, src: this.streetSheet, x: 0, y: 69 , pass:true ,spawn:false},
+      { index: 64, src: this.streetSheet, x: 17, y: 69 , pass:true ,spawn:false},
+      { index: 65, src: this.streetSheet, x: 34, y: 69 , pass:true ,spawn:false},
+      { index: 66, src: this.streetSheet, x: 51, y: 69 , pass:false ,spawn:false},
       { index: 67, src: this.streetSheet, x: 0, y: 85 , pass:true ,spawn:false},
       { index: 68, src: this.streetSheet, x: 51, y: 85 , pass:true ,spawn:false},
       { index: 69, src: this.streetSheet, x: 68, y: 85 , pass:true ,spawn:false},
@@ -146,10 +146,10 @@ export default class Map1 {
 
         {index: 111, src: this.vendorSheet, x: 0, y: 0, pass:false ,spawn:false},
         {index: 112, src: this.vendorSheet, x: 16, y: 0, pass:false ,spawn:false},
-        {index: 113, src: this.vendorSheet, x: 32, y: 0, pass:false ,spawn:false},
-        {index: 114, src: this.vendorSheet, x: 0, y: 16, pass:false ,spawn:false},
-        {index: 115, src: this.vendorSheet, x: 16, y: 16, pass:false ,spawn:false},
-        {index: 116, src: this.vendorSheet, x: 32, y: 16, pass:false ,spawn:false},
+        {index: 113, src: this.vendorSheet, x: 32, y: 0, pass:true ,spawn:false},
+        {index: 114, src: this.vendorSheet, x: 0, y: 16, pass:true ,spawn:false},
+        {index: 115, src: this.vendorSheet, x: 16, y: 16, pass:true ,spawn:false},
+        {index: 116, src: this.vendorSheet, x: 32, y: 16, pass:true ,spawn:false},
 
 
 
@@ -157,31 +157,31 @@ export default class Map1 {
     ];
 
     this.map = [
-      [41, 41, 41, 41, 41, 41, 41, 40, 13,  0, 46, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41],
+      [41, 45, 45, 45, 45, 45, 45, 40, 13,  0, 46, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 41, 45, 45, 41],
 
-      [39, 39, 42, 17, 11, 42, 42,  0, 13,  5,  5, 15,  7,  7, 14,  0,  5, 11, 17, 11, 17,  5, 19,  0, 19,  0, 39],
+      [40, 11, 11, 17, 11,  0, 19,  0, 13,  5,  5, 15,  7,  7, 14,  0,  5, 11, 17, 11, 17,  5, 19,  42, 19,  0, 37],
 
-      [39, 40,  5,  7,  7,  3,  7,  7, 10,  7,  7,  8, 17, 11, 13, 11, 17, 17,  0, 17, 11,  5, 11, 17, 11, 19, 39],
+      [40,  0,  5,  7,  7,  3,  7,  7, 10,  7,  7,  8, 17, 11, 13, 11, 17, 17,  0, 17,  5,  5, 11, 17, 11, 19, 37],
 
-      [39, 43,  5, 11, 17, 13, 17, 11, 76, 77, 78, 19, 11, 17, 13, 17, 11, 17, 11, 17,  5,  5, 19,  5,  5,  0, 39],
+      [40,  5,  5, 11, 17, 13, 17, 11, 76, 77, 78, 19, 11, 17, 13, 17,  5, 17,  5, 17,  5,  5, 19,  5,  5,  0, 37],
 
-      [39, 40, 17,  5, 11, 13, 11, 19, 86, 87, 88, 31, 19,  5, 13,  0, 17,  2, 17, 17, 17, 11,  5, 19,  5,  0, 39],
+      [40, 11, 17,  5, 11, 13, 11, 19, 86, 87, 88, 31, 19,  5, 13,  0, 17,  5, 17, 17, 17, 11,  5, 19,  5,  0, 37],
 
-      [39, 43, 11, 23, 24, 13, 19, 31, 95, 97, 99, 17, 31, 11,  4,  7,  7,  7,  2,  3, 19,  5,  0, 19,  5, 19, 39],
+      [40,  0, 11, 23, 24, 13, 19, 31, 95, 97, 99, 17, 31, 11,  4,  7,  7,  7, 17,  5, 19,  5,  0, 5,  5, 19, 37],
 
-      [39,  5, 17, 17, 11, 13, 31, 11,100,102,104,  5, 11, 11,  5,  0, 17,  5, 17,  3, 19,  5, 19, 17,  5,  0, 39],
+      [40,  5, 17, 17, 11, 13, 31, 11,100,102,104,  5, 11, 11,  5,  0, 17,  5, 17,  5, 19,  5, 19, 17,  5,  0, 37],
 
-      [39,  5, 17, 11,  5,  4,  7,  7,  7,  8, 17,  5, 11,  5,  5,  7, 19,  5, 17, 17, 11, 19,  5, 19,  0,  0, 39],
+      [40,  5, 17, 11,  5,  4,  7,  7,  7,  8, 17,  5, 11,  5,  5,  7, 19,  5, 17, 17, 5, 17,  5, 5,  0,  0, 37],
 
-      [39,  5,  5,  5,  5,  5, 75, 75, 75, 75, 75, 75, 75,  5,  5,  0, 55, 50, 50, 59, 66, 11,  5, 19,  0,  0, 39],
+      [40,  5,  5,  5,  5,  5, 5, 75, 11,  5, 17, 75, 11,  5,  5,  0, 55, 50, 50, 59, 66, 11,  5, 17,  0,  0, 37],
 
-      [39,  5,  5,  5,  5,  5, 75,105,109,105,108,105, 75,  5,  5, 11, 47, 57, 58, 63, 66, 11, 19,  0,  0,  0, 39],
+      [40,  5,  5,  5,  5,  5, 17,105,109,105,108,105, 75,  5,  5, 11, 47, 57, 58, 63, 66, 11, 11,  0,  17,  11, 37],
 
-      [39,  5,  5,  5,  5,  5,  5,108,105,109,107,105, 75,  5,  5,  0, 47, 49,  3,111,112,113, 19,  0,  0,  0, 39],
+      [40,  5,  5,  5,  5,  5, 11,108,105,109,107,105, 17,  5,  5,  0, 47, 49,  3,111,112,113, 19,  0,  11,  0, 37],
 
-      [39,  5,  5,  5,  5,  5,  5,105,109,105,110,105, 75,  5,  5,  0, 47, 49,  3,114,115,116,  0,  0,  0,  0, 39],
+      [40,  5,  5,  5,  5,  5, 75,105,109,105,110,105, 75,  5,  5,  0, 47, 49,  3,114,115,116,  0,  75,  0,  75, 37],
 
-      [41, 41, 41, 44, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 47, 49, 41, 41, 41, 41, 41, 41, 41, 41, 41],
+      [41, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 47, 49, 35, 35, 35, 35, 35, 35, 35, 35, 41],
 
 
 

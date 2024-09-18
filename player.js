@@ -32,6 +32,7 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
+    
     if (this.isAlive) {
       const angle = Math.atan2(
         mouseY - (this.y + this.height / 2),

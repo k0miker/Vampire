@@ -1,7 +1,7 @@
 export default class Map {
     constructor(ctx, map, mapDefinition) {
         this.ctx = ctx;
-        this.map = map;
+        this.map = map; 
         this.mapDefinition = mapDefinition;
         this.width = 64;// px auf dem monitor für ein tile
         this.height = 64;
@@ -12,8 +12,30 @@ export default class Map {
         // this.gap = 1;
         this.tiles = [];
         this.mapDefinition = mapDefinition;
-    }
+        this.obstacles =[];
 
+    }
+    init() {
+
+        
+        for (let y = 0; y < this.map.length; y++) {
+            for (let x = 0; x < this.map[y].length; x++) {
+                const tileIndex = this.map[y][x];
+                const tile = this.mapDefinition[tileIndex];
+                if (!tile.pass) {
+                    this.obstacles.push({ x:x * this.width,
+                        y:y * this.height,
+                        width:this.width,
+                        height:this.height})
+                }
+                
+               
+                
+            }
+        }
+        console.log(this.obstacles[2]);
+    }
+ 
  
 
     drawMap(backgroundX,backgroundY) {
@@ -35,6 +57,14 @@ export default class Map {
                     );
                 
             }
+        }
+        for (let i = 0; i < this.obstacles.length; i++){
+            this.ctx.strokeStyle = ("white");
+            // this.ctx.strokeRect = (this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+            // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+
+            this.ctx.strokeRect(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
+            console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
         }
     }
         

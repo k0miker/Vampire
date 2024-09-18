@@ -46,10 +46,10 @@ export function clickHandler(e) {
   let dx = this.player.x - this.mouseX;
   let dy = this.player.y - this.mouseY;
   let dist = Math.sqrt(dx * dx + dy * dy);
-  console.log(
-    this.player.x + this.player.width / 2,
-    this.player.y + this.player.height / 2
-  );
+  // console.log(
+  //   this.player.x + this.player.width / 2,
+  //   this.player.y + this.player.height / 2
+  // );
 
   const bullet = new Bullet(
     this.player.x,

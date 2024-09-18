@@ -18,6 +18,7 @@ export default class Game {
   constructor() {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
+    this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
     this.zombiCount = 5;
@@ -111,10 +112,10 @@ export default class Game {
   resizeCanvas() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.ctx.scale(
-      window.innerWidth / this.gameWindowWidth,
-      window.innerHeight / this.gameWindowHeight
-    );
+    // this.ctx.scale(
+    //   window.innerWidth / this.gameWindowWidth,
+    //   window.innerHeight / this.gameWindowHeight
+    // );
   }
 
   animate(currentTime) {

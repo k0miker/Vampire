@@ -20,7 +20,6 @@ export default class Player {
     this.vy = 0;
     this.wx = [1, 3, -1];
     // this.map = map; // Speichere die Map-Instanz
-    
   }
 
   takeDamage(damage) {
@@ -33,7 +32,6 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
-    
     if (this.isAlive) {
       const angle = Math.atan2(
         mouseY - (this.y + this.height / 2),
@@ -112,9 +110,7 @@ export default class Player {
       ctx.restore(); // Restore the previous state of the canvas context
     }
   }
-
 }
-
 
 // function isColliding(rect1, rect2) {
 //   return (
@@ -124,7 +120,3 @@ export default class Player {
 //     rect1.y + rect1.height > rect2.y
 //   );
 // }
-
-
-
-

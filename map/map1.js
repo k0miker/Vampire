@@ -5,6 +5,8 @@ export default class Map1 {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
     this.groundSheet = new Image();
     this.groundSheet.src = "./assets/ground.png";
+    this.fullSheet = new Image();
+    this.fullSheet.src = "./assets/tileset.png";
     this.obstacleSheet = new Image();
     this.obstacleSheet.src = "./assets/obsticle.png";
     this.natureSheet = new Image();
@@ -15,6 +17,8 @@ export default class Map1 {
     this.housesSheet.src = "./assets/houses.png";
     this.acherSheet = new Image();
     this.acherSheet.src = "./assets/achers.png";
+    this.vendorSheet = new Image();
+    this.vendorSheet.src = "./assets/vendor.png";
 
     this.mapDefinition = [
       { index: 0, src: this.natureSheet, x: 0, y: 0 , pass:true ,spawn:false},
@@ -95,7 +99,7 @@ export default class Map1 {
         { index: 72, src: this.streetSheet, x: 17, y: 68 , pass:true ,spawn:false},
         { index: 73, src: this.streetSheet, x: 34, y: 68 , pass:true ,spawn:false},
         { index: 74, src: this.streetSheet, x: 51, y: 68 , pass:true ,spawn:false},
-
+//häuser
         {index: 75, src: this.housesSheet, x: 0, y: 0, pass:false ,spawn:false},
         {index: 76, src: this.housesSheet, x: 17, y: 0, pass:false ,spawn:false},
         {index: 77, src: this.housesSheet, x: 34, y: 0, pass:false ,spawn:false},
@@ -126,48 +130,53 @@ export default class Map1 {
         {index: 102, src: this.housesSheet, x: 34, y: 85, pass:false ,spawn:false},
         {index: 103, src: this.housesSheet, x: 51, y: 85, pass:false ,spawn:false},
         {index: 104, src: this.housesSheet, x: 68, y: 85, pass:false ,spawn:false},
-
+//Äcker
         {index: 105, src: this.acherSheet, x: 0, y: 0, pass:true ,spawn:false},
         {index: 106, src: this.acherSheet, x: 17, y: 0, pass:true ,spawn:false},
         {index: 107, src: this.acherSheet, x: 34, y: 0, pass:true ,spawn:false},
         {index: 108, src: this.acherSheet, x: 0, y: 17, pass:true ,spawn:false},
         {index: 109, src: this.acherSheet, x: 17, y: 17, pass:true ,spawn:false},
-        {index: 110, src: this.acherSheet, x: 34, y: 17, pass:true ,spawn:false},
+        {index: 110, src: this.acherSheet, x: 34, y: 17, pass:true ,spawn:false,},  
+
+        {index: 111, src: this.fullSheet, x: 340, y: 95, pass:true ,spawn:false},
+        {index: 112, src: this.fullSheet, x: 357, y: 95, pass:true ,spawn:false},
+        {index: 113, src: this.fullSheet, x: 374, y: 95, pass:true ,spawn:false},
 
 
 
     ];
 
     this.map = [
-      [41, 41, 41, 41, 41, 41, 41, 40, 13,  0, 46, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41],
+      [41, 41, 41, 41, 41, 41, 41, 40, 13,  0, 46, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41],
 
-      [39, 39, 42, 17, 11, 42, 42,  0, 13,  5,  5, 15,  7,  7, 14,  0,  5, 11, 17,  0,  0,  0],
+      [39, 39, 42, 17, 11, 42, 42,  0, 13,  5,  5, 15,  7,  7, 14,  0,  5, 11, 17, 11, 17,  0,  0,  0,  0,  0,  0],
 
-      [39, 40,  5,  7,  7,  3,  7,  7, 10,  7,  7,  8, 17, 11, 13,  0,  1,  1,  0,  0,  0,  0],
+      [39, 40,  5,  7,  7,  3,  7,  7, 10,  7,  7,  8, 17, 11, 13,  0, 17, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0],
 
-      [39, 43,  5, 18,  0, 13, 17,  0, 76, 77, 78, 19, 11, 17, 13,  0,  2,  2,  2,  1,  0,  0],
+      [39, 43,  5, 18,  0, 13, 17,  0, 76, 77, 78, 19, 11, 17, 13,  0,  2,  2,  2, 17,  0,  0, 19,  0,  0,  0,  0],
 
-      [39, 40, 17, 18, 19, 13, 11, 19, 86, 87, 88, 31, 19,  5, 13,  0,  2,  2,  1,  1,  0,  0],
+      [39, 40, 17, 18, 19, 13, 11, 19, 86, 87, 88, 31, 19,  5, 13,  0, 17,  2, 17, 17,  0,  0,  0, 19,  0,  0,  0],
 
-      [39, 43, 11, 23, 24, 13, 19, 31, 95, 97, 99, 17, 31, 11,  4,  7,  2,  1,  2,  3,  0,  0],
+      [39, 43, 11, 23, 24, 13, 19, 31, 95, 97, 99, 17, 31, 11,  4,  7, 17, 17,  2,  3,  0,  0,  0, 19,  0, 19,  0],
 
-      [39,  5, 17, 11,  0, 13, 31,  0,100,102,104,  0, 11,  0,  5,  0,  2,  5,  2,  3,  0,  0],
+      [39,  5, 17, 11,  0, 13, 31,  0,100,102,104,  0, 11,  0,  5,  0, 17,  5, 17,  3,  0,  0, 19,  0,  0,  0,  0],
 
-      [39,  5,  0,  0,  0,  4,  7,  7,  7,  8, 17,  0, 19,  0,  5,  0,  2,  5,  2,  0,  0,  0],
+      [39,  5,  0,  0,  0,  4,  7,  7,  7,  8, 17,  0, 19,  0,  5,  0,  2,  5, 17,  0,  0, 19,  0, 19,  0,  0,  0],
 
-      [39,  5,  5,  5,  5,  5, 75, 75, 75, 75, 75, 75,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0],
+      [39,  5,  5,  5,  5,  5, 75, 75, 75, 75, 75, 75, 75,  5,  5,  0, 17,  5,  3,  0,  0,  0,  0, 19,  0,  0,  0],
 
-      [39,  5,  5,  5,  5,  5, 75,105,109,105,108,105,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0],
+      [39,  5,  5,  5,  5,  5, 75,105,109,105,108,105, 75,  5,  5,  0, 17,  5,  3,  0,  0,  0, 19,  0,  0,  0,  0],
 
-      [39,  5,  5,  5,  5,  5,  5,107,105,107,  5,  5,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0],
+      [39,  5,  5,  5,  5,  5,  5,108,105,109,107,105, 75,  5,  5,  0,  2,  5,  3,  0,  0,  0, 19,  0,  0,  0,  0],
 
-      [39,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0],
+      [39,  5,  5,  5,  5,  5,  5,105,109,105,110,105, 75,  5,  5,  0,  2,  5,  3,  0,  0,  0,  0,  0,  0,  0,  0],
 
-      [39,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0],
+      [39,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  0,  2,  5,  3,  0,  0,  0,  0,  0,  0,  0,  0],
 
-      [39,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+
+
     ];
-
+console.log(this.map[1].length);
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
   }
 

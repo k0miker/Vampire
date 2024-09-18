@@ -107,6 +107,7 @@ export default class Game {
     // Spielerbewegung innerhalb der Grenzen der Karte
     this.player.x += this.player.vx * deltaTime * 30;
     this.player.y += this.player.vy * deltaTime * 30;
+console.log(this.player.x, this.player.y);
 
     if (this.player.x < 0) this.player.x = 0;
     if (this.player.y < 0) this.player.y = 0;

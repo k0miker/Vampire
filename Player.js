@@ -16,6 +16,7 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
+    this.invinsibleTimer = 0;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
@@ -32,6 +33,11 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
+    //invinsibleTimer
+
+    console.log(this.invinsibleTimer);
+    if (this.invinsibleTimer < 1) this.invinsibleTimer = 0;
+    else this.invinsibleTimer--;
     if (this.isAlive) {
       const angle = Math.atan2(
         mouseY - (this.y + this.height / 2),

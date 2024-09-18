@@ -1,4 +1,3 @@
-
 export default class Enemy {
   constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
@@ -12,16 +11,24 @@ export default class Enemy {
     this.weaponType = weaponType;
     this.walkTimer = 1;
     this.indexX = 527;
-    this.aggroRange = 350; //* Settings.difficulty; 
+    this.aggroRange = 350; //* Settings.difficulty;
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
   }
 
-  update(playerX, playerY, deltaTime, backgroundX, backgroundY,obstacleCollision) {
+  update(
+    playerX,
+    playerY,
+    deltaTime,
+    backgroundX,
+    backgroundY,
+    obstacleCollision,
+    player
+  ) {
     if (this.status === "alive") {
-      let dx = playerX - (this.x + this.width/2);
-      let dy = playerY - (this.y + this.height/2);
+      let dx = playerX - (this.x + this.width / 2);
+      let dy = playerY - (this.y + this.height / 2);
       let dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.aggroRange) {
@@ -29,13 +36,31 @@ export default class Enemy {
       }
 
       if (this.isAggro) {
-        
-        
-        this.x += (dx / dist) * this.speed * deltaTime * 60;
-        if(obstacleCollision.collision(this))this.x -=(dx / dist) * this.speed * deltaTime * 60;
-        this.y += (dy / dist) * this.speed * deltaTime * 60;
-        if(obstacleCollision.collision(this))this.y-= (dy / dist) * this.speed * deltaTime * 60;
+        //playerCollision
+        if (
+          this.x < player.x + player.width &&
+          this.x + this.width > player.x &&
+          this.y < player.y + player.height &&
+          this.y + this.height > player.y
+        ) {
+          this.x -= (dx / dist) * this.speed * deltaTime * 60;
+          this.y -= (dy / dist) * this.speed * deltaTime * 60;
+          if (player.invinsibleTimer === 0) {
+            player.health -= 10;
+            player.invinsibleTimer = 30;
+            console.log("enemyCollision", this);
+          }
+          player.health -= 10;
+          player.invinsibleTimer = 30;
+          console.log("enemyCollision", this);
+        }
 
+        this.x += (dx / dist) * this.speed * deltaTime * 60;
+        if (obstacleCollision.collision(this))
+          this.x -= (dx / dist) * this.speed * deltaTime * 60;
+        this.y += (dy / dist) * this.speed * deltaTime * 60;
+        if (obstacleCollision.collision(this))
+          this.y -= (dy / dist) * this.speed * deltaTime * 60;
       }
     }
   }
@@ -72,8 +97,8 @@ export default class Enemy {
         spriteY,
         16,
         16,
-        this.x - backgroundX-this.width/2,
-        this.y - backgroundY-this.height /2,
+        this.x - backgroundX - this.width / 2,
+        this.y - backgroundY - this.height / 2,
         this.width,
         this.height
       );
@@ -99,8 +124,8 @@ export default class Enemy {
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
-        this.x - backgroundX-this.width/2,
-        this.y - backgroundY - this.height/2,
+        this.x - backgroundX - this.width / 2,
+        this.y - backgroundY - this.height / 2,
         this.width,
         this.height
       );

@@ -11,7 +11,7 @@ import {
   mousemoveHandler,
   keyUpHandler,
   keyDownHandler,
-  clickHandler
+  clickHandler,
 } from "./controlls.js";
 
 export default class Game {
@@ -24,7 +24,7 @@ export default class Game {
     this.zombiCount = 5;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
-    this.currentMap = new Map(); 
+    this.currentMap = new Map();
     this.spawnZoneTiles = [17, 11, 5, 105, 107];
 
     this.bullets = [];
@@ -38,14 +38,14 @@ export default class Game {
     this.obstacleCollision = new ObstacleCollision(this.map.obstacles);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
-   
+
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
 
-     // Erstellen Sie eine Instanz der Karte
-    
+    // Erstellen Sie eine Instanz der Karte
+
     // Zombies spawnen
     this.spawnZombies();
 
@@ -56,7 +56,7 @@ export default class Game {
     document.addEventListener("keyup", keyUpHandler.bind(this));
     document.addEventListener("click", clickHandler.bind(this));
     window.addEventListener("resize", this.resizeCanvas.bind(this)); // Event-Listener für Fenstergrößenänderung
-    
+
     this.lastTime = 0;
     this.animate(0);
   }
@@ -70,7 +70,6 @@ export default class Game {
         if (this.spawnZoneTiles.includes(map[y][x])) {
           positions.push({ x, y });
           // Füge umliegende Felder hinzu
-         
         }
       }
     }
@@ -79,32 +78,28 @@ export default class Game {
 
   spawnZombie(i) {
     const spawnPositions = this.getSpawnPositions();
-    const pos = spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
+    const pos =
+      spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
     const x = pos.x * 48; // Tile-Größe anpassen
     const y = pos.y * 48; // Tile-Größe anpassen
-    if(!this.obstacleCollision.collision({x:x,y:y,width:48,height:48}))
-    this.enemies.push(new Enemy(
-      x,
-      y,
-      48,
-      48,
-      1,
-      100,
-      "./assets/tileset.png",
-      "pistol"
-    ))
+    if (
+      !this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })
+    )
+      this.enemies.push(
+        new Enemy(x, y, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+      );
     else {
-    return false;
-
+      return false;
     }
     return true;
   }
 
   spawnZombies() {
-    for (let i = 0; i < this.zombiCount; i++) { // Spawne 15 Zombies
+    for (let i = 0; i < this.zombiCount; i++) {
+      // Spawne 15 Zombies
       let spawned = false;
       while (!spawned) {
-        spawned=this.spawnZombie();
+        spawned = this.spawnZombie();
       }
     }
   }
@@ -124,10 +119,11 @@ export default class Game {
 
     // Spielerbewegung innerhalb der Grenzen der Karte+collision
     this.player.x += this.player.vx * deltaTime * 30;
-    if(this.obstacleCollision.collision(this.player))this.player.x -=this.player.vx;
+    if (this.obstacleCollision.collision(this.player))
+      this.player.x -= this.player.vx;
     this.player.y += this.player.vy * deltaTime * 30;
-    if(this.obstacleCollision.collision(this.player))this.player.y-=this.player.vy;
-
+    if (this.obstacleCollision.collision(this.player))
+      this.player.y -= this.player.vy;
 
     if (this.player.x < 0) this.player.x = 0;
     if (this.player.y < 0) this.player.y = 0;
@@ -148,10 +144,9 @@ export default class Game {
         this.hud.score += 1;
         // Spawne einen neuen Zombie
         let spawned = false;
-        while(!spawned){
-          spawned=this.spawnZombie();
+        while (!spawned) {
+          spawned = this.spawnZombie();
         }
-         
       }
       enemy.update(
         this.player.x + this.player.width / 2,
@@ -159,7 +154,8 @@ export default class Game {
         deltaTime,
         0,
         0,
-        this.obstacleCollision
+        this.obstacleCollision,
+        this.player
       );
       enemy.draw(
         this.ctx,
@@ -186,14 +182,17 @@ export default class Game {
         i--;
       } else {
         let hitIndex = undefined;
-        hitIndex = this.bullets[i].update(deltaTime, this.enemies, 0, 0, this.obstacleCollision);
-        if (hitIndex === 1000) {  
-        
-
-        this.bullets.splice(i, 1);
-        i--;}
-
-        else if (hitIndex > -1) {
+        hitIndex = this.bullets[i].update(
+          deltaTime,
+          this.enemies,
+          0,
+          0,
+          this.obstacleCollision
+        );
+        if (hitIndex === 1000) {
+          this.bullets.splice(i, 1);
+          i--;
+        } else if (hitIndex > -1) {
           this.bloodsplosions.push(
             new Bloodsplosion(
               this.bullets[i].x,
@@ -227,7 +226,6 @@ export default class Game {
     this.hud.draw(this.enemies.length, this.bullets.length);
     requestAnimationFrame(this.animate.bind(this));
   }
-
 }
 
 // Initialisiere das Spiel

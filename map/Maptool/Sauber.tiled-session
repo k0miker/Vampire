@@ -1,0 +1,59 @@
+{
+    "activeFile": "map13.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "C:/Users/coblo/Desktop/house1.tsx": {
+            "scaleInDock": 1
+        },
+        "achers.tsx": {
+            "scaleInDock": 1
+        },
+        "achers2.tsx": {
+            "scaleInDock": 1
+        },
+        "ground.tsx": {
+            "scaleInDock": 1
+        },
+        "house2.tsx": {
+            "scaleInDock": 1
+        },
+        "map13.json": {
+            "scale": 1.5085648148148147,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 169.6977136719349,
+                "y": 104.07242596286633
+            }
+        },
+        "nature.tsx": {
+            "scaleInDock": 1
+        },
+        "obsticle.tsx": {
+            "scaleInDock": 1
+        },
+        "rest.tsx": {
+            "scaleInDock": 1
+        },
+        "rest2.tsx": {
+            "scaleInDock": 1
+        },
+        "street.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/coblo/Desktop/DCI/Vampire/assets",
+    "openFiles": [
+        "map13.json"
+    ],
+    "project": "Sauber.tiled-project",
+    "recentFiles": [
+        "map13.json"
+    ],
+    "tileset.spacing": 1,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 2
+    }
+}

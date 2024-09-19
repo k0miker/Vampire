@@ -188,7 +188,6 @@ export default class Map1 {
     ];
 // console.log(this.map[1].length);
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
-    console.log(this.map[0].lenght);
   }
 
   // draw() {

@@ -10,7 +10,7 @@ export default class Enemy {
     this.health = hp;
     this.weaponType = weaponType;
     this.walkTimer = 1;
-    this.indexX = 527;
+    this.indexX = 0;
     this.aggroRange = 350; //* Settings.difficulty;
     this.isAggro = false;
     this.status = "alive";
@@ -48,11 +48,11 @@ export default class Enemy {
           if (player.invinsibleTimer === 0) {
             player.health -= 10;
             player.invinsibleTimer = 30;
-            console.log("enemyCollision", this);
+            // console.log("enemyCollision", this);
           }
           player.health -= 10;
           player.invinsibleTimer = 30;
-          console.log("enemyCollision", this);
+          // console.log("enemyCollision", this);
         }
 
         this.x += (dx / dist) * this.speed * deltaTime * 60;
@@ -71,7 +71,7 @@ export default class Enemy {
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;
-        if (this.indexX > 527) this.indexX = 493;
+        if (this.indexX > 50) this.indexX = 0;
       }
 
       const angle = Math.atan2(
@@ -81,13 +81,13 @@ export default class Enemy {
 
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
-        spriteY = 152;
+        spriteY = 40;
       } else if (angle > Math.PI / 4 && angle <= (3 * Math.PI) / 4) {
-        spriteY = 114;
+        spriteY = 0;
       } else if (angle > (3 * Math.PI) / 4 || angle <= -(3 * Math.PI) / 4) {
-        spriteY = 152;
+        spriteY = 40;
       } else {
-        spriteY = 133;
+        spriteY = 20;
       }
 
       ctx.save();
@@ -106,8 +106,9 @@ export default class Enemy {
     }
     if (this.status === "dying") {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
-
+      this.image.src = "./assets/tileset.png";
       this.deathTimer -= 1 * deltaTime * 60;
+      
       if (this.deathTimer <= 0) {
         this.indexX += 17;
         this.deathTimer = 15;
@@ -139,7 +140,7 @@ export default class Enemy {
       if (this.health <= 0) {
         console.log("Enemy is dead. Starting death animation.");
         this.status = "dying";
-        this.indexX = 561;
+        this.indexX = 595;
       }
     }
   }

@@ -21,7 +21,7 @@ export default class Game {
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
-    this.zombiCount = 5;
+    this.zombiCount = 15;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.currentMap = new Map();
@@ -76,30 +76,59 @@ export default class Game {
     return positions;
   }
 
-  spawnZombie(i) {
+  spawnZombie() {
     const spawnPositions = this.getSpawnPositions();
-    const pos =
-      spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
-    const x = pos.x * 48; // Tile-Größe anpassen
-    const y = pos.y * 48; // Tile-Größe anpassen
-    if (
-      !this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })
-    )
+    const pos = spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
+    const x = pos.x * 48;
+    const y = pos.y * 48;
+  
+    // Randomly select a zombie type (0 to 3)
+    const zombieType = Math.floor(Math.random() * 4);
+    
+    // Assign different sprites and speeds
+    let zombieSprite;
+    let zombieSpeed;
+    let zombiHP;
+    
+    switch (zombieType) {
+      case 0:
+        zombieSprite = "./assets/zombi0.png";
+        zombieSpeed = 0.5;
+        zombiHP = 200;
+        break;
+      case 1:
+        zombieSprite = "./assets/zombi1.png";
+        zombieSpeed = 1;
+        zombiHP = 100;
+        break;
+      case 2:
+        zombieSprite = "./assets/zombi2.png";
+        zombieSpeed = 0.25;
+        zombiHP = 125;
+        break;
+      case 3:
+        zombieSprite = "./assets/zombi3.png";
+        zombieSpeed = 3.0; 
+        zombiHP = 75;
+        break;
+    }
+  
+    // Only spawn zombie if it doesn't collide with an obstacle
+    if (!this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })) {
       this.enemies.push(
-        new Enemy(x, y, 48, 48, 1, 100, "./assets/tileset.png", "pistol")
+        new Enemy(x, y, 48, 48, zombieSpeed, zombiHP, zombieSprite) // Speed & sprite assigned
       );
-    else {
+    } else {
       return false;
     }
     return true;
   }
-
+  
   spawnZombies() {
     for (let i = 0; i < this.zombiCount; i++) {
-      // Spawne 15 Zombies
       let spawned = false;
       while (!spawned) {
-        spawned = this.spawnZombie();
+        spawned = this.spawnZombie(); // Now spawns random zombie type
       }
     }
   }

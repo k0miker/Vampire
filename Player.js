@@ -35,7 +35,7 @@ export default class Player {
   draw(ctx, mouseX, mouseY, deltaTime) {
     //invinsibleTimer
 
-    console.log(this.invinsibleTimer);
+    // console.log(this.invinsibleTimer);
     if (this.invinsibleTimer < 1) this.invinsibleTimer = 0;
     else this.invinsibleTimer--;
     if (this.isAlive) {

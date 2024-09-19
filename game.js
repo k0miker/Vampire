@@ -1,4 +1,4 @@
-import Game from "./game2.js";
-import Settings from "./settings.js";
+import Game from "./Game2.js";
+import Settings from "./Settings.js";
 
 const game = new Game(0);

@@ -1,11 +1,11 @@
 import Player from "./Player.js";
-import Enemy from "./enemy.js";
+import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js";
-import Settings from "./settings.js";
+import Settings from "./Settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
-import Map from "./map.js";
-import Map1 from "./map/map1.js";
+import Map from "./Map.js";
+import Map1 from "./map/Map1.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
 import {
   mousemoveHandler,

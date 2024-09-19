@@ -1,4 +1,4 @@
-import Map from "../map.js";
+import Map from "../Map.js";
 
 export default class Map2 {
   constructor(ctx) {

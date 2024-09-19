@@ -2,7 +2,7 @@
 export default class Player {
   constructor() {
     this.x = 166;
-    this.y = 170;
+    this.y = 350;
     this.width = 50;
     this.height = 50;
     this.speed = 8;

@@ -27,7 +27,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 0, y: 2 };
+    this.mapIndex = { x: 2, y: 3 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
     // this.currentMap = new Map1(this.ctx);
     this.mapHandler = new MapHandler(
@@ -326,12 +326,12 @@ class Game {
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-    
+
     this.mapHandler.map = this.currentMap.map;
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.enemies = [];
-    this.spawnZombies()
+    this.spawnZombies();
   }
 
   showRestartOverlay() {

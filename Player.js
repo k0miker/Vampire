@@ -16,7 +16,7 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.invinsibleTimer = 0;
+    this.invinsibleTimer = 60000;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];

@@ -40,7 +40,7 @@ export default class Map1 {
       { index: 16, src: this.groundSheet, x: 68, y: 34 , pass:true ,spawn:false},
       { index: 17, src: this.groundSheet, x: 85, y: 34 , pass:true ,spawn:false},
 
-      { index: 18, src: this.natureSheet, x: 17, y: 0 , pass:false ,spawn:false},
+      { index: 18, src: this.natureSheet, x: 17, y: 0 , pass:true ,spawn:false},
       { index: 19, src: this.natureSheet, x: 34, y: 0 , pass:false ,spawn:false},
       { index: 20, src: this.natureSheet, x: 51, y: 0 , pass:false ,spawn:false},
       { index: 21, src: this.natureSheet, x: 68, y: 0 , pass:false ,spawn:false},

@@ -123,6 +123,15 @@ export default class Game {
     }
     return true;
   }
+
+  spawnZombieWithDelay(delay) {
+    setTimeout(() => {
+      let spawned = false;
+      while (!spawned) {
+        spawned = this.spawnZombie();
+      }
+    }, delay);
+  }
   
   spawnZombies() {
     for (let i = 0; i < this.zombiCount; i++) {
@@ -171,11 +180,8 @@ export default class Game {
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
         this.hud.score += 1;
-        // Spawne einen neuen Zombie
-        let spawned = false;
-        while (!spawned) {
-          spawned = this.spawnZombie();
-        }
+        // Spawne einen neuen Zombie nach einer Verzögerung von 30 Sekunden
+        this.spawnZombieWithDelay(30000); // 30000 Millisekunden = 30 Sekunden
       }
       enemy.update(
         this.player.x + this.player.width / 2,

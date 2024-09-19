@@ -4,7 +4,7 @@ import Bullet from "./Bullet.js";
 import Settings from "./Settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
-import Map from "./Map.js";
+import MapHandler from "./MapHandler.js";
 import Map1 from "./map/Map1.js";
 import Map2 from "./map/Map2.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
@@ -14,7 +14,7 @@ import {
   keyDownHandler,
   clickHandler,
 } from "./controlls.js";
-
+import mapArray from "./map/mapArray.js";
 class Game {
   constructor(difficulty) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -28,14 +28,17 @@ class Game {
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
-    this.currentMap = new Map1(this.ctx);
-    this.map = new Map(
-      this.ctx,
-      this.currentMap.map,
-      this.currentMap.mapDefinition
+    this.mapArray = mapArray;
+    this.mapIndex = { x: 0, y: 2 };
+    this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
+    // this.currentMap = new Map1(this.ctx);
+    this.mapHandler = new MapHandler(
+    this.ctx,
+    this.currentMap.map,
+    this.currentMap.mapDefinition
     );
-    this.map.init();
-    this.obstacleCollision = new ObstacleCollision(this.map.obstacles);
+    this.mapHandler.init();
+    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
 
@@ -166,26 +169,49 @@ class Game {
       this.player.y -= this.player.vy;
 
     if (this.player.x < 0) this.player.x = 0;
-    if (this.player.y < 0) {this.player.y = 0;
-    
-      this.currentMap = new Map2(this.ctx);
-    this.map = new Map(
-      this.ctx,
-      this.currentMap.map,
-      this.currentMap.mapDefinition
-    );
-    this.map.init();
-      this.player.y = 300;
+    if (this.player.y < 0) 
+    {
+      this.mapIndex.y -=1
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
+      // this.currentMap = new Map2(this.ctx);
+      this.mapHandler.map = this.currentMap.map;
+      this.mapHandler.init();
+      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      this.player.y = this.gameWindowHeight;
     }
+    // {
+    
+    
+    //   this.currentMap = new Map2(this.ctx);
+    // this.map = new Map(
+    //   this.ctx,
+    //   this.currentMap.map,
+    //   this.currentMap.mapDefinition
+    // );
+    // this.map.init();
+    //   this.player.y = 300;
+    // }
     if (this.player.x > this.gameWindowWidth )
       this.player.x = this.gameWindowWidth ;
-    if (this.player.y > this.gameWindowHeight )
-      this.player.y = this.gameWindowHeight ;
+
+    //player kolli
+    if (this.player.y > this.gameWindowHeight)
+ {
+ 
+      this.mapIndex.y += 1
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
+      // this.currentMap = new Map2(this.ctx);
+      this.mapHandler.map = this.currentMap.map;
+      this.mapHandler.init();
+      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      this.player.y = this.gameWindowHeight;
+      this.player.y = 0;
+    }
 
     // Zeichne die Karte anstelle des Hintergrundbildes
     this.ctx.fillStyle = "#443830";
     this.ctx.fillRect(0, 0, this.gameWindowWidth, this.gameWindowHeight);
-    this.map.drawMap(0, 0);
+    this.mapHandler.drawMap(0, 0);
 
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {

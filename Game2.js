@@ -23,7 +23,7 @@ class Game {
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
-    this.zombiCount = 15;
+    this.zombiCount = 1;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.currentMap = new Map();
@@ -210,13 +210,13 @@ class Game {
     // Kollisionserkennung
     this.obstacleCollision.collision(this.player);
 
-    // Update und Zeichne Kugeln
+    //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       if (
         this.bullets[i].x < 0 ||
         this.bullets[i].y < 0 ||
-        this.bullets[i].x > window.innerWidth + this.bullets[i].width ||
-        this.bullets[i].y > window.innerHeight + this.bullets[i].height
+        this.bullets[i].x > this.gameWindowWidth + this.bullets[i].width ||
+        this.bullets[i].y > this.gameWindowHeight + this.bullets[i].height
       ) {
         this.bullets.splice(i, 1);
         i--;

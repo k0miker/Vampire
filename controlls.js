@@ -1,8 +1,8 @@
 import Bullet from "./Bullet.js";
 
 export function mousemoveHandler(e) {
-  this.mouseX = e.clientX;
-  this.mouseY = e.clientY;
+  this.mouseX = e.clientX * (this.gameWindowWidth / window.innerWidth);
+  this.mouseY = e.clientY * (this.gameWindowHeight / window.innerHeight);
 }
 
 export function keyUpHandler(e) {
@@ -33,14 +33,17 @@ export function keyDownHandler(e) {
   if (e.code === "KeyD") {
     this.player.vx = this.player.speed;
   }
-  if ( e.code === "ShiftLeft" &&  (e.code === "KeyW" ||      e.code === "KeyS" ||      e.code === "KeyA" ||      e.code === "KeyD")  ) {
+  if (
+    e.code === "ShiftLeft" &&
+    (e.code === "KeyW" ||
+      e.code === "KeyS" ||
+      e.code === "KeyA" ||
+      e.code === "KeyD")
+  ) {
     console.log(e.code);
     this.player.speed = 2;
   }
-
-  
 }
-
 
 export function clickHandler(e) {
   let dx = this.player.x - this.mouseX;

@@ -18,6 +18,8 @@ class Game {
   constructor(difficulty) {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
@@ -148,10 +150,10 @@ class Game {
   resizeCanvas() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    // this.ctx.scale(
-    //   window.innerWidth / this.gameWindowWidth,
-    //   window.innerHeight / this.gameWindowHeight
-    // );
+    this.ctx.scale(
+      window.innerWidth / this.gameWindowWidth,
+      window.innerHeight / this.gameWindowHeight
+    );
   }
 
   animate(currentTime) {
@@ -175,7 +177,7 @@ class Game {
 
     // Zeichne die Karte anstelle des Hintergrundbildes
     this.ctx.fillStyle = "#443830";
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillRect(0, 0, this.gameWindowWidth, this.gameWindowHeight);
     this.map.drawMap(0, 0);
 
     // Update und Zeichne Gegner

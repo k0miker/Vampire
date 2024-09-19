@@ -1,7 +1,7 @@
 // player.js
 export default class Player {
   constructor() {
-    this.x = 170;
+    this.x = 166;
     this.y = 170;
     this.width = 50;
     this.height = 50;

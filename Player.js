@@ -1,11 +1,11 @@
 // player.js
 export default class Player {
   constructor() {
-    this.x = 170;
+    this.x = 166;
     this.y = 170;
     this.width = 50;
     this.height = 50;
-    this.speed = 4;
+    this.speed = 8;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";
@@ -16,7 +16,7 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.invinsibleTimer = 0;
+    this.invinsibleTimer = 60000;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
@@ -35,7 +35,7 @@ export default class Player {
   draw(ctx, mouseX, mouseY, deltaTime) {
     //invinsibleTimer
 
-    console.log(this.invinsibleTimer);
+    // console.log(this.invinsibleTimer);
     if (this.invinsibleTimer < 1) this.invinsibleTimer = 0;
     else this.invinsibleTimer--;
     if (this.isAlive) {

@@ -183,7 +183,7 @@ const mapDefinition = [
 { index: 148, src: acher2Sheet, x: 17, y: 68, pass: false, spawn: false },
 { index: 149, src: acher2Sheet, x: 34, y: 68, pass: false, spawn: false },
 { index: 150, src: acher2Sheet, x: 0, y: 85, pass: false, spawn: false },
-{ index: 151, src: acherSheet, x: 17, y: 85, pass: false, spawn: false },
+{ index: 151, src: acher2Sheet, x: 17, y: 85, pass: false, spawn: false },
 { index: 152, src: acher2Sheet, x: 34, y: 85, pass: false, spawn: false },
 
 { index: 153, src: restSheet, x: 0, y: 0, pass: true, spawn: false },

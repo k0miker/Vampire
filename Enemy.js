@@ -58,10 +58,10 @@ export default class Enemy {
 
   isColliding(player) {
     const topCollision =
-      this.y - this.height / 2 < player.y + player.height &&
-      this.y + this.height / 2 > player.y &&
-      this.x + this.width / 2 > player.x &&
-      this.x - this.width / 2 < player.x + player.width;
+      this.x < player.x + player.width &&
+      this.x + this.width > player.x &&
+      this.y < player.y + player.height &&
+      this.y + this.height > player.y;
 
     return topCollision;
   }

@@ -182,8 +182,8 @@ class Game {
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
         this.hud.score += 1;
-        // Spawne einen neuen Zombie nach einer Verzögerung von 30 Sekunden
-        this.spawnZombieWithDelay(30000); // 30000 Millisekunden = 30 Sekunden
+        // Spawne einen neuen Zombie nach einer Verzögerung
+        this.spawnZombieWithDelay(Math.random()*60000); // 
       }
       enemy.update(
         this.player.x + this.player.width / 2,
@@ -261,13 +261,36 @@ class Game {
 
     // HUD anzeigen
     this.hud.draw(this.enemies.length, this.bullets.length, this.player.health);
+
+    // Überprüfen, ob der Spieler tot ist
+    if (this.player.health <= 0) {
+      this.showRestartOverlay();
+      return; // Animation stoppen
+    }
+
     requestAnimationFrame(this.animate.bind(this));
+  }
+
+  showRestartOverlay() {
+    if (this.player.health <= 0) {
+    document.getElementById("restart-overlay").style.display = "flex";
+    }
   }
 }
 
 // Initialisiere das Spiel erst, wenn der Button gedrückt wird
-document.getElementById("start-button").addEventListener("click", () => {
-  const difficulty = document.getElementById("difficulty-select").value;
-  document.getElementById("overlay").style.display = "none";
-  const game = new Game(difficulty);
+document.addEventListener("DOMContentLoaded", () => {
+  let game;
+
+  document.getElementById("start-button").addEventListener("click", () => {
+    const difficulty = document.getElementById("difficulty-select").value;
+    document.getElementById("overlay").style.display = "none";
+    game = new Game(difficulty);
+  });
+
+  document.getElementById("restart-button").addEventListener("click", () => {
+    document.getElementById("restart-overlay").style.display = "none";
+    const difficulty = document.getElementById("difficulty-select").value;
+    game = new Game(difficulty);
+  });
 });

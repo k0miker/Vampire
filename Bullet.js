@@ -88,24 +88,25 @@ export default class Bullet {
   collisionObstacles() {
     
   }
-  collisionEnemy(enemies, deltaTime, backgroundX, backgroundY,obstacleCollision) {
-    
+  collisionEnemy(enemies, deltaTime, backgroundX, backgroundY, obstacleCollision) {
     for (let i = 0; i < enemies.length; i++) {
-      if (
-        this.x < enemies[i].x + enemies[i].width/2 &&
-        this.x + this.width > enemies[i].x -enemies[i].width/2&&
-        this.y < enemies[i].y + enemies[i].height/2 &&
-        this.y + this.height > enemies[i].y-enemies[i].height/2
+      if (enemies[i].status === "alive" && // Überprüfen, ob der Gegner "alive" ist
+        this.x < enemies[i].x + enemies[i].width / 2 &&
+        this.x + this.width > enemies[i].x - enemies[i].width / 2 &&
+        this.y < enemies[i].y + enemies[i].height / 2 &&
+        this.y + this.height > enemies[i].y - enemies[i].height / 2
       ) {
         enemies[i].x += this.vx * 1;
-        if(obstacleCollision.collision(enemies[i]))enemies[i].x -= this.vx * 1;
+        if (obstacleCollision.collision(enemies[i])) enemies[i].x -= this.vx * 1;
         enemies[i].y += this.vy * 1;
-        if(obstacleCollision.collision(enemies[i]))enemies[i].y -= this.vy * 1;
+        if (obstacleCollision.collision(enemies[i])) enemies[i].y -= this.vy * 1;
         enemies[i].takeDamage(this.dmg);
         enemies[i].isAggro = true; // Setze aggro auf true, wenn der Zombie getroffen wird
-
+  
         return i;
       }
     }
+    return -1; // Keine Kollision
   }
+
 }

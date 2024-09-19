@@ -14,8 +14,8 @@ import {
   clickHandler,
 } from "./controlls.js";
 
-export default class Game {
-  constructor() {
+class Game {
+  constructor(difficulty) {
     this.canvas = document.querySelector("#gameCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.resizeCanvas();
@@ -60,6 +60,7 @@ export default class Game {
     this.lastTime = 0;
     this.animate(0);
   }
+  
 
   getSpawnPositions() {
     const positions = [];
@@ -151,6 +152,7 @@ export default class Game {
     // );
   }
 
+  
   animate(currentTime) {
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
@@ -258,10 +260,14 @@ export default class Game {
     }
 
     // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.bullets.length);
+    this.hud.draw(this.enemies.length, this.bullets.length, this.player.health);
     requestAnimationFrame(this.animate.bind(this));
   }
 }
 
-// Initialisiere das Spiel
-const game = new Game();
+// Initialisiere das Spiel erst, wenn der Button gedrückt wird
+document.getElementById("start-button").addEventListener("click", () => {
+  const difficulty = document.getElementById("difficulty-select").value;
+  document.getElementById("overlay").style.display = "none";
+  const game = new Game(difficulty);
+});

@@ -152,8 +152,8 @@ export default class Map1 {
         {index: 120, src: this.fullSheet, x: 340, y: 248, pass:false ,spawn:false},
 
 //trashcar
-        {index: 121, src: this.fullSheet, x: 594, y: 189, pass:true ,spawn:false},
-        {index: 122, src: this.fullSheet, x: 612, y: 189, pass:true ,spawn:false},
+        {index: 121, src: this.fullSheet, x: 594, y: 189, pass:false ,spawn:false},
+        {index: 122, src: this.fullSheet, x: 612, y: 189, pass:false ,spawn:false},
 
 
 

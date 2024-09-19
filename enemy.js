@@ -1,3 +1,4 @@
+// enemy.js
 export default class Enemy {
   constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
     this.x = x;
@@ -36,33 +37,33 @@ export default class Enemy {
       }
 
       if (this.isAggro) {
-        //playerCollision
-        if (
-          this.x < player.x + player.width &&
-          this.x + this.width > player.x &&
-          this.y < player.y + player.height &&
-          this.y + this.height > player.y
-        ) {
-          this.x -= (dx / dist) * this.speed * deltaTime * 60;
-          this.y -= (dy / dist) * this.speed * deltaTime * 60;
+        // Spieler-Kollision
+        if (this.isColliding(player)) {
+          // Schaden anwenden
           if (player.invinsibleTimer === 0) {
-            player.health -= 10;
-            player.invinsibleTimer = 30;
-            // console.log("enemyCollision", this);
+            player.health -= 10; // Schaden an den Spieler
+            player.invinsibleTimer = 100; // Spieler wird für kurze Zeit unverwundbar
           }
-          player.health -= 10;
-          player.invinsibleTimer = 30;
-          // console.log("enemyCollision", this);
+        } else {
+          this.x += (dx / dist) * this.speed * deltaTime * 60;
+          if (obstacleCollision.collision(this))
+            this.x -= (dx / dist) * this.speed * deltaTime * 60;
+          this.y += (dy / dist) * this.speed * deltaTime * 60;
+          if (obstacleCollision.collision(this))
+            this.y -= (dy / dist) * this.speed * deltaTime * 60;
         }
-
-        this.x += (dx / dist) * this.speed * deltaTime * 60;
-        if (obstacleCollision.collision(this))
-          this.x -= (dx / dist) * this.speed * deltaTime * 60;
-        this.y += (dy / dist) * this.speed * deltaTime * 60;
-        if (obstacleCollision.collision(this))
-          this.y -= (dy / dist) * this.speed * deltaTime * 60;
       }
     }
+  }
+
+  isColliding(player) {
+    const topCollision =
+      this.y - this.height / 2 < player.y + player.height &&
+      this.y + this.height / 2 > player.y &&
+      this.x + this.width / 2 > player.x &&
+      this.x - this.width / 2 < player.x + player.width;
+
+    return topCollision;
   }
 
   draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
@@ -108,7 +109,7 @@ export default class Enemy {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
       this.image.src = "./assets/tileset.png";
       this.deathTimer -= 1 * deltaTime * 60;
-      
+
       if (this.deathTimer <= 0) {
         this.indexX += 17;
         this.deathTimer = 15;

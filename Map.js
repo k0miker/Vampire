@@ -1,5 +1,6 @@
+import mapDefinition from "./map/mapDefinition.js";
 export default class Map {
-    constructor(ctx, map, mapDefinition) {
+    constructor(ctx, map,) {
         this.ctx = ctx;
         this.map = map; 
         this.mapDefinition = mapDefinition;
@@ -11,13 +12,12 @@ export default class Map {
         this.tileHeight = 16;
         // this.gap = 1;
         this.tiles = [];
-        this.mapDefinition = mapDefinition;
         this.obstacles =[];
 
     }
     init() {
 
-        
+        this.obstacles = [];
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {
                 const tileIndex = this.map[y][x];
@@ -58,14 +58,7 @@ export default class Map {
                 
             }
         }
-        // for (let i = 0; i < this.obstacles.length; i++){
-        //     this.ctx.strokeStyle = ("white");
-        //     // this.ctx.strokeRect = (this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-        //     // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-
-        //     this.ctx.strokeRect(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-        //     // console.log(this.obstacles[i].x, this.obstacles[i].y, this.obstacles[i].width, this.obstacles[i].height);
-        // }
+   
     }
         
 

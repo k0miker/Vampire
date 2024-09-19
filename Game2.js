@@ -6,6 +6,7 @@ import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import Map from "./Map.js";
 import Map1 from "./map/Map1.js";
+import Map2 from "./map/Map2.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
 import {
   mousemoveHandler,
@@ -23,12 +24,9 @@ class Game {
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
-    this.zombiCount = 1;
+    this.zombiCount = 15;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
-    this.currentMap = new Map();
-    this.spawnZoneTiles = [17, 11, 5, 105, 107];
-
     this.bullets = [];
     this.currentMap = new Map1(this.ctx);
     this.map = new Map(
@@ -79,11 +77,10 @@ class Game {
   }
 
   spawnZombie() {
-    const spawnPositions = this.getSpawnPositions();
-    const pos =
-      spawnPositions[Math.floor(Math.random() * spawnPositions.length)];
-    const x = pos.x * 48;
-    const y = pos.y * 48;
+    
+    const x = Math.random() * (this.gameWindowWidth - 330)+166;
+    const y = Math.random() * (this.gameWindowHeight - 330)+166;
+    
 
     // Randomly select a zombie type (0 to 3)
     const zombieType = Math.floor(Math.random() * 4);
@@ -169,11 +166,21 @@ class Game {
       this.player.y -= this.player.vy;
 
     if (this.player.x < 0) this.player.x = 0;
-    if (this.player.y < 0) this.player.y = 0;
-    if (this.player.x > this.backgroundXSize - this.player.width)
-      this.player.x = this.backgroundXSize - this.player.width;
-    if (this.player.y > this.backgroundYSize - this.player.height)
-      this.player.y = this.backgroundYSize - this.player.height;
+    if (this.player.y < 0) {this.player.y = 0;
+    
+      this.currentMap = new Map2(this.ctx);
+    this.map = new Map(
+      this.ctx,
+      this.currentMap.map,
+      this.currentMap.mapDefinition
+    );
+    this.map.init();
+      this.player.y = 300;
+    }
+    if (this.player.x > this.gameWindowWidth )
+      this.player.x = this.gameWindowWidth ;
+    if (this.player.y > this.gameWindowHeight )
+      this.player.y = this.gameWindowHeight ;
 
     // Zeichne die Karte anstelle des Hintergrundbildes
     this.ctx.fillStyle = "#443830";

@@ -59,7 +59,7 @@ export default class Map15 {
       ],
     ];
     // console.log(this.map[1].length);
-    this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
+    // this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
   }
 
   // draw() {

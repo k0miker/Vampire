@@ -332,6 +332,7 @@ class Game {
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.enemies = [];
     this.spawnZombies();
+    console.log(mapArray[this.mapIndex.y][this.mapIndex.x]);
   }
 
   showRestartOverlay() {

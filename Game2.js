@@ -30,12 +30,12 @@ class Game {
     this.bullets = [];
     this.mapArray = mapArray;
     this.mapIndex = { x: 0, y: 2 };
-    this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
+    this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
     // this.currentMap = new Map1(this.ctx);
     this.mapHandler = new MapHandler(
-    this.ctx,
-    this.currentMap.map,
-    this.currentMap.mapDefinition
+      this.ctx,
+      this.currentMap.map,
+      this.currentMap.mapDefinition
     );
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
@@ -80,10 +80,8 @@ class Game {
   }
 
   spawnZombie() {
-    
-    const x = Math.random() * (this.gameWindowWidth - 330)+166;
-    const y = Math.random() * (this.gameWindowHeight - 330)+166;
-    
+    const x = Math.random() * (this.gameWindowWidth - 330) + 166;
+    const y = Math.random() * (this.gameWindowHeight - 330) + 166;
 
     // Randomly select a zombie type (0 to 3)
     const zombieType = Math.floor(Math.random() * 4);
@@ -168,44 +166,50 @@ class Game {
     if (this.obstacleCollision.collision(this.player))
       this.player.y -= this.player.vy;
 
-    if (this.player.x < 0) this.player.x = 0;
-    if (this.player.y < 0) 
-    {
-      this.mapIndex.y -=1
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
+    if (this.player.x < 0) {
+      this.mapIndex.x -= 1;
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
       // this.currentMap = new Map2(this.ctx);
       this.mapHandler.map = this.currentMap.map;
       this.mapHandler.init();
       this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-      this.player.y = this.gameWindowHeight;
+      this.player.x = this.gameWindowHeight;
+      console.log(this.mapIndex);
     }
-    // {
-    
-    
-    //   this.currentMap = new Map2(this.ctx);
-    // this.map = new Map(
-    //   this.ctx,
-    //   this.currentMap.map,
-    //   this.currentMap.mapDefinition
-    // );
-    // this.map.init();
-    //   this.player.y = 300;
-    // }
-    if (this.player.x > this.gameWindowWidth )
-      this.player.x = this.gameWindowWidth ;
 
-    //player kolli
-    if (this.player.y > this.gameWindowHeight)
- {
- 
-      this.mapIndex.y += 1
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x];
-      // this.currentMap = new Map2(this.ctx);
+    if (this.player.y < 0) {
+      this.mapIndex.y -= 1;
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+
       this.mapHandler.map = this.currentMap.map;
       this.mapHandler.init();
       this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
       this.player.y = this.gameWindowHeight;
+      console.log(this.mapIndex);
+    }
+
+    if (this.player.x > this.gameWindowWidth) {
+      this.mapIndex.x += 1;
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+
+      this.mapHandler.map = this.currentMap.map;
+      this.mapHandler.init();
+      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+
+      this.player.x = 0;
+      console.log(this.mapIndex);
+    }
+
+    if (this.player.y > this.gameWindowHeight) {
+      this.mapIndex.y += 1;
+      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+      // this.currentMap = new Map2(this.ctx);
+      this.mapHandler.map = this.currentMap.map;
+      this.mapHandler.init();
+      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+
       this.player.y = 0;
+      console.log(this.mapIndex);
     }
 
     // Zeichne die Karte anstelle des Hintergrundbildes

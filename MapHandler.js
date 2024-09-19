@@ -18,7 +18,7 @@ export default class MapHandler {
    
     
     init() {
-        console.log("maphandler"+ this.map);
+        // console.log("maphandler"+ this.map);
         this.obstacles = [];
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {

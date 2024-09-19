@@ -5,8 +5,6 @@ import Settings from "./Settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import MapHandler from "./MapHandler.js";
-import Map1 from "./map/Map1.js";
-import Map2 from "./map/Map2.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
 import {
   mousemoveHandler,
@@ -168,47 +166,63 @@ class Game {
 
     if (this.player.x < 0) {
       this.mapIndex.x -= 1;
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-      // this.currentMap = new Map2(this.ctx);
-      this.mapHandler.map = this.currentMap.map;
-      this.mapHandler.init();
-      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      this.levelChange();
       this.player.x = this.gameWindowHeight;
+      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+      // // this.currentMap = new Map2(this.ctx);
+      // this.mapHandler.map = this.currentMap.map;
+      // this.mapHandler.init();
+      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      // this.player.x = this.gameWindowHeight;
+      // this.enemies = [];
+      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
     if (this.player.y < 0) {
       this.mapIndex.y -= 1;
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-
-      this.mapHandler.map = this.currentMap.map;
-      this.mapHandler.init();
-      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      this.levelChange();
       this.player.y = this.gameWindowHeight;
+      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+
+      // this.mapHandler.map = this.currentMap.map;
+      // this.mapHandler.init();
+      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+      // this.player.y = this.gameWindowHeight;
+      // this.enemies = [];
+      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
     if (this.player.x > this.gameWindowWidth) {
       this.mapIndex.x += 1;
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-
-      this.mapHandler.map = this.currentMap.map;
-      this.mapHandler.init();
-      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-
+      this.levelChange();
       this.player.x = 0;
+      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+
+      // this.mapHandler.map = this.currentMap.map;
+      // this.mapHandler.init();
+      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+
+      // this.player.x = 0;
+      // this.enemies = [];
+      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
     if (this.player.y > this.gameWindowHeight) {
       this.mapIndex.y += 1;
-      this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-      // this.currentMap = new Map2(this.ctx);
-      this.mapHandler.map = this.currentMap.map;
-      this.mapHandler.init();
-      this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-
+      this.levelChange();
       this.player.y = 0;
+      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+      // // this.currentMap = new Map2(this.ctx);
+      // this.mapHandler.map = this.currentMap.map;
+      // this.mapHandler.init();
+      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+
+      // this.player.y = 0;
+      // this.enemies = [];
+      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
@@ -309,6 +323,15 @@ class Game {
     }
 
     requestAnimationFrame(this.animate.bind(this));
+  }
+  levelChange() {
+    this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
+    
+    this.mapHandler.map = this.currentMap.map;
+    this.mapHandler.init();
+    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+    this.enemies = [];
+    this.spawnZombies()
   }
 
   showRestartOverlay() {

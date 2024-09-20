@@ -16,11 +16,10 @@ export default class MapHandler {
   }
 
   init() {
-    // console.log("maphandler"+ this.map);
     this.obstacles = [];
-    for (let y = 0; y < this.map.length; y++) {
-      for (let x = 0; x < this.map[y].length; x++) {
-        const tileIndex = this.map[y][x];
+    for (let y = 0; y < 13; y++) {
+      for (let x = 0; x < 27; x++) {
+        const tileIndex = this.map[x + y * 27];
         const tile = this.mapDefinition[tileIndex];
         if (!tile.pass) {
           this.obstacles.push({
@@ -29,15 +28,26 @@ export default class MapHandler {
             width: this.width,
             height: this.height,
           });
+          // for (let y = 0; y < this.map.length; y++) {
+          //   for (let x = 0; x < this.map[y].length; x++) {
+          //     const tileIndex = this.map[y][x];
+          //     const tile = this.mapDefinition[tileIndex];
+          //     if (!tile.pass) {
+          //       this.obstacles.push({
+          //         x: x * this.width,
+          //         y: y * this.height,
+          //         width: this.width,
+          //         height: this.height,
+          //       });
         }
       }
     }
   }
 
   drawMap(backgroundX, backgroundY) {
-    for (let y = 0; y < this.map.length; y++) {
-      for (let x = 0; x < this.map[y].length; x++) {
-        const tileIndex = this.map[y][x];
+    for (let y = 0; y < 13; y++) {
+      for (let x = 0; x < 27; x++) {
+        const tileIndex = this.map[x + y * 27];
         const tile = this.mapDefinition[tileIndex];
 
         this.ctx.drawImage(
@@ -53,6 +63,24 @@ export default class MapHandler {
         );
       }
     }
+    // for (let y = 0; y < this.map.length; y++) {
+    //   for (let x = 0; x < this.map[y].length; x++) {
+    //     const tileIndex = this.map[y][x];
+    //     const tile = this.mapDefinition[tileIndex];
+
+    //     this.ctx.drawImage(
+    //       tile.src,
+    //       tile.x,
+    //       tile.y,
+    //       this.tileWidth,
+    //       this.tileHeight,
+    //       x * this.width - backgroundX,
+    //       y * this.height - backgroundY,
+    //       this.width,
+    //       this.height
+    //     );
+    //   }
+    // }
   }
 
   // Methode, um ein Tile an einer bestimmten Position zu zeichnen

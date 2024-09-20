@@ -191,7 +191,7 @@ class Game {
       // this.player.y = this.gameWindowHeight;
       // this.enemies = [];
       // this.spawnZombies()
-      console.log(this.mapIndex);
+      // console.log(this.mapArray[this.mapIndex]);
     }
 
     if (this.player.x > this.gameWindowWidth) {

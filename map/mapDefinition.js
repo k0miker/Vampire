@@ -18,12 +18,18 @@ let acher2Sheet = new Image();
 acher2Sheet.src = "../assets/achers2.png";
 let vendorSheet = new Image();
 vendorSheet.src = "../assets/vendor.png";
-let zero = new Image();
-zero.src = "../assets/0.png";
+
 let restSheet = new Image();
 restSheet.src = "../assets/rest.png";
 let rest2Sheet = new Image();
 rest2Sheet.src = "../assets/rest2.png";
+let waterSheet = new Image();
+waterSheet.src = "../assets/water.png";
+
+let zero = new Image();
+zero.src = "../assets/0.png";
+let groundSheet = new Image();
+groundSheet.src = "../assets/ground.png";
 
 const mapDefinition = [
 { index: 0, src: zero, x: 0, y: 0, pass: true, spawn: false },
@@ -313,6 +319,29 @@ const mapDefinition = [
 { index: 226, src: rest2Sheet, x: 119, y: 85, pass: false, spawn: false },
 { index: 227, src: rest2Sheet, x: 136, y: 85, pass: false, spawn: false },
 { index: 228, src: rest2Sheet, x: 153, y: 85, pass: false, spawn: false },
+//water
+{ index: 229, src: waterSheet, x: 0, y: 0, pass: false, spawn: false },
+{ index: 230, src: waterSheet, x: 17, y: 0, pass: false, spawn: false },
+{ index: 231, src: waterSheet, x: 34, y: 0, pass: false, spawn: false },
+{ index: 232, src: waterSheet, x: 51, y: 0, pass: false, spawn: false },
+{ index: 233, src: waterSheet, x: 68, y: 0, pass: false, spawn: false },
+{ index: 234, src: waterSheet, x: 0, y: 17, pass: false, spawn: false },
+{ index: 235, src: waterSheet, x: 17, y: 17, pass: false, spawn: false },
+{ index: 236, src: waterSheet, x: 34, y: 17, pass: false, spawn: false },
+{ index: 237, src: waterSheet, x: 51, y: 17, pass: false, spawn: false },
+{ index: 238, src: waterSheet, x: 68, y: 17, pass: false, spawn: false },
+{ index: 239, src: waterSheet, x: 0, y: 34, pass: false, spawn: false },
+{ index: 240, src: waterSheet, x: 17, y: 34, pass: false, spawn: false },
+{ index: 241, src: waterSheet, x: 34, y: 34, pass: false, spawn: false },
+{ index: 242, src: waterSheet, x: 51, y: 34, pass: false, spawn: false },
+{ index: 243, src: waterSheet, x: 68, y: 34, pass: false, spawn: false },
+{ index: 244, src: waterSheet, x: 0, y: 51, pass: false, spawn: false },
+{ index: 245, src: waterSheet, x: 17, y: 51, pass: false, spawn: false },
+{ index: 246, src: waterSheet, x: 34, y: 51, pass: false, spawn: false },
+{ index: 247, src: waterSheet, x: 51, y: 51, pass: false, spawn: false },
+{ index: 248, src: waterSheet, x: 68, y: 51, pass: false, spawn: false },
+
+
 ];
 
 export default mapDefinition;

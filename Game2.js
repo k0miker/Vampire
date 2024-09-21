@@ -29,11 +29,11 @@ class Game {
     this.mapArray = mapArray;
     this.mapIndex = { x: 0, y: 0 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-    // this.currentMap = new Map1(this.ctx);
+   
     this.mapHandler = new MapHandler(
       this.ctx,
-      this.currentMap.map,
-      this.currentMap.mapDefinition
+      this.currentMap.map,this.currentMap.overlay,
+     
     );
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
@@ -229,7 +229,7 @@ class Game {
     // Zeichne die Karte anstelle des Hintergrundbildes
     this.ctx.fillStyle = "#443830";
     this.ctx.fillRect(0, 0, this.gameWindowWidth, this.gameWindowHeight);
-    this.mapHandler.drawMap(0, 0);
+    this.mapHandler.drawMap();
 
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
@@ -321,13 +321,14 @@ class Game {
       this.showRestartOverlay();
       return; // Animation stoppen
     }
-
+    this.mapHandler.drawOverlay();
     requestAnimationFrame(this.animate.bind(this));
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.mapHandler.map = this.currentMap.map;
+    this.mapHandler.overlay = this.currentMap.overlay;
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.enemies = [];

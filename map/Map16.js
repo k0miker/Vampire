@@ -3,7 +3,7 @@ import Map from "../MapHandler.js";
 export default class Map16 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-
+//////////VORLÄUFIGE MAPDATEN////////////////
     this.map = [44, 81, 6, 6, 44, 44, 81, 44, 81, 6, 44, 44, 81, 6, 81, 81, 81, 44, 81, 44, 81, 81, 6, 6, 44, 44, 6,
       6, 44, 44, 6, 81, 81, 85, 6, 81, 81, 44, 81, 81, 6, 81, 81, 85, 6, 6, 44, 81, 44, 44, 6, 44, 6, 44,
       6, 44, 85, 81, 6, 6, 44, 81, 6, 6, 6, 44, 6, 6, 44, 81, 44, 81, 6, 6, 44, 6, 6, 81, 6, 81, 6,

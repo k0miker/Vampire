@@ -5,7 +5,7 @@ export default class Player {
     this.y = 350;
     this.width = 50;
     this.height = 50;
-    this.speed = 8;
+    this.speed = 3;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";
@@ -16,7 +16,7 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.invinsibleTimer = 60000;
+    this.invinsibleTimer = 10000;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];

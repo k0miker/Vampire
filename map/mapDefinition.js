@@ -205,7 +205,7 @@ const mapDefinition = [
 { index: 198, src: groundSheet, x: 119, y: 85, pass: false, spawn: false },
 { index: 199, src: groundSheet, x: 136, y: 85, pass: false, spawn: false },
 { index: 200, src: groundSheet, x: 153, y: 85, pass: false, spawn: false },
-{ index: 201, src: groundSheet, x: 170, y: 85, pass: true, spawn: false },
+{ index: 201, src: groundSheet, x: 170, y: 85, pass: false, spawn: false },
 { index: 202, src: groundSheet, x: 187, y: 85, pass: true, spawn: false },
 { index: 203, src: groundSheet, x: 204, y: 85, pass: true, spawn: false },
 { index: 204, src: groundSheet, x: 221, y: 85, pass: false, spawn: false },

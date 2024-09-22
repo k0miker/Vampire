@@ -106,17 +106,20 @@ class Game {
     for (let i = 0; i < zombiCount; i++) {
       let spawned = false;
       while (!spawned) {
-        spawned = this.spawnZombie(); // Now spawns random zombie type
+        spawned = this.spawnZombie();
       }
     }
-    // Spawne Boss-Gegner
-  for (let i = 0; i < this.currentMap.bossCount; i++) {
-    let spawned = false;
-    while (!spawned) {
-      spawned = this.spawnZombie(4 + i); // Boss-Gegner haben die Typen 4 und 5
+  
+    // Spawne Boss-Gegner nur, wenn bossCount größer als 0 ist
+    if (this.currentMap.bossCount > 0) {
+      for (let i = 0; i < this.currentMap.bossCount; i++) {
+        let spawned = false;
+        while (!spawned) {
+          spawned = this.spawnZombie(4 + i); // Boss-Gegner haben die Typen 4 und 5
+        }
+      }
     }
   }
-}
 
   resizeCanvas() {
     this.canvas.width = window.innerWidth;

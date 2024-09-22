@@ -25,12 +25,14 @@ export default class Player {
         range: 1000,
         dmg: 25,
         addBullet: this.addPistolBullet.bind(this),
+        indexYPos: 150,
       },
       {
         name: "Shotgun",
         range: 45,
         dmg: 13,
         addBullet: this.addShotgunBullet.bind(this),
+        indexYPos: 133,
       },
     ];
     this.invinsibleTimer = 100;
@@ -167,7 +169,7 @@ export default class Player {
       ctx.drawImage(
         this.image,
         weaponAnimX + 17,
-        150,
+        this.weapons[this.weapon].indexYPos,
         16,
         16,
         this.wx[this.weaponXIndex],

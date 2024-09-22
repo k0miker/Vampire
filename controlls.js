@@ -51,15 +51,12 @@ export function clickHandler(e) {
   let dist = Math.sqrt(dx * dx + dy * dy);
   this.player.weapons[this.player.weapon].addBullet(
     this.bullets,
-    this.player.x,
-    this.player.y,
     dx,
     dy,
     dist,
     this.ctx,
     this.gameWindowWidth,
-    this.gameWindowHeight,
-    this.player.weapons[this.player.weapon].range
+    this.gameWindowHeight
   );
 }
 export function mouseWheelHandler(e) {
@@ -67,4 +64,5 @@ export function mouseWheelHandler(e) {
   if (this.player.weapon >= this.player.weapons.length) this.player.weapon = 0;
   else if (this.player.weapon < 0)
     this.player.weapon = this.player.weapons.length;
+  console.log(e.deltaY);
 }

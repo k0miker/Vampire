@@ -82,45 +82,15 @@ class Game {
   spawnZombie() {
     const x = Math.random() * (this.gameWindowWidth - 330) + 166;
     const y = Math.random() * (this.gameWindowHeight - 330) + 166;
-
-    // Randomly select a zombie type (0 to 3)
-    const zombieType = Math.floor(Math.random() * 4);
-
-    // Assign different sprites and speeds
-    let zombieSprite;
-    let zombieSpeed;
-    let zombiHP;
-
-    switch (zombieType) {
-      case 0:
-        zombieSprite = "./assets/zombi0.png";
-        zombieSpeed = 0.5;
-        zombiHP = 200;
-        break;
-      case 1:
-        zombieSprite = "./assets/zombi1.png";
-        zombieSpeed = 1;
-        zombiHP = 100;
-        break;
-      case 2:
-        zombieSprite = "./assets/zombi2.png";
-        zombieSpeed = 0.25;
-        zombiHP = 125;
-        break;
-      case 3:
-        zombieSprite = "./assets/zombi3.png";
-        zombieSpeed = 3.0;
-        zombiHP = 75;
-        break;
-    }
-
+    const zombieType = Math.floor(Math.random() * 4)
+    // Randomly select a zombie type (0 to 5)
+    if (this.currentMap.bossCount>0) {
+       zombieType = Math.floor(Math.random() * 6);
+    } 
+  
     // Only spawn zombie if it doesn't collide with an obstacle
-    if (
-      !this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })
-    ) {
-      this.enemies.push(
-        new Enemy(x, y, 48, 48, zombieSpeed, zombiHP, zombieSprite) // Speed & sprite assigned
-      );
+    if (!this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })) {
+      this.enemies.push(new Enemy(x, y, 48, 48, zombieType));
     } else {
       return false;
     }
@@ -140,7 +110,17 @@ class Game {
     for (let i = 0; i < zombiCount; i++) {
       let spawned = false;
       while (!spawned) {
-        spawned = this.spawnZombie(); // Now spawns random zombie type
+        spawned = this.spawnZombie();
+      }
+    }
+  
+    // Spawne Boss-Gegner nur, wenn bossCount größer als 0 ist
+    if (this.currentMap.bossCount > 0) {
+      for (let i = 0; i < this.currentMap.bossCount; i++) {
+        let spawned = false;
+        while (!spawned) {
+          spawned = this.spawnZombie(4 + i); // Boss-Gegner haben die Typen 4 und 5
+        }
       }
     }
   }

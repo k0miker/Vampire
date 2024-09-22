@@ -3,11 +3,13 @@ export default class Hud {
     this.score = 0;
     this.ctx = ctx;
   }
-  draw(enemies, bullets, playerHp) {
+  draw(enemies, bullets, player) {
     this.ctx.font = "32px pixel";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
-      `Gold: ${this.score}     Enemies: ${enemies}     HP: ${playerHp}`,
+      `Gold: ${this.score}     Enemies: ${enemies}     HP: ${
+        player.health
+      }        Weapon: ${player.weapons[player.weapon].name}`,
       10,
       40
     );

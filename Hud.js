@@ -6,23 +6,20 @@ export default class Hud {
     this.img.src = "./assets/tileset.png";
   }
   draw(enemies, bullets, player) {
-    this.ctx.font = "32px pixel";
-    this.ctx.fillStyle = "white";
-    this.ctx.fillText(
-      `Gold: ${Math.ceil(this.score)}     Enemies: ${enemies}     HP: ${
-        player.health
-      }        Weapon: ${player.weapons[player.weapon].name}`,
-      10,
-      40
-    );
+   
+    this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
+    this.ctx.fillRect(20, 20, player.health, 28);
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.6";
+    this.ctx.fillRect(0, 0, 580,62);
+    this.ctx.fillRect(0, 62, 180,32);
     this.ctx.drawImage(
       this.img,
       17,
       player.weapons[player.weapon].indexYPos,
       16,
       16,
-      10,
-      832 - 96,
+      400,
+      -30,
       128,
       96
     );
@@ -33,13 +30,22 @@ export default class Hud {
         194,
         16,
         16,
-        140 + i * 20,
-        828 - 48,
+        0 + i * 20,
+        50,
         64,
         64
       );
     }
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(164, 834 - 48, player.reloadTimer, 24);
+    this.ctx.font = "32px pixel";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText(
+      `        HP: ${
+        player.health
+      }             Gold: ${Math.ceil(this.score)}       `,
+      10,
+      40
+    );
+    this.ctx.fillStyle = "rgba(255, 255, 255, 0.8";
+    this.ctx.fillRect(20,55, player.reloadTimer/2, 32);
   }
 }

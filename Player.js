@@ -5,7 +5,7 @@ export default class Player {
     this.y = 350;
     this.width = 50;
     this.height = 50;
-    this.speed = 5;
+    this.speed = 8;
     this.image = new Image();
     this.health = 100;
     this.weaponType = "default";

@@ -19,6 +19,7 @@ export default class Player {
     this.weaponXIndex = 0;
     this.walkTimer = 6;
     this.weapon = 1;
+    this.reloadTimer = 0;
     this.weapons = [
       {
         name: "Pistol",
@@ -26,6 +27,9 @@ export default class Player {
         dmg: 25,
         addBullet: this.addPistolBullet.bind(this),
         indexYPos: 150,
+        bullets: 8,
+        magazin: 8,
+        reloading: false,
       },
       {
         name: "Shotgun",
@@ -33,6 +37,9 @@ export default class Player {
         dmg: 13,
         addBullet: this.addShotgunBullet.bind(this),
         indexYPos: 133,
+        bullets: 4,
+        magazin: 4,
+        reloading: false,
       },
     ];
     this.invinsibleTimer = 100;
@@ -50,19 +57,27 @@ export default class Player {
     gameWindowHeight,
     gameWindowWidth
   ) {
-    const bullet = new Bullet(
-      this.x,
-      this.y,
-      (dx / dist) * -15,
-      (dy / dist) * -15,
-      this.weapons[this.weapon].dmg,
-      ctx,
-      gameWindowWidth,
-      gameWindowHeight,
-      this.weapons[this.weapon].range
-    );
-    bullets.push(bullet);
-    console.log("PistolBullet");
+    if (this.weapons[this.weapon].reloading) {
+      console.log(this.reloadTimer);
+    } else if (this.weapons[this.weapon].bullets <= 0) {
+      console.log("nachladen");
+      this.reloadTimer = 120;
+      this.weapons[this.weapon].reloading = true;
+    } else {
+      const bullet = new Bullet(
+        this.x,
+        this.y,
+        (dx / dist) * -15,
+        (dy / dist) * -15,
+        this.weapons[this.weapon].dmg,
+        ctx,
+        gameWindowWidth,
+        gameWindowHeight,
+        this.weapons[this.weapon].range
+      );
+      bullets.push(bullet);
+      this.weapons[this.weapon].bullets -= 1;
+    }
   }
   addShotgunBullet(
     bullets,
@@ -73,19 +88,29 @@ export default class Player {
     gameWindowHeight,
     gameWindowWidth
   ) {
-    for (let i = 0; i < 10; i++) {
-      const bullet = new Bullet(
-        this.x,
-        this.y,
-        (dx / dist) * -15 + (Math.random() * 6 - 3),
-        (dy / dist) * -15 + (Math.random() * 6 - 3),
-        this.weapons[this.weapon].dmg,
-        ctx,
-        gameWindowWidth,
-        gameWindowHeight,
-        this.weapons[this.weapon].range
-      );
-      bullets.push(bullet);
+    if (this.weapons[this.weapon].reloading) {
+      console.log(this.reloadTimer);
+    } else if (this.weapons[this.weapon].bullets <= 0) {
+      console.log("nachladen");
+      this.reloadTimer = 120;
+      this.weapons[this.weapon].reloading = true;
+    } else {
+      for (let i = 0; i < 10; i++) {
+        const bullet = new Bullet(
+          this.x,
+          this.y,
+          (dx / dist) * -15 + (Math.random() * 6 - 3),
+          (dy / dist) * -15 + (Math.random() * 6 - 3),
+          this.weapons[this.weapon].dmg,
+          ctx,
+          gameWindowWidth,
+          gameWindowHeight,
+          this.weapons[this.weapon].range
+        );
+        bullets.push(bullet);
+      }
+
+      this.weapons[this.weapon].bullets -= 1;
     }
   }
   takeDamage(damage) {
@@ -98,6 +123,14 @@ export default class Player {
   }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
+    //reloadTimer
+    if (this.reloadTimer > 0) {
+      this.reloadTimer -= deltaTime * 100;
+    } else if (this.weapons[this.weapon].reloading) {
+      this.reloadTimer = 0;
+      this.weapons[this.weapon].reloading = false;
+      this.weapons[this.weapon].bullets = this.weapons[this.weapon].magazin;
+    }
     //invinsibleTimer
 
     // console.log(this.invinsibleTimer);

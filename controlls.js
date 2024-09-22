@@ -21,6 +21,11 @@ export function keyUpHandler(e) {
 }
 
 export function keyDownHandler(e) {
+  if (e.code === "KeyE") {
+    this.player.weapons[this.player.weapon].bullets = 0;
+    this.player.reloadTimer = 120;
+    this.player.weapons[this.player.weapon].reloading = true;
+  }
   if (e.code === "KeyW") {
     this.player.vy = -this.player.speed;
   }
@@ -64,5 +69,4 @@ export function mouseWheelHandler(e) {
   if (this.player.weapon >= this.player.weapons.length) this.player.weapon = 0;
   else if (this.player.weapon < 0)
     this.player.weapon = this.player.weapons.length;
-  console.log(e.deltaY);
 }

@@ -49,17 +49,22 @@ export function clickHandler(e) {
   let dx = this.player.x - this.mouseX;
   let dy = this.player.y - this.mouseY;
   let dist = Math.sqrt(dx * dx + dy * dy);
-
-  const bullet = new Bullet(
+  this.player.weapons[this.player.weapon].addBullet(
+    this.bullets,
     this.player.x,
     this.player.y,
-    (dx / dist) * -15,
-    (dy / dist) * -15,
-    25,
+    dx,
+    dy,
+    dist,
     this.ctx,
     this.gameWindowWidth,
-    this.gameWindowHeight
+    this.gameWindowHeight,
+    this.player.weapons[this.player.weapon].range
   );
-
-  this.bullets.push(bullet);
+}
+export function mouseWheelHandler(e) {
+  this.player.weapon += 1;
+  if (this.player.weapon >= this.player.weapons.length) this.player.weapon = 0;
+  else if (this.player.weapon < 0)
+    this.player.weapon = this.player.weapons.length;
 }

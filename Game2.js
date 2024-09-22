@@ -7,6 +7,7 @@ import Hud from "./Hud.js";
 import MapHandler from "./MapHandler.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
 import {
+  mouseWheelHandler,
   mousemoveHandler,
   keyUpHandler,
   keyDownHandler,
@@ -53,6 +54,7 @@ class Game {
     // Setzen Sie die Größe des Canvas-Elements nach der Initialisierung des Spielers
     this.resizeCanvas();
     window.addEventListener("mousemove", mousemoveHandler.bind(this));
+    window.addEventListener("wheel", mouseWheelHandler.bind(this));
     document.addEventListener("keydown", keyDownHandler.bind(this));
     document.addEventListener("keyup", keyUpHandler.bind(this));
     document.addEventListener("click", clickHandler.bind(this));
@@ -231,11 +233,14 @@ class Game {
 
     //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
+      console.log(this.bullets[i].dmg);
+      this.bullets[i].range--;
       if (
         this.bullets[i].x < 0 ||
         this.bullets[i].y < 0 ||
         this.bullets[i].x > this.gameWindowWidth + this.bullets[i].width ||
-        this.bullets[i].y > this.gameWindowHeight + this.bullets[i].height
+        this.bullets[i].y > this.gameWindowHeight + this.bullets[i].height ||
+        this.bullets[i].range < 0
       ) {
         this.bullets.splice(i, 1);
         i--;
@@ -282,7 +287,7 @@ class Game {
     }
 
     // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.bullets.length, this.player.health);
+    this.hud.draw(this.enemies.length, this.bullets.length, this.player);
 
     // Überprüfen, ob der Spieler tot ist
     if (this.player.health <= 0) {

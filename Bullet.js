@@ -1,7 +1,17 @@
 import Bloodsplosion from "./Bloodsplosion.js";
 
 export default class Bullet {
-  constructor(x, y, vx, vy, dmg, ctx, gameWindowWidth, gameWindowHeight) {
+  constructor(
+    x,
+    y,
+    vx,
+    vy,
+    dmg,
+    ctx,
+    gameWindowWidth,
+    gameWindowHeight,
+    range
+  ) {
     this.x = x;
     this.y = y;
     this.vx = vx;
@@ -13,6 +23,7 @@ export default class Bullet {
     this.gameWindowHeight = gameWindowHeight;
     this.gameWindowWidth = gameWindowWidth;
     this.speed = 20;
+    this.range = range;
   }
 
   static createBullet(player, mouseX, mouseY, ctx) {

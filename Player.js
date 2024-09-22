@@ -1,4 +1,6 @@
+import Bullet from "./Bullet.js";
 // player.js
+
 export default class Player {
   constructor() {
     this.x = 166;
@@ -16,13 +18,71 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
+    this.weapon = 1;
+    this.weapons = [
+      { name: "Pistol", range: 1000, dmg: 10, addBullet: this.addPistolBullet },
+      { name: "Shotgun", range: 80, dmg: 7, addBullet: this.addShotgunBullet },
+    ];
     this.invinsibleTimer = 10000;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
     // this.map = map; // Speichere die Map-Instanz
   }
-
+  addPistolBullet(
+    bullets,
+    x,
+    y,
+    dx,
+    dy,
+    dist,
+    ctx,
+    gameWindowHeight,
+    gameWindowWidth,
+    range
+  ) {
+    const bullet = new Bullet(
+      x,
+      y,
+      (dx / dist) * -15,
+      (dy / dist) * -15,
+      25,
+      ctx,
+      gameWindowWidth,
+      gameWindowHeight,
+      range
+    );
+    bullets.push(bullet);
+    console.log("PistolBullet");
+  }
+  addShotgunBullet(
+    bullets,
+    x,
+    y,
+    dx,
+    dy,
+    dist,
+    ctx,
+    gameWindowHeight,
+    gameWindowWidth,
+    range
+  ) {
+    for (let i = 0; i < 10; i++) {
+      const bullet = new Bullet(
+        x,
+        y,
+        (dx / dist) * -15 + (Math.random() * 4 - 2),
+        (dy / dist) * -15 + (Math.random() * 4 - 2),
+        25,
+        ctx,
+        gameWindowWidth,
+        gameWindowHeight,
+        range
+      );
+      bullets.push(bullet);
+    }
+    console.log(range);
+  }
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;

@@ -4,6 +4,7 @@ export default class Map2 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
     this.zombieCount = 15;
+    this.bossCount = 0; 
     this.map = [
       67, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
       29, 29, 29, 29, 29, 29, 29, 29, 29, 67, 263, 225, 44, 85, 6, 44, 8, 44, 6,

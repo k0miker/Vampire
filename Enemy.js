@@ -1,22 +1,74 @@
 // enemy.js
 export default class Enemy {
-  constructor(x, y, w, h, speed, hp, imageSrc, weaponType) {
+  constructor(x, y, w, h, zombieType) {
     this.x = x;
     this.y = y;
     this.width = w;
     this.height = h;
-    this.speed = speed + Math.random();
+
+    switch (zombieType) {
+      case 0:
+        this.imageSrc = "./assets/zombi0.png";
+        this.speed = 0.5 + Math.random();
+        this.health = 200;
+        this.width = w;
+        this.height = h;
+        break;
+      case 1:
+        this.imageSrc = "./assets/zombi1.png";
+        this.speed = 1 + Math.random();
+        this.health = 100;
+        this.width = w;
+        this.height = h;
+        break;
+      case 2:
+        this.imageSrc = "./assets/zombi2.png";
+        this.speed = 0.25 + Math.random();
+        this.health = 125;
+        this.width = w;
+        this.height = h;
+        break;
+      case 3:
+        this.imageSrc = "./assets/zombi3.png";
+        this.speed = 3.0 + Math.random();
+        this.health = 75;
+        this.width = w;
+        this.height = h;
+        break;
+      case 4: // Boss 1
+        this.imageSrc = "./assets/zombi1.png";
+        this.speed = 0.2 + Math.random();
+        this.health = 500;
+        this.width = w * 2; // Verdoppeln der Breite
+        this.height = h * 2; // Verdoppeln der Höhe
+        break;
+      case 5: // Boss 2
+        this.imageSrc = "./assets/zombi1.png";
+        this.speed = 0.3 + Math.random();
+        this.health = 750;
+        this.width = w * 2; // Verdoppeln der Breite
+        this.height = h * 2; // Verdoppeln der Höhe
+        break;
+      default:
+        this.imageSrc = "./assets/zombi0.png";
+        this.speed = 0.5 + Math.random();
+        this.health = 200;
+        this.width = w;
+        this.height = h;
+    }
+
     this.image = new Image();
-    this.image.src = imageSrc;
-    this.health = hp;
-    this.weaponType = weaponType;
+    this.image.src = this.imageSrc;
+    this.weaponType = "default";
     this.walkTimer = 1;
     this.indexX = 0;
-    this.aggroRange = 350; //* Settings.difficulty;
+    this.aggroRange = 350;
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
   }
+
+ 
 
   update(
     playerX,

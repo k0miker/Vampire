@@ -7,7 +7,7 @@ export default class Hud {
     this.ctx.font = "32px pixel";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
-      `Gold: ${this.score}     Enemies: ${enemies}     HP: ${
+      `Gold: ${Math.ceil(this.score)}     Enemies: ${enemies}     HP: ${
         player.health
       }        Weapon: ${player.weapons[player.weapon].name}`,
       10,

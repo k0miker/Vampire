@@ -9,7 +9,7 @@ export default class Player {
     this.height = 50;
     this.speed = 8;
     this.image = new Image();
-    this.health = 100;
+    this.health = 200;
     this.weaponType = "default";
     this.isAlive = true;
     this.image.src = "./assets/tileset.png";
@@ -23,7 +23,7 @@ export default class Player {
       { name: "Pistol", range: 1000, dmg: 10, addBullet: this.addPistolBullet },
       { name: "Shotgun", range: 80, dmg: 7, addBullet: this.addShotgunBullet },
     ];
-    this.invinsibleTimer = 10000;
+    this.invinsibleTimer = 100;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];

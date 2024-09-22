@@ -5,14 +5,18 @@ export default class Enemy {
     this.y = y;
     this.width = w;
     this.height = h;
+    this.gold = 1;
 
     switch (zombieType) {
       case 0:
         this.imageSrc = "./assets/zombi0.png";
-        this.speed = 0.5 + Math.random();
-        this.health = 200;
+        this.speed = 0.75 + Math.random();
+        this.health = 250;
         this.width = w;
         this.height = h;
+        this.gold = 2;
+        this.aggroRange = 150;
+        this.damage = 10;
         break;
       case 1:
         this.imageSrc = "./assets/zombi1.png";
@@ -20,13 +24,19 @@ export default class Enemy {
         this.health = 100;
         this.width = w;
         this.height = h;
+        this.gold = 2;
+        this.damage = 5;
+        this.aggroRange = 200;
         break;
       case 2:
         this.imageSrc = "./assets/zombi2.png";
-        this.speed = 0.25 + Math.random();
-        this.health = 125;
+        this.speed = 0.55 + Math.random();
+        this.health = 255;
         this.width = w;
         this.height = h;
+        this.gold = 3;
+        this.damage = 15;
+        this.aggroRange = 300;
         break;
       case 3:
         this.imageSrc = "./assets/zombi3.png";
@@ -34,26 +44,48 @@ export default class Enemy {
         this.health = 75;
         this.width = w;
         this.height = h;
+        this.gold = 1;
+        this.damage = 5;
+        this.aggroRange = 150;
+        break;      
+      case 4:
+        this.imageSrc = "./assets/vamp.png";
+        this.speed = 5 + Math.random();
+        this.health = 100;
+        this.width = w * 1.5;
+        this.height = h * 1.5; 
+        this.gold = 1;
+        this.damage = 5;
+        this.aggroRange = 250;
         break;
-      case 4: // Boss 1
+      case 5: // Boss 1
         this.imageSrc = "./assets/zombi1.png";
         this.speed = 1 + Math.random();
         this.health = 1250;
         this.width = w * 1.5;
         this.height = h * 1.5; 
+        this.gold = 100;
+        this.damage = 25;
+        this.aggroRange = 600;
         break;
-      case 5: // Boss 2
-        this.imageSrc = "./assets/zombi1.png";
+      case 6: // Boss 2
+        this.imageSrc = "./assets/zombi0.png";
         this.speed = 1.5 + Math.random();
         this.health = 2000;
         this.width = w * 2; 
-        this.height = h * 2; 
+        this.height = h * 2;
+        this.gold = 150; 
+        this.damage = 50;
+        this.aggroRange = 800;
       default:
-        this.imageSrc = "./assets/zombi0.png";
+        this.imageSrc = "./assets/vamp.png";
         this.speed = 0.5 + Math.random();
         this.health = 100;
         this.width = w;
         this.height = h;
+        this.gold = 1;
+        this.damage = 5;
+        this.aggroRange = 250;
     }
 
     this.image = new Image();
@@ -61,7 +93,6 @@ export default class Enemy {
     this.weaponType = "default";
     this.walkTimer = 1;
     this.indexX = 0;
-    this.aggroRange = 350;
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
@@ -213,7 +244,7 @@ export default class Enemy {
         default:
           damage = 5;
       }
-      target.takeDamage(damage);
+      target.takeDamage(this.damage);
     }
   }
 }

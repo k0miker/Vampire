@@ -82,8 +82,7 @@ class Game {
   spawnZombie() {
     const x = Math.random() * (this.gameWindowWidth - 330) + 166;
     const y = Math.random() * (this.gameWindowHeight - 330) + 166;
-    const zombieType = Math.floor(Math.random() * 4)
-    // Randomly select a zombie type (0 to 5)
+    const zombieType = Math.floor(Math.random() * 5)
     if (this.currentMap.bossCount>0) {
        zombieType = Math.floor(Math.random() * 6);
     } 
@@ -119,7 +118,7 @@ class Game {
       for (let i = 0; i < this.currentMap.bossCount; i++) {
         let spawned = false;
         while (!spawned) {
-          spawned = this.spawnZombie(4 + i); // Boss-Gegner haben die Typen 4 und 5
+          spawned = this.spawnZombie(5 + i); // Boss-Gegner haben die Typen 4 und 5
         }
       }
     }
@@ -183,9 +182,11 @@ class Game {
 
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
+      if(this.enemies[i].status === "dying") {
+        this.hud.score += this.enemies[i].gold/10;
+      }
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
-        this.hud.score += 1;
         // Spawne einen neuen Zombie nach einer Verzögerung
         this.spawnZombieWithDelay(Math.random() * 60000 + 30000); //
       }
@@ -276,6 +277,8 @@ class Game {
     }
     this.mapHandler.drawOverlay();
     requestAnimationFrame(this.animate.bind(this));
+       // HUD anzeigen
+       this.hud.draw(this.enemies.length, this.bullets.length, this.player);
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();

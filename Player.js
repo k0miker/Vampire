@@ -20,8 +20,18 @@ export default class Player {
     this.walkTimer = 6;
     this.weapon = 1;
     this.weapons = [
-      { name: "Pistol", range: 1000, dmg: 10, addBullet: this.addPistolBullet },
-      { name: "Shotgun", range: 80, dmg: 7, addBullet: this.addShotgunBullet },
+      {
+        name: "Pistol",
+        range: 1000,
+        dmg: 25,
+        addBullet: this.addPistolBullet.bind(this),
+      },
+      {
+        name: "Shotgun",
+        range: 45,
+        dmg: 13,
+        addBullet: this.addShotgunBullet.bind(this),
+      },
     ];
     this.invinsibleTimer = 100;
     this.vx = 0;
@@ -31,57 +41,50 @@ export default class Player {
   }
   addPistolBullet(
     bullets,
-    x,
-    y,
     dx,
     dy,
     dist,
     ctx,
     gameWindowHeight,
-    gameWindowWidth,
-    range
+    gameWindowWidth
   ) {
     const bullet = new Bullet(
-      x,
-      y,
+      this.x,
+      this.y,
       (dx / dist) * -15,
       (dy / dist) * -15,
-      25,
+      this.weapons[this.weapon].dmg,
       ctx,
       gameWindowWidth,
       gameWindowHeight,
-      range
+      this.weapons[this.weapon].range
     );
     bullets.push(bullet);
     console.log("PistolBullet");
   }
   addShotgunBullet(
     bullets,
-    x,
-    y,
     dx,
     dy,
     dist,
     ctx,
     gameWindowHeight,
-    gameWindowWidth,
-    range
+    gameWindowWidth
   ) {
     for (let i = 0; i < 10; i++) {
       const bullet = new Bullet(
-        x,
-        y,
-        (dx / dist) * -15 + (Math.random() * 4 - 2),
-        (dy / dist) * -15 + (Math.random() * 4 - 2),
-        25,
+        this.x,
+        this.y,
+        (dx / dist) * -15 + (Math.random() * 6 - 3),
+        (dy / dist) * -15 + (Math.random() * 6 - 3),
+        this.weapons[this.weapon].dmg,
         ctx,
         gameWindowWidth,
         gameWindowHeight,
-        range
+        this.weapons[this.weapon].range
       );
       bullets.push(bullet);
     }
-    console.log(range);
   }
   takeDamage(damage) {
     if (this.isAlive) {

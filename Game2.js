@@ -183,6 +183,7 @@ class Game {
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
       if(this.enemies[i].status === "dying") {
+        //gold hinzufügen /10 weil eine sec "dying"
         this.hud.score += this.enemies[i].gold/10;
       }
       if (this.enemies[i].status === "dead") {

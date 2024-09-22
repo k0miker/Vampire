@@ -40,7 +40,7 @@ export function keyDownHandler(e) {
       e.code === "KeyA" ||
       e.code === "KeyD")
   ) {
-    console.log(e.code);
+    // console.log(e.code);
     this.player.speed = 2;
   }
 }

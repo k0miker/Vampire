@@ -29,11 +29,11 @@ class Game {
     this.mapArray = mapArray;
     this.mapIndex = { x: 0, y: 2 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-   
+
     this.mapHandler = new MapHandler(
       this.ctx,
-      this.currentMap.map,this.currentMap.overlay,
-     
+      this.currentMap.map,
+      this.currentMap.overlay
     );
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
@@ -167,15 +167,8 @@ class Game {
     if (this.player.x < 0) {
       this.mapIndex.x -= 1;
       this.levelChange();
-      this.player.x = this.gameWindowHeight;
-      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-      // // this.currentMap = new Map2(this.ctx);
-      // this.mapHandler.map = this.currentMap.map;
-      // this.mapHandler.init();
-      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-      // this.player.x = this.gameWindowHeight;
-      // this.enemies = [];
-      // this.spawnZombies()
+      this.player.x = this.gameWindowWidth;
+
       console.log(this.mapIndex);
     }
 
@@ -183,30 +176,13 @@ class Game {
       this.mapIndex.y -= 1;
       this.levelChange();
       this.player.y = this.gameWindowHeight;
-      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-
-      // this.mapHandler.map = this.currentMap.map;
-      // this.mapHandler.init();
-      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-      // this.player.y = this.gameWindowHeight;
-      // this.enemies = [];
-      // this.spawnZombies()
-      // console.log(this.mapArray[this.mapIndex]);
     }
 
     if (this.player.x > this.gameWindowWidth) {
       this.mapIndex.x += 1;
       this.levelChange();
       this.player.x = 0;
-      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
-      // this.mapHandler.map = this.currentMap.map;
-      // this.mapHandler.init();
-      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
-
-      // this.player.x = 0;
-      // this.enemies = [];
-      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
@@ -214,15 +190,7 @@ class Game {
       this.mapIndex.y += 1;
       this.levelChange();
       this.player.y = 0;
-      // this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-      // // this.currentMap = new Map2(this.ctx);
-      // this.mapHandler.map = this.currentMap.map;
-      // this.mapHandler.init();
-      // this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
 
-      // this.player.y = 0;
-      // this.enemies = [];
-      // this.spawnZombies()
       console.log(this.mapIndex);
     }
 
@@ -326,7 +294,7 @@ class Game {
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
-
+    this.bullets = [];
     this.mapHandler.map = this.currentMap.map;
     this.mapHandler.overlay = this.currentMap.overlay;
     this.mapHandler.init();

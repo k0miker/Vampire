@@ -22,7 +22,7 @@ class Game {
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
-    this.zombiCount = 15;
+    // this.zombiCount = 15;
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
@@ -48,7 +48,7 @@ class Game {
     // Erstellen Sie eine Instanz der Karte
 
     // Zombies spawnen
-    this.spawnZombies();
+    this.spawnZombies(this.currentMap.zombieCount);
 
     // Setzen Sie die Größe des Canvas-Elements nach der Initialisierung des Spielers
     this.resizeCanvas();
@@ -134,8 +134,8 @@ class Game {
     }, delay);
   }
 
-  spawnZombies() {
-    for (let i = 0; i < this.zombiCount; i++) {
+  spawnZombies(zombiCount) {
+    for (let i = 0; i < zombiCount; i++) {
       let spawned = false;
       while (!spawned) {
         spawned = this.spawnZombie(); // Now spawns random zombie type
@@ -300,7 +300,7 @@ class Game {
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.enemies = [];
-    this.spawnZombies();
+    this.spawnZombies(this.currentMap.zombieCount);
     console.log(mapArray[this.mapIndex.y][this.mapIndex.x]);
   }
 

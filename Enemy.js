@@ -45,14 +45,14 @@ export default class Enemy {
       case 5: // Boss 2
         this.imageSrc = "./assets/zombi1.png";
         this.speed = 0.3 + Math.random();
-        this.health = 750;
+        this.health = 1250;
         this.width = w * 2; // Verdoppeln der Breite
         this.height = h * 2; // Verdoppeln der Höhe
         break;
       default:
         this.imageSrc = "./assets/zombi0.png";
         this.speed = 0.5 + Math.random();
-        this.health = 200;
+        this.health = 2020;
         this.width = w;
         this.height = h;
     }

@@ -85,7 +85,6 @@ export default class Player {
       );
       bullets.push(bullet);
     }
-    console.log(range);
   }
   takeDamage(damage) {
     if (this.isAlive) {

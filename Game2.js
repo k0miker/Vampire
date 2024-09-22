@@ -82,9 +82,9 @@ class Game {
   spawnZombie() {
     const x = Math.random() * (this.gameWindowWidth - 330) + 166;
     const y = Math.random() * (this.gameWindowHeight - 330) + 166;
-    const zombieType = Math.floor(Math.random() * 5)
+    let zombieType = Math.floor(Math.random() * 5)
     if (this.currentMap.bossCount>0) {
-       zombieType = Math.floor(Math.random() * 6);
+       zombieType = Math.floor(Math.random() * 7);
     } 
   
     // Only spawn zombie if it doesn't collide with an obstacle

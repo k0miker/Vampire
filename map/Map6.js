@@ -1,6 +1,6 @@
 import Map from "../MapHandler.js";
 
-export default class Map2 {
+export default class Map6 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
     this.zombieCount = 6;

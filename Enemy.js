@@ -37,22 +37,21 @@ export default class Enemy {
         break;
       case 4: // Boss 1
         this.imageSrc = "./assets/zombi1.png";
-        this.speed = 0.2 + Math.random();
-        this.health = 500;
-        this.width = w * 2; // Verdoppeln der Breite
-        this.height = h * 2; // Verdoppeln der Höhe
+        this.speed = 1 + Math.random();
+        this.health = 1250;
+        this.width = w * 1.5;
+        this.height = h * 1.5; 
         break;
       case 5: // Boss 2
         this.imageSrc = "./assets/zombi1.png";
-        this.speed = 0.3 + Math.random();
-        this.health = 750;
-        this.width = w * 2; // Verdoppeln der Breite
-        this.height = h * 2; // Verdoppeln der Höhe
-        break;
+        this.speed = 1.5 + Math.random();
+        this.health = 2000;
+        this.width = w * 2; 
+        this.height = h * 2; 
       default:
         this.imageSrc = "./assets/zombi0.png";
         this.speed = 0.5 + Math.random();
-        this.health = 200;
+        this.health = 100;
         this.width = w;
         this.height = h;
     }
@@ -138,7 +137,7 @@ export default class Enemy {
       } else if (angle > Math.PI / 4 && angle <= (3 * Math.PI) / 4) {
         spriteY = 0;
       } else if (angle > (3 * Math.PI) / 4 || angle <= -(3 * Math.PI) / 4) {
-        spriteY = 40;
+        spriteY = 57;
       } else {
         spriteY = 20;
       }

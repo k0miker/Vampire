@@ -205,7 +205,7 @@ class Game {
         this.enemies.splice(i, 1);
         this.hud.score += 1;
         // Spawne einen neuen Zombie nach einer Verzögerung
-        this.spawnZombieWithDelay(Math.random() * 60000); //
+        this.spawnZombieWithDelay(Math.random() * 60000 + 30000); //
       }
       enemy.update(
         this.player.x + this.player.width / 2,

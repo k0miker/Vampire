@@ -33,34 +33,7 @@
  "tiledversion":"1.11.0",
  "tileheight":16,
  "tilesets":[
-        {
-         "firstgid":1,
-         "source":"ground.tsx"
-        }, 
-        {
-         "firstgid":19,
-         "source":"rest2.tsx"
-        }, 
-        {
-         "firstgid":69,
-         "source":"street.tsx"
-        }, 
-        {
-         "firstgid":89,
-         "source":"rest.tsx"
-        }, 
-        {
-         "firstgid":153,
-         "source":"house1.tsx"
-        }, 
-        {
-         "firstgid":183,
-         "source":"nature.tsx"
-        }, 
-        {
-         "firstgid":201,
-         "source":"house2.tsx"
-        }],
+       ,
  "tilewidth":16,
  "type":"map",
  "version":"1.10",

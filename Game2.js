@@ -82,6 +82,7 @@ class Game {
   spawnZombie() {
     const x = Math.random() * (this.gameWindowWidth - 330) + 166;
     const y = Math.random() * (this.gameWindowHeight - 330) + 166;
+    
     let zombieType = Math.floor(Math.random() * 5)
     if (this.currentMap.bossCount>0) {
        zombieType = Math.floor(Math.random() * 7);

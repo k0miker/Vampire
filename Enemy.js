@@ -109,6 +109,7 @@ export default class Enemy {
     obstacleCollision,
     player
   ) {
+  
     if (this.status === "alive") {
       let dx = playerX - (this.x + this.width / 2);
       let dy = playerY - (this.y + this.height / 2);
@@ -148,20 +149,74 @@ export default class Enemy {
     return topCollision;
   }
 
-  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
-    if (this.status === "alive") {
+   draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
+
+    if (this.status === "spawning") {
+      this.image.src = "./assets/spawn.png";
+      this.deathTimer -= 1 * deltaTime * 60;
+      this.indexX = 0;
+  
+      if (this.deathTimer <= 0) {
+        this.indexX += 17;
+        this.deathTimer = 15;
+      }
+      if (this.indexX > 78) {
+        this.status = "alive";
+      }
+  
+      ctx.save();
+      ctx.drawImage(
+        this.image,
+        0, // X-Position der Spawn-Animation im Sprite
+        0, // Y-Position der Spawn-Animation im Sprite
+        16,
+        16,
+        this.x - backgroundX - this.width / 2,
+        this.y - backgroundY - this.height / 2,
+        this.width,
+        this.height
+      );
+      ctx.restore();
+    } else if (this.status === "dying") {
+      // Zeichne die Todesanimation, wenn der Zombie tot ist
+      this.image.src = "./assets/tileset.png";
+      this.deathTimer -= 1 * deltaTime * 60;
+  
+      if (this.deathTimer <= 0) {
+        this.indexX += 17;
+        this.deathTimer = 15;
+      }
+  
+      if (this.indexX > 661) {
+        this.status = "dead";
+      }
+  
+      ctx.save();
+      ctx.drawImage(
+        this.image,
+        this.indexX, // X-Position der Todesanimation im Sprite
+        152, // Y-Position der Todesanimation im Sprite
+        16,
+        16,
+        this.x - backgroundX - this.width / 2,
+        this.y - backgroundY - this.height / 2,
+        this.width,
+        this.height
+      );
+      ctx.restore();
+    } else if (this.status === "alive") {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {
         this.walkTimer = 20;
         this.indexX += 17;
         if (this.indexX > 50) this.indexX = 0;
       }
-
+  
       const angle = Math.atan2(
         this.y - backgroundY - playerY,
         this.x - backgroundX - playerX
       );
-
+  
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
         spriteY = 40;
@@ -172,40 +227,12 @@ export default class Enemy {
       } else {
         spriteY = 20;
       }
-
+  
       ctx.save();
       ctx.drawImage(
         this.image,
         this.indexX,
         spriteY,
-        16,
-        16,
-        this.x - backgroundX - this.width / 2,
-        this.y - backgroundY - this.height / 2,
-        this.width,
-        this.height
-      );
-      ctx.restore();
-    }
-    if (this.status === "dying") {
-      // Zeichne die Todesanimation, wenn der Zombie tot ist
-      this.image.src = "./assets/tileset.png";
-      this.deathTimer -= 1 * deltaTime * 60;
-
-      if (this.deathTimer <= 0) {
-        this.indexX += 17;
-        this.deathTimer = 15;
-      }
-
-      if (this.indexX > 661) {
-        this.status = "dead";
-      }
-
-      ctx.save();
-      ctx.drawImage(
-        this.image,
-        this.indexX, // X-Position der Todesanimation im Sprite
-        152, // Y-Position der Todesanimation im Sprite
         16,
         16,
         this.x - backgroundX - this.width / 2,

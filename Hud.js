@@ -10,7 +10,7 @@ export default class Hud {
     this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
     this.ctx.fillRect(20, 20, player.health, 28);
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.6";
-    this.ctx.fillRect(0, 0, 580,62);
+    this.ctx.fillRect(0, 0, 1200,62);
     this.ctx.fillRect(0, 62, 180,32);
     this.ctx.drawImage(
       this.img,
@@ -19,9 +19,9 @@ export default class Hud {
       16,
       16,
       400,
-      -30,
-      128,
-      96
+      -10,
+      96,
+      64
     );
     for (let i = 0; i < player.weapons[player.weapon].bullets; i++) {
       this.ctx.drawImage(
@@ -41,7 +41,7 @@ export default class Hud {
     this.ctx.fillText(
       `        HP: ${
         player.health
-      }             Gold: ${Math.ceil(this.score)}       `,
+      }             ${Math.ceil(this.score)} $                                                        R for reload${player.weapons[player.weapon].reloading ?"   0."+player.reloadTimer.toFixed(0)+" Sekunden" : ""}`,
       10,
       40
     );

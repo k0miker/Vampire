@@ -21,7 +21,7 @@ export function keyUpHandler(e) {
 }
 
 export function keyDownHandler(e) {
-  if (e.code === "KeyE") {
+  if (e.code === "KeyR") {
     this.player.weapons[this.player.weapon].bullets = 0;
     this.player.reloadTimer = 120;
     this.player.weapons[this.player.weapon].reloading = true;

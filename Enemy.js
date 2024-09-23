@@ -96,7 +96,15 @@ export default class Enemy {
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
+    this.damageSounds = [
+      document.getElementById('enemy-damage-sound-1'),
+      document.getElementById('enemy-damage-sound-2'),
+      document.getElementById('enemy-damage-sound-3'),
+      document.getElementById('enemy-damage-sound-4')
+    ];
+    this.damageSounds.forEach(sound => sound.volume = 0.5);
   }
+  
 
   update(
     playerX,
@@ -247,6 +255,17 @@ export default class Enemy {
         console.log("Enemy is dead. Starting death animation.");
         this.status = "dying";
         this.indexX = 595;
+      } else {
+        // Freie Instanz finden und abspielen
+        const damageSound = this.damageSounds.find(sound => sound.paused);
+        if (damageSound) {
+          damageSound.currentTime = 0;
+          damageSound.play();
+          setTimeout(() => {
+            damageSound.pause();
+            damageSound.currentTime = 0;
+          }, 750); // 50 Millisekunden = 0,05 Sekunden
+        }
       }
     }
   }

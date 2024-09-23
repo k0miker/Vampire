@@ -51,11 +51,17 @@ export default class Player {
     this.pistolSounds = [
       document.getElementById("pistol-sound-1"),
       document.getElementById("pistol-sound-2"),
+      document.getElementById("pistol-sound-3"),
+      document.getElementById("pistol-sound-4"),
     ];
     this.shotgunSounds = [
       document.getElementById("shotgun-sound-1"),
       document.getElementById("shotgun-sound-2"),
+      document.getElementById("shotgun-sound-3"),
+      document.getElementById("shotgun-sound-4"),
     ];
+    this.pistolSounds.forEach(sound => sound.volume = 0.25); // 50% Lautstärke
+    this.shotgunSounds.forEach(sound => sound.volume = 0.25);
   }
   addPistolBullet(
     bullets,
@@ -95,7 +101,7 @@ export default class Player {
         setTimeout(() => {
           pistolSound.pause();
           pistolSound.currentTime = 0;
-        }, 450); // 50 Millisekunden = 0,05 Sekunden
+        }, 750); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }
@@ -141,7 +147,7 @@ export default class Player {
         setTimeout(() => {
           shotgunSound.pause();
           shotgunSound.currentTime = 0;
-        }, 350); // 50 Millisekunden = 0,05 Sekunden
+        }, 550); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }

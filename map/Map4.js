@@ -93,10 +93,10 @@ export default class Map4 {
             bullets[i].x,
             bullets[i].y,
             bullets[i].vx,
-            bullets[i].vy
+            bullets[i].vy,
+            12 // Assuming a count of 10 particles
           )
         );
-        // console.log(bloodsplosions[0].particles[0].vx);
         bullets.splice(i, 1);
         i--;
       }

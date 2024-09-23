@@ -28,7 +28,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 1, y: 3 };
+    this.mapIndex = { x: 3, y:0  };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.mapHandler = new MapHandler(

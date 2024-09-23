@@ -11,7 +11,6 @@ export default class Hud {
     this.ctx.fillRect(20, 20, player.health, 28);
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.6";
     this.ctx.fillRect(0, 0, 1200,62);
-    this.ctx.fillRect(0, 62, 180,32);
     this.ctx.drawImage(
       this.img,
       17,
@@ -30,8 +29,8 @@ export default class Hud {
         194,
         16,
         16,
-        -5 + i * 20,
-        52,
+        500 + i * 20,
+        10,
         64,
         64
       );
@@ -46,6 +45,6 @@ export default class Hud {
       40
     );
     this.ctx.fillStyle = "rgba(255, 255, 255, 0.8";
-    this.ctx.fillRect(20,55, player.reloadTimer/2, 32);
+    this.ctx.fillRect(515,22, player.reloadTimer/2, 16);
   }
 }

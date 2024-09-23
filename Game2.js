@@ -85,7 +85,9 @@ class Game {
 
     let zombieType = Math.floor(Math.random() * 5);
     if (this.currentMap.bossCount > 0) {
-      zombieType = Math.floor(Math.random() * 7);
+      this.enemies.push(
+        new Enemy(this.currentMap.bossX, this.currentMap.bossY, 120, 120, 5)
+      );
     }
 
     // Only spawn zombie if it doesn't collide with an obstacle
@@ -224,6 +226,16 @@ class Game {
         this.player.x + this.player.width / 2,
         this.player.y + this.player.height / 2
       );
+      if (enemy.boss) {
+        enemy.bossHandler(
+          this.player,
+          this.ctx,
+          this.gameWindowWidth,
+          this.game,
+          deltaTime,
+          this.obstacleCollision
+        );
+      }
     });
 
     // Kollisionserkennung

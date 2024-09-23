@@ -201,7 +201,6 @@ export default class Enemy {
       if (this.indexX > 661) {
         this.status = "dead";
       }
-
       ctx.save();
       ctx.drawImage(
         this.image,

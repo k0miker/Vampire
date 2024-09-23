@@ -68,15 +68,15 @@ export default class Enemy {
         this.damage = 25;
         this.aggroRange = 600;
         break;
-      case 6: // Boss 2
-        this.imageSrc = "./assets/zombi0.png";
-        this.speed = 1.5 + Math.random();
-        this.health = 2000;
-        this.width = w * 2; 
-        this.height = h * 2;
-        this.gold = 150; 
-        this.damage = 50;
-        this.aggroRange = 800;
+      // case 6: // Boss 2
+      //   this.imageSrc = "./assets/zombi0.png";
+      //   this.speed = 1.5 + Math.random();
+      //   this.health = 2000;
+      //   this.width = w * 2; 
+      //   this.height = h * 2;
+      //   this.gold = 150; 
+      //   this.damage = 50;
+      //   this.aggroRange = 800;
       default:
         this.imageSrc = "./assets/vamp.png";
         this.speed = 0.5 + Math.random();

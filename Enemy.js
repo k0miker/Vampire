@@ -84,7 +84,7 @@ export default class Enemy {
         this.damage = 25;
         this.aggroRange = 1400;
         this.boss = true;
-        this.shootTimer = 40;
+        this.shootTimer = 30;
         this.bullets = [];
         break;
       case 6: // Boss 2
@@ -309,7 +309,7 @@ export default class Enemy {
   ) {
     this.shootTimer--;
     if (this.shootTimer <= 0 && this.health >= 0) {
-      this.shootTimer = 40;
+      this.shootTimer = 30;
       let dx = player.x - this.x;
       let dy = player.y - this.y;
       let dist = Math.sqrt(dx * dx + dy * dy);

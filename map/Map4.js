@@ -10,7 +10,7 @@ export default class Map4 {
     this.zombieCount = Math.ceil(Math.random() * 0);
     this.bossCount = 1;
 
-    this.bossX = 1500;
+    this.bossX = 1400;
     this.bossY = 310;
 
     this.map = [

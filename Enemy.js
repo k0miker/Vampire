@@ -102,7 +102,7 @@ export default class Enemy {
       document.getElementById('enemy-damage-sound-3'),
       document.getElementById('enemy-damage-sound-4')
     ];
-    this.damageSounds.forEach(sound => sound.volume = 0.5);
+    this.damageSounds.forEach(sound => sound.volume = 0.2);
   }
   
 

@@ -28,7 +28,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 3, y: 0 };
+    this.mapIndex = { x: 0, y: 3 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.mapHandler = new MapHandler(
@@ -318,6 +318,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("start-button").addEventListener("click", () => {
     const difficulty = document.getElementById("difficulty-select").value;
     document.getElementById("overlay").style.display = "none";
+    const ambientSound = document.getElementById("ambient");
+    ambientSound.loop = true; // Sound in einer Schleife abspielen
+    ambientSound.volume = 0.15; // Lautstärke auf 10% setzen
+    ambientSound.play(); // Sound abspielen
     game = new Game(difficulty);
   });
 

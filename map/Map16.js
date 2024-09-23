@@ -3,7 +3,7 @@ import Map from "../MapHandler.js";
 export default class Map16 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount = 4;
+    this.zombieCount =math.ceil(math.random()*15) ;
     this.bossCount = 0; 
     //////////VORLÄUFIGE MAPDATEN////////////////
     this.map = [

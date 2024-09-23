@@ -5,7 +5,7 @@ import ObstacleCollision from "../ObstaclesCollision.js";
 export default class Map4 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount = 0;
+    this.zombieCount =math.ceil(math.random()*0) ;
     this.bossCount = 1;
     this.shootTimer = 0;
     this.boss = new Enemy(900, 300, 120, 120, 0);

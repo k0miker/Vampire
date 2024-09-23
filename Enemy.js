@@ -12,7 +12,7 @@ export default class Enemy {
       document.getElementById("enemy-damage-sound-3"),
       document.getElementById("enemy-damage-sound-4"),
     ];
-    this.damageSounds.forEach((sound) => (sound.volume = 0.5));
+    this.damageSounds.forEach((sound) => (sound.volume = 0.2));
 
     switch (zombieType) {
       case 0:
@@ -70,7 +70,7 @@ export default class Enemy {
           document.getElementById("vamp-sound-3"),
           document.getElementById("vamp-sound-4"),
         ];
-        this.damageSounds.forEach((sound) => (sound.volume = 0.5));
+        this.damageSounds.forEach((sound) => (sound.volume = 0.2));
         break;
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi1.png";

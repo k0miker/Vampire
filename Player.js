@@ -98,7 +98,7 @@ export default class Player {
       this.weapons[this.weapon].bullets -= 1;
 
       // Freie Instanz finden und abspielen
-      const pistolSound = this.pistolSounds.find(sound => sound.paused);
+      const pistolSound = this.pistolSounds.find((sound) => sound.paused);
       if (pistolSound) {
         pistolSound.currentTime = 0;
         pistolSound.play();
@@ -150,7 +150,7 @@ export default class Player {
       this.weapons[this.weapon].bullets -= 1;
 
       // Freie Instanz finden und abspielen
-      const shotgunSound = this.shotgunSounds.find(sound => sound.paused);
+      const shotgunSound = this.shotgunSounds.find((sound) => sound.paused);
       if (shotgunSound) {
         shotgunSound.currentTime = 0;
         shotgunSound.play();
@@ -236,7 +236,7 @@ export default class Player {
       } else {
         ctx.translate(this.x - this.width / 2, this.y - this.height / 2);
       }
-      if (this.invinsibleTimer > 1 && this.invFlip >= 15) {
+      if (this.invinsibleTimer > 1 && this.invFlip >= 4) {
         this.invFlip = 0;
       } else {
         ctx.drawImage(

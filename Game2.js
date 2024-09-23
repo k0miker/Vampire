@@ -188,7 +188,8 @@ class Game {
       this.ctx,
       deltaTime,
       this.player,
-      this.obstacleCollision
+      this.obstacleCollision,
+      this.bullets
     );
 
     // Update und Zeichne Gegner

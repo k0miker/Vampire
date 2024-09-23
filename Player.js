@@ -51,10 +51,14 @@ export default class Player {
     this.pistolSounds = [
       document.getElementById("pistol-sound-1"),
       document.getElementById("pistol-sound-2"),
+      document.getElementById("pistol-sound-3"),
+      document.getElementById("pistol-sound-4"),
     ];
     this.shotgunSounds = [
       document.getElementById("shotgun-sound-1"),
       document.getElementById("shotgun-sound-2"),
+      document.getElementById("shotgun-sound-3"),
+      document.getElementById("shotgun-sound-4"),
     ];
   }
   addPistolBullet(
@@ -86,7 +90,7 @@ export default class Player {
       );
       bullets.push(bullet);
       this.weapons[this.weapon].bullets -= 1;
-  
+
       // Freie Instanz finden und abspielen
       const pistolSound = this.pistolSounds.find(sound => sound.paused);
       if (pistolSound) {
@@ -95,11 +99,11 @@ export default class Player {
         setTimeout(() => {
           pistolSound.pause();
           pistolSound.currentTime = 0;
-        }, 450); // 50 Millisekunden = 0,05 Sekunden
+        }, 750); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }
-  
+
   addShotgunBullet(
     bullets,
     dx,
@@ -130,9 +134,9 @@ export default class Player {
         );
         bullets.push(bullet);
       }
-  
+
       this.weapons[this.weapon].bullets -= 1;
-  
+
       // Freie Instanz finden und abspielen
       const shotgunSound = this.shotgunSounds.find(sound => sound.paused);
       if (shotgunSound) {
@@ -141,7 +145,7 @@ export default class Player {
         setTimeout(() => {
           shotgunSound.pause();
           shotgunSound.currentTime = 0;
-        }, 350); // 50 Millisekunden = 0,05 Sekunden
+        }, 550); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }

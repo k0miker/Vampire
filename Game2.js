@@ -189,7 +189,8 @@ class Game {
       deltaTime,
       this.player,
       this.obstacleCollision,
-      this.bullets
+      this.bullets,
+      this.bloodsplosions
     );
 
     // Update und Zeichne Gegner
@@ -227,7 +228,7 @@ class Game {
 
     //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
-      console.log(this.bullets[i].dmg);
+      // console.log(this.bullets[i].dmg);
       this.bullets[i].range--;
       if (
         this.bullets[i].x < 0 ||

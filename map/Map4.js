@@ -1,6 +1,7 @@
 import Map from "../MapHandler.js";
 import Enemy from "../Enemy.js";
 import ObstacleCollision from "../ObstaclesCollision.js";
+import Bloodsplosion from "../Bloodsplosion.js";
 
 export default class Map4 {
   constructor(ctx) {
@@ -56,7 +57,14 @@ export default class Map4 {
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
   }
 
-  bossHandler(ctx, deltaTime, player, obstacleCollision, bullets) {
+  bossHandler(
+    ctx,
+    deltaTime,
+    player,
+    obstacleCollision,
+    bullets,
+    bloodsplosions
+  ) {
     this.boss.update(
       player.x,
       player.y,
@@ -69,13 +77,28 @@ export default class Map4 {
 
     //bulletCollision
     for (let i = 0; i < bullets.length; i++) {
-      bullets[i].collisionEnemy(
+      let hitIndex = undefined;
+      hitIndex = bullets[i].collisionEnemy(
         [this.boss],
         deltaTime,
         0,
         0,
         obstacleCollision
       );
+      console.log(hitIndex);
+      if (hitIndex === 0) {
+        bloodsplosions.push(
+          new Bloodsplosion(
+            bullets[i].x,
+            bullets[i].y,
+            bullets[i].vx,
+            bullets[i].vy
+          )
+        );
+        console.log(bloodsplosions);
+        bullets.splice(i, 1);
+        i--;
+      }
     }
 
     this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);

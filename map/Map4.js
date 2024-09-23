@@ -9,6 +9,7 @@ export default class Map4 {
     this.bossCount = 1;
     this.shootTimer = 0;
     this.boss = new Enemy(900, 300, 120, 120, 0);
+    this.boss.health = 1700;
     this.boss.aggroRange = 1000;
     this.boss.speed = 3;
 

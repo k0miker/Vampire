@@ -6,7 +6,13 @@ export default class Enemy {
     this.width = w;
     this.height = h;
     this.gold = 1;
-
+    this.damageSounds = [
+      document.getElementById('enemy-damage-sound-1'),
+      document.getElementById('enemy-damage-sound-2'),
+      document.getElementById('enemy-damage-sound-3'),
+      document.getElementById('enemy-damage-sound-4')
+    ];
+    this.damageSounds.forEach(sound => sound.volume = 0.2);
     switch (zombieType) {
       case 0:
         this.imageSrc = "./assets/zombi0.png";
@@ -37,6 +43,14 @@ export default class Enemy {
         this.gold = 3;
         this.damage = 15;
         this.aggroRange = 300;
+        this.damageSounds = [
+          document.getElementById('enemy2-damage-sound-1'),
+          document.getElementById('enemy2-damage-sound-2'),
+          document.getElementById('enemy2-damage-sound-3'),
+          document.getElementById('enemy2-damage-sound-4')
+        ];
+        
+        this.damageSounds.forEach(sound => sound.volume = 0.1);
         break;
       case 3:
         this.imageSrc = "./assets/zombi3.png";
@@ -57,6 +71,13 @@ export default class Enemy {
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
+        this.damageSounds = [
+          document.getElementById("vamp-sound-1"),
+          document.getElementById("vamp-sound-2"),
+          document.getElementById("vamp-sound-3"),
+          document.getElementById("vamp-sound-4"),
+        ];
+        this.damageSounds.forEach(sound => sound.volume = 0.1);
         break;
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi1.png";
@@ -78,7 +99,7 @@ export default class Enemy {
         this.damage = 50;
         this.aggroRange = 800;
       default:
-        this.imageSrc = "./assets/vamp.png";
+        this.imageSrc = "./assets/zombie0.png";
         this.speed = 0.5 + Math.random();
         this.health = 100;
         this.width = w;
@@ -96,13 +117,8 @@ export default class Enemy {
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
-    this.damageSounds = [
-      document.getElementById('enemy-damage-sound-1'),
-      document.getElementById('enemy-damage-sound-2'),
-      document.getElementById('enemy-damage-sound-3'),
-      document.getElementById('enemy-damage-sound-4')
-    ];
-    this.damageSounds.forEach(sound => sound.volume = 0.2);
+
+ 
   }
   
 

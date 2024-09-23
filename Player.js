@@ -61,6 +61,7 @@ export default class Player {
       document.getElementById("shotgun-sound-4"),
     ];
     this.reloadSound = document.getElementById('reload'); // Reload-Sound laden
+    this.reloadSound.volume = 0.5; // 25% Lautstärke
     this.pistolSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
     this.shotgunSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
   }

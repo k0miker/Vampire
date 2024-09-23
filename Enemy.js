@@ -110,13 +110,7 @@ export default class Enemy {
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
-    this.damageSounds = [
-      document.getElementById("enemy-damage-sound-1"),
-      document.getElementById("enemy-damage-sound-2"),
-      document.getElementById("enemy-damage-sound-3"),
-      document.getElementById("enemy-damage-sound-4"),
-    ];
-    this.damageSounds.forEach((sound) => (sound.volume = 0.5));
+    
   }
 
   update(

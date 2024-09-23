@@ -6,6 +6,13 @@ export default class Enemy {
     this.width = w;
     this.height = h;
     this.gold = 1;
+    this.damageSounds = [
+      document.getElementById("enemy-damage-sound-1"),
+      document.getElementById("enemy-damage-sound-2"),
+      document.getElementById("enemy-damage-sound-3"),
+      document.getElementById("enemy-damage-sound-4"),
+    ];
+    this.damageSounds.forEach((sound) => (sound.volume = 0.5));
 
     switch (zombieType) {
       case 0:
@@ -57,6 +64,13 @@ export default class Enemy {
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
+        this.damageSounds = [
+          document.getElementById("enemy2-damage-sound-1"),
+          document.getElementById("enemy2-damage-sound-2"),
+          document.getElementById("enemy2-damage-sound-3"),
+          document.getElementById("enemy2-damage-sound-4"),
+        ];
+        this.damageSounds.forEach((sound) => (sound.volume = 0.5));
         break;
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi1.png";

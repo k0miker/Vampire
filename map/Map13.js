@@ -3,7 +3,7 @@ import Map from "../MapHandler.js";
 export default class Map13 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount =math.ceil(math.random()*7) ;
+    this.zombieCount =Math.ceil(Math.random()*7) ;
     this.bossCount = 0; 
     this.map = [
       242, 243, 243, 243, 243, 243, 243, 243, 244, 29, 29, 29, 29, 29, 29, 29,

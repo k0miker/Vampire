@@ -4,7 +4,7 @@ import Enemy from "../Enemy.js";
 export default class Map3 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount =math.ceil(math.random()*8) ;
+    this.zombieCount =Math.ceil(Math.random()*8) ;
     this.bossCount = 0;
 
     this.map = [67, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,

@@ -185,15 +185,15 @@ class Game {
 
     //update und zeichne Boss
     if (this.currentMap.bossHandler)
-    this.currentMap.bossHandler(
-      this.ctx,
-      deltaTime,
-      this.player,
-      this.obstacleCollision,
-      this.bullets,
-      this.bloodsplosions
-    );
-
+      this.currentMap.bossHandler(
+        this.ctx,
+        deltaTime,
+        this.player,
+        this.obstacleCollision,
+        this.bullets,
+        this.bloodsplosions
+      );
+    console.log(this.bloodsplosions);
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
       if (this.enemies[i].status === "dying") {

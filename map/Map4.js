@@ -6,7 +6,7 @@ import Bloodsplosion from "../Bloodsplosion.js";
 export default class Map4 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount = Math.ceil(Math.random()*0) ;
+    this.zombieCount = Math.ceil(Math.random() * 0);
     this.bossCount = 1;
     this.shootTimer = 0;
     this.boss = new Enemy(900, 300, 120, 120, 0);
@@ -75,7 +75,7 @@ export default class Map4 {
       obstacleCollision,
       player
     );
-
+    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);
     //bulletCollision
     for (let i = 0; i < bullets.length; i++) {
       let hitIndex = undefined;
@@ -86,7 +86,7 @@ export default class Map4 {
         0,
         obstacleCollision
       );
-      console.log(hitIndex);
+
       if (hitIndex === 0) {
         bloodsplosions.push(
           new Bloodsplosion(
@@ -96,13 +96,12 @@ export default class Map4 {
             bullets[i].vy
           )
         );
-        console.log(bloodsplosions);
+        // console.log(bloodsplosions[0].particles[0].vx);
         bullets.splice(i, 1);
         i--;
       }
     }
 
-    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);
     this.shootTimer++;
   }
 }

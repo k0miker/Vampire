@@ -47,7 +47,15 @@ export default class Player {
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
-    // this.map = map; // Speichere die Map-Instanz
+
+    this.pistolSounds = [
+      document.getElementById("pistol-sound-1"),
+      document.getElementById("pistol-sound-2"),
+    ];
+    this.shotgunSounds = [
+      document.getElementById("shotgun-sound-1"),
+      document.getElementById("shotgun-sound-2"),
+    ];
   }
   addPistolBullet(
     bullets,
@@ -78,8 +86,20 @@ export default class Player {
       );
       bullets.push(bullet);
       this.weapons[this.weapon].bullets -= 1;
+  
+      // Freie Instanz finden und abspielen
+      const pistolSound = this.pistolSounds.find(sound => sound.paused);
+      if (pistolSound) {
+        pistolSound.currentTime = 0;
+        pistolSound.play();
+        setTimeout(() => {
+          pistolSound.pause();
+          pistolSound.currentTime = 0;
+        }, 450); // 50 Millisekunden = 0,05 Sekunden
+      }
     }
   }
+  
   addShotgunBullet(
     bullets,
     dx,
@@ -110,8 +130,19 @@ export default class Player {
         );
         bullets.push(bullet);
       }
-
+  
       this.weapons[this.weapon].bullets -= 1;
+  
+      // Freie Instanz finden und abspielen
+      const shotgunSound = this.shotgunSounds.find(sound => sound.paused);
+      if (shotgunSound) {
+        shotgunSound.currentTime = 0;
+        shotgunSound.play();
+        setTimeout(() => {
+          shotgunSound.pause();
+          shotgunSound.currentTime = 0;
+        }, 350); // 50 Millisekunden = 0,05 Sekunden
+      }
     }
   }
   takeDamage(damage) {
@@ -188,7 +219,7 @@ export default class Player {
       } else {
         ctx.translate(this.x - this.width / 2, this.y - this.height / 2);
       }
-      if (this.invinsibleTimer > 1 && this.invFlip >= 3) {
+      if (this.invinsibleTimer > 1 && this.invFlip >= 15) {
         this.invFlip = 0;
       } else {
         ctx.drawImage(

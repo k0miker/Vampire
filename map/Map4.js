@@ -11,6 +11,7 @@ export default class Map4 {
     this.boss = new Enemy(900, 300, 120, 120, 0);
     this.boss.aggroRange = 1000;
     this.boss.speed = 3;
+
     this.map = [
       29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
       29, 29, 29, 29, 29, 29, 29, 29, 259, 67, 225, 6, 225, 225, 225, 263, 44,
@@ -55,7 +56,7 @@ export default class Map4 {
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
   }
 
-  bossHandler(ctx, deltaTime, player, obstacleCollision) {
+  bossHandler(ctx, deltaTime, player, obstacleCollision, bullets) {
     this.boss.update(
       player.x,
       player.y,
@@ -65,6 +66,18 @@ export default class Map4 {
       obstacleCollision,
       player
     );
+
+    //bulletCollision
+    for (let i = 0; i < bullets.length; i++) {
+      bullets[i].collisionEnemy(
+        [this.boss],
+        deltaTime,
+        0,
+        0,
+        obstacleCollision
+      );
+    }
+
     this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);
     this.shootTimer++;
   }

@@ -42,7 +42,7 @@ export default class Player {
         reloading: false,
       },
     ];
-    this.invinsibleTimer = 1000000;
+    this.invinsibleTimer = 3000;
     this.invFlip = 0;
     this.vx = 0;
     this.vy = 0;

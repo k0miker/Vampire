@@ -47,13 +47,13 @@ export default class Enemy {
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 150;
-        break;      
+        break;
       case 4:
         this.imageSrc = "./assets/vamp.png";
         this.speed = 5 + Math.random();
         this.health = 100;
         this.width = w * 1.5;
-        this.height = h * 1.5; 
+        this.height = h * 1.5;
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
@@ -61,9 +61,9 @@ export default class Enemy {
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi1.png";
         this.speed = 1 + Math.random();
-        this.health = 1250;
+        this.health = 12;
         this.width = w * 1.5;
-        this.height = h * 1.5; 
+        this.height = h * 1.5;
         this.gold = 100;
         this.damage = 25;
         this.aggroRange = 600;
@@ -71,10 +71,10 @@ export default class Enemy {
       case 6: // Boss 2
         this.imageSrc = "./assets/zombi0.png";
         this.speed = 1.5 + Math.random();
-        this.health = 2000;
-        this.width = w * 2; 
+        this.health = 20;
+        this.width = w * 2;
         this.height = h * 2;
-        this.gold = 150; 
+        this.gold = 150;
         this.damage = 50;
         this.aggroRange = 800;
       default:
@@ -98,8 +98,6 @@ export default class Enemy {
     this.deathTimer = 15;
   }
 
- 
-
   update(
     playerX,
     playerY,
@@ -109,7 +107,6 @@ export default class Enemy {
     obstacleCollision,
     player
   ) {
-  
     if (this.status === "alive") {
       let dx = playerX - (this.x + this.width / 2);
       let dy = playerY - (this.y + this.height / 2);
@@ -141,21 +138,20 @@ export default class Enemy {
 
   isColliding(player) {
     const topCollision =
-      this.x < player.x + player.width &&
-      this.x + this.width > player.x &&
-      this.y < player.y + player.height &&
-      this.y + this.height > player.y;
+      this.x - this.width / 2 < player.x + player.width / 2 &&
+      this.x + this.width / 2 > player.x - player.width / 2 &&
+      this.y - this.height / 2 < player.y + player.height / 2 &&
+      this.y + this.height / 2 > player.y - player.height / 2;
 
     return topCollision;
   }
 
-   draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
-
+  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
     if (this.status === "spawning") {
       this.image.src = "./assets/spawn.png";
       this.deathTimer -= 1 * deltaTime * 60;
       this.indexX = 0;
-  
+
       if (this.deathTimer <= 0) {
         this.indexX += 17;
         this.deathTimer = 15;
@@ -163,7 +159,7 @@ export default class Enemy {
       if (this.indexX > 78) {
         this.status = "alive";
       }
-  
+
       ctx.save();
       ctx.drawImage(
         this.image,
@@ -181,16 +177,16 @@ export default class Enemy {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
       this.image.src = "./assets/tileset.png";
       this.deathTimer -= 1 * deltaTime * 60;
-  
+
       if (this.deathTimer <= 0) {
         this.indexX += 17;
         this.deathTimer = 15;
       }
-  
+
       if (this.indexX > 661) {
         this.status = "dead";
       }
-  
+
       ctx.save();
       ctx.drawImage(
         this.image,
@@ -211,12 +207,12 @@ export default class Enemy {
         this.indexX += 17;
         if (this.indexX > 50) this.indexX = 0;
       }
-  
+
       const angle = Math.atan2(
         this.y - backgroundY - playerY,
         this.x - backgroundX - playerX
       );
-  
+
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
         spriteY = 40;
@@ -227,7 +223,7 @@ export default class Enemy {
       } else {
         spriteY = 20;
       }
-  
+
       ctx.save();
       ctx.drawImage(
         this.image,

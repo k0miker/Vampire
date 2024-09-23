@@ -28,7 +28,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 0, y: 2 };
+    this.mapIndex = { x: 3, y: 0 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.mapHandler = new MapHandler(
@@ -82,14 +82,16 @@ class Game {
   spawnZombie() {
     const x = Math.random() * (this.gameWindowWidth - 330) + 166;
     const y = Math.random() * (this.gameWindowHeight - 330) + 166;
-    
-    let zombieType = Math.floor(Math.random() * 5)
-    if (this.currentMap.bossCount>0) {
-       zombieType = Math.floor(Math.random() * 7);
-    } 
-  
+
+    let zombieType = Math.floor(Math.random() * 5);
+    if (this.currentMap.bossCount > 0) {
+      zombieType = Math.floor(Math.random() * 7);
+    }
+
     // Only spawn zombie if it doesn't collide with an obstacle
-    if (!this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })) {
+    if (
+      !this.obstacleCollision.collision({ x: x, y: y, width: 48, height: 48 })
+    ) {
       this.enemies.push(new Enemy(x, y, 48, 48, zombieType));
     } else {
       return false;
@@ -113,7 +115,7 @@ class Game {
         spawned = this.spawnZombie();
       }
     }
-  
+
     // Spawne Boss-Gegner nur, wenn bossCount größer als 0 ist
     if (this.currentMap.bossCount > 0) {
       for (let i = 0; i < this.currentMap.bossCount; i++) {
@@ -181,11 +183,19 @@ class Game {
     this.ctx.fillRect(0, 0, this.gameWindowWidth, this.gameWindowHeight);
     this.mapHandler.drawMap();
 
+    //update und zeichne Boss
+    this.currentMap.bossHandler(
+      this.ctx,
+      deltaTime,
+      this.player,
+      this.obstacleCollision
+    );
+
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
-      if(this.enemies[i].status === "dying") {
+      if (this.enemies[i].status === "dying") {
         //gold hinzufügen /10 weil eine sec "dying"
-        this.hud.score += this.enemies[i].gold/10;
+        this.hud.score += this.enemies[i].gold / 10;
       }
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
@@ -279,8 +289,8 @@ class Game {
     }
     this.mapHandler.drawOverlay();
     requestAnimationFrame(this.animate.bind(this));
-       // HUD anzeigen
-       this.hud.draw(this.enemies.length, this.bullets.length, this.player);
+    // HUD anzeigen
+    this.hud.draw(this.enemies.length, this.bullets.length, this.player);
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();

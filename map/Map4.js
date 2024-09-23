@@ -1,10 +1,16 @@
 import Map from "../MapHandler.js";
+import Enemy from "../Enemy.js";
+import ObstacleCollision from "../ObstaclesCollision.js";
 
 export default class Map4 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
-    this.zombieCount = 3;
-    this.bossCount = 1; 
+    this.zombieCount = 0;
+    this.bossCount = 1;
+    this.shootTimer = 0;
+    this.boss = new Enemy(900, 300, 120, 120, 0);
+    this.boss.aggroRange = 1000;
+    this.boss.speed = 3;
     this.map = [
       29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
       29, 29, 29, 29, 29, 29, 29, 29, 259, 67, 225, 6, 225, 225, 225, 263, 44,
@@ -49,7 +55,17 @@ export default class Map4 {
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
   }
 
-  // draw() {
-  //     this.mapInstance.drawMap();
-  // }
+  bossHandler(ctx, deltaTime, player, obstacleCollision) {
+    this.boss.update(
+      player.x,
+      player.y,
+      deltaTime,
+      0,
+      0,
+      obstacleCollision,
+      player
+    );
+    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);
+    this.shootTimer++;
+  }
 }

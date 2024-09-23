@@ -191,9 +191,11 @@ class Game {
         this.player,
         this.obstacleCollision,
         this.bullets,
-        this.bloodsplosions
+        this.bloodsplosions,
+        this.gameWindowWidth,
+        this.gameWindowHeight
       );
-    if (this.bloodsplosions.length > 0) console.log(this.bloodsplosions);
+    // if (this.bloodsplosions.length > 0) console.log(this.bloodsplosions);
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
       if (this.enemies[i].status === "dying") {

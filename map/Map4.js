@@ -2,17 +2,20 @@ import Map from "../MapHandler.js";
 import Enemy from "../Enemy.js";
 import ObstacleCollision from "../ObstaclesCollision.js";
 import Bloodsplosion from "../Bloodsplosion.js";
+import Bullet from "../Bullet.js";
 
 export default class Map4 {
   constructor(ctx) {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
     this.zombieCount = Math.ceil(Math.random() * 0);
     this.bossCount = 1;
-    this.shootTimer = 0;
-    this.boss = new Enemy(900, 300, 120, 120, 0);
+    this.shootTimer = 50;
+    this.boss = new Enemy(1400, 310, 120, 120, 0);
     this.boss.health = 1700;
-    this.boss.aggroRange = 1000;
+    this.boss.aggroRange = 1200;
     this.boss.speed = 3;
+    this.bossBullets = [];
+    this.bulletDmg = 20;
 
     this.map = [
       29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
@@ -64,7 +67,9 @@ export default class Map4 {
     player,
     obstacleCollision,
     bullets,
-    bloodsplosions
+    bloodsplosions,
+    gameWindowWidth,
+    gameWindowHeight
   ) {
     this.boss.update(
       player.x,
@@ -102,6 +107,51 @@ export default class Map4 {
       }
     }
 
-    this.shootTimer++;
+    this.shootTimer--;
+    if (this.shootTimer <= 0 && this.boss.health >= 0) {
+      this.shootTimer = 50;
+      let dx = player.x - this.boss.x;
+      let dy = player.y - this.boss.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+      this.bossBullets.push(
+        new Bullet(
+          this.boss.x,
+          this.boss.y,
+          dx / dist,
+          dy / dist,
+          this.bulletDmg,
+          ctx,
+          gameWindowWidth,
+          gameWindowHeight,
+          2000
+        )
+      );
+
+      console.log("shoot");
+    }
+    for (let i = 0; i < this.bossBullets.length; i++) {
+      this.bossBullets[i].x += this.bossBullets[i].vx * deltaTime * 400;
+      this.bossBullets[i].y += this.bossBullets[i].vy * deltaTime * 400;
+      ctx.fillStyle = "lightgrey";
+      ctx.fillRect(this.bossBullets[i].x, this.bossBullets[i].y, 8, 8);
+      ///playerHit?
+      if (
+        player.x < this.bossBullets[i].x + this.bossBullets[i].width / 2 &&
+        player.x + player.width >
+          this.bossBullets[i].x - this.bossBullets[i].width / 2 &&
+        player.y < this.bossBullets[i].y + this.bossBullets[i].height / 2 &&
+        player.y + player.height >
+          this.bossBullets[i].y - this.bossBullets[i].height / 2
+      ) {
+        player.health -= this.bulletDmg;
+        this.bossBullets.splice(i, 1);
+        i--;
+      }
+      ///obstacleHit?
+      if (obstacleCollision.collision(this.bossBullets[i])) {
+        this.bossBullets.splice(i, 1);
+        i--;
+      }
+    }
   }
 }

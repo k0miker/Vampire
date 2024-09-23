@@ -60,10 +60,10 @@ export default class Player {
       document.getElementById("shotgun-sound-3"),
       document.getElementById("shotgun-sound-4"),
     ];
-    this.reloadSound = document.getElementById('reload'); // Reload-Sound laden
+    this.reloadSound = document.getElementById("reload"); // Reload-Sound laden
     this.reloadSound.volume = 0.5; // 25% Lautstärke
-    this.pistolSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
-    this.shotgunSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
+    this.pistolSounds.forEach((sound) => (sound.volume = 0.25)); // 25% Lautstärke
+    this.shotgunSounds.forEach((sound) => (sound.volume = 0.25)); // 25% Lautstärke
   }
 
   addPistolBullet(
@@ -131,7 +131,7 @@ export default class Player {
       setTimeout(() => {
         this.reloadSound.pause();
         this.reloadSound.currentTime = 0;
-      }, 1000) // Reload-Sound abspielen
+      }, 1000); // Reload-Sound abspielen
     } else {
       for (let i = 0; i < 10; i++) {
         const bullet = new Bullet(

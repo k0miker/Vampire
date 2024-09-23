@@ -60,6 +60,8 @@ export default class Player {
       document.getElementById("shotgun-sound-3"),
       document.getElementById("shotgun-sound-4"),
     ];
+    this.pistolSounds.forEach(sound => sound.volume = 0.25); // 50% Lautstärke
+    this.shotgunSounds.forEach(sound => sound.volume = 0.25);
   }
   addPistolBullet(
     bullets,

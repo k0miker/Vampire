@@ -16,6 +16,7 @@ export default class Map4 {
     this.boss.speed = 3;
     this.bossBullets = [];
     this.bulletDmg = 20;
+    this.boss.image.src = "./assets/zombi0.png";
 
     this.map = [29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 259,
       9, 9, 7, 225, 225, 225, 263, 44, 6, 44, 44, 44, 263, 6, 44, 144, 44, 225, 263, 225, 6, 44, 225, 44, 44, 44, 105,
@@ -66,7 +67,8 @@ export default class Map4 {
       obstacleCollision,
       player
     );
-    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y);
+    // draw boss 
+    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y, this.boss.image.src);
     //bulletCollision
     for (let i = 0; i < bullets.length; i++) {
       let hitIndex = undefined;

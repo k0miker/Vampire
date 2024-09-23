@@ -160,8 +160,8 @@ export default class Enemy {
 
     return topCollision;
   }
-
-  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
+//draw enemy
+  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY,image) {
     if (this.status === "spawning") {
       this.image.src = "./assets/spawn.png";
       this.deathTimer -= 1 * deltaTime * 60;

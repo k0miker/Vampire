@@ -42,7 +42,8 @@ export default class Player {
         reloading: false,
       },
     ];
-    this.invinsibleTimer = 100;
+    this.invinsibleTimer = 0;
+    this.invFlip = 0;
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
@@ -187,29 +188,33 @@ export default class Player {
       } else {
         ctx.translate(this.x - this.width / 2, this.y - this.height / 2);
       }
-
-      ctx.drawImage(
-        this.image,
-        this.indexX,
-        indexY,
-        16,
-        16,
-        0,
-        0,
-        this.width,
-        this.height
-      );
-      ctx.drawImage(
-        this.image,
-        weaponAnimX + 17,
-        this.weapons[this.weapon].indexYPos,
-        16,
-        16,
-        this.wx[this.weaponXIndex],
-        this.weaponY + weaponYShift,
-        this.width,
-        this.height
-      );
+      if (this.invinsibleTimer > 1 && this.invFlip >= 3) {
+        this.invFlip = 0;
+      } else {
+        ctx.drawImage(
+          this.image,
+          this.indexX,
+          indexY,
+          16,
+          16,
+          0,
+          0,
+          this.width,
+          this.height
+        );
+        ctx.drawImage(
+          this.image,
+          weaponAnimX + 17,
+          this.weapons[this.weapon].indexYPos,
+          16,
+          16,
+          this.wx[this.weaponXIndex],
+          this.weaponY + weaponYShift,
+          this.width,
+          this.height
+        );
+        this.invFlip += 1;
+      }
 
       ctx.restore(); // Restore the previous state of the canvas context
     }

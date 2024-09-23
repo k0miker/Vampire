@@ -28,7 +28,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 0, y:2  };
+    this.mapIndex = { x: 0, y:3  };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.mapHandler = new MapHandler(
@@ -193,7 +193,7 @@ class Game {
         this.bullets,
         this.bloodsplosions
       );
-    console.log(this.bloodsplosions);
+    // console.log(this.bloodsplosions);
     // Update und Zeichne Gegner
     this.enemies.forEach((enemy, i) => {
       if (this.enemies[i].status === "dying") {

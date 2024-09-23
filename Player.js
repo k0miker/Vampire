@@ -60,9 +60,12 @@ export default class Player {
       document.getElementById("shotgun-sound-3"),
       document.getElementById("shotgun-sound-4"),
     ];
-    this.pistolSounds.forEach(sound => sound.volume = 0.25); // 50% Lautstärke
-    this.shotgunSounds.forEach(sound => sound.volume = 0.25);
+    this.reloadSound = document.getElementById('reload'); // Reload-Sound laden
+    this.reloadSound.volume = 0.5; // 25% Lautstärke
+    this.pistolSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
+    this.shotgunSounds.forEach(sound => sound.volume = 0.25); // 25% Lautstärke
   }
+
   addPistolBullet(
     bullets,
     dx,
@@ -78,6 +81,8 @@ export default class Player {
       console.log("nachladen");
       this.reloadTimer = 120;
       this.weapons[this.weapon].reloading = true;
+      this.reloadSound.currentTime = 0; // Reload-Sound von vorne starten
+      this.reloadSound.play(); // Reload-Sound abspielen
     } else {
       const bullet = new Bullet(
         this.x,
@@ -101,7 +106,7 @@ export default class Player {
         setTimeout(() => {
           pistolSound.pause();
           pistolSound.currentTime = 0;
-        }, 750); // 50 Millisekunden = 0,05 Sekunden
+        }, 1050); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }
@@ -121,6 +126,12 @@ export default class Player {
       console.log("nachladen");
       this.reloadTimer = 120;
       this.weapons[this.weapon].reloading = true;
+      this.reloadSound.currentTime = 0; // Reload-Sound von vorne starten
+      this.reloadSound.play();
+      setTimeout(() => {
+        this.reloadSound.pause();
+        this.reloadSound.currentTime = 0;
+      }, 1000) // Reload-Sound abspielen
     } else {
       for (let i = 0; i < 10; i++) {
         const bullet = new Bullet(
@@ -147,10 +158,11 @@ export default class Player {
         setTimeout(() => {
           shotgunSound.pause();
           shotgunSound.currentTime = 0;
-        }, 550); // 50 Millisekunden = 0,05 Sekunden
+        }, 1050); // 50 Millisekunden = 0,05 Sekunden
       }
     }
   }
+
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;
@@ -257,12 +269,3 @@ export default class Player {
     }
   }
 }
-
-// function isColliding(rect1, rect2) {
-//   return (
-//     rect1.x < rect2.x + rect2.width &&
-//     rect1.x + rect1.width > rect2.x &&
-//     rect1.y < rect2.y + rect2.height &&
-//     rect1.y + rect1.height > rect2.y
-//   );
-// }

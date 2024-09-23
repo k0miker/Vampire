@@ -78,7 +78,7 @@ export default class Enemy {
         this.damage = 50;
         this.aggroRange = 800;
       default:
-        this.imageSrc = "./assets/vamp.png";
+        this.imageSrc = "./assets/zombie0.png";
         this.speed = 0.5 + Math.random();
         this.health = 100;
         this.width = w;

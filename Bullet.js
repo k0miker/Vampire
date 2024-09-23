@@ -67,7 +67,7 @@ export default class Bullet {
   }
 
   draw(backgroundX, backgroundY) {
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = "lightgrey";
     this.ctx.fillRect(
       this.x - backgroundX,
       this.y - backgroundY,

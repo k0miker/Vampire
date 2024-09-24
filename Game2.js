@@ -14,6 +14,8 @@ import {
   clickHandler,
 } from "./controlls.js";
 import mapArray from "./map/mapArray.js";
+
+
 class Game {
   constructor(difficulty) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -40,13 +42,12 @@ class Game {
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
-
     this.bloodsplosions = [];
     const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
 
-    // Erstellen Sie eine Instanz der Karte
+
 
     // Zombies spawnen
     this.spawnZombies(this.currentMap.zombieCount);

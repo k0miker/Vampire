@@ -88,6 +88,7 @@ class Game {
       this.enemies.push(
         new Enemy(this.currentMap.bossX, this.currentMap.bossY, 120, 120, 5)
       );
+      this.currentMap.bossCount = 0;
     }
 
     // Only spawn zombie if it doesn't collide with an obstacle

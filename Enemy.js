@@ -14,7 +14,7 @@ export default class Enemy {
       document.getElementById("enemy-damage-sound-3"),
       document.getElementById("enemy-damage-sound-4"),
     ];
-    this.damageSounds.forEach((sound) => (sound.volume = 0.2));
+    this.damageSounds.forEach((sound) => (sound.volume = 0.1));
 
     switch (zombieType) {
       case 0:
@@ -72,7 +72,7 @@ export default class Enemy {
           document.getElementById("vamp-sound-3"),
           document.getElementById("vamp-sound-4"),
         ];
-        this.damageSounds.forEach((sound) => (sound.volume = 0.2));
+        this.damageSounds.forEach((sound) => (sound.volume = 0.1));
         break;
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi0.png";
@@ -117,15 +117,7 @@ export default class Enemy {
     this.deathTimer = 15;
   }
 
-  update(
-    playerX,
-    playerY,
-    deltaTime,
-    backgroundX,
-    backgroundY,
-    obstacleCollision,
-    player
-  ) {
+  update(playerX, playerY, deltaTime, obstacleCollision, player) {
     if (this.status === "alive") {
       let dx = playerX - (this.x + this.width / 2);
       let dy = playerY - (this.y + this.height / 2);
@@ -165,7 +157,7 @@ export default class Enemy {
     return topCollision;
   }
 
-  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
+  draw(ctx, deltaTime, playerX, playerY) {
     if (this.status === "spawning") {
       this.image.src = "./assets/spawn.png";
       this.deathTimer -= 1 * deltaTime * 60;
@@ -178,20 +170,20 @@ export default class Enemy {
       if (this.indexX > 78) {
         this.status = "alive";
       }
-
-      ctx.save();
-      ctx.drawImage(
-        this.image,
-        0, // X-Position der Spawn-Animation im Sprite
-        0, // Y-Position der Spawn-Animation im Sprite
-        16,
-        16,
-        this.x - backgroundX - this.width / 2,
-        this.y - backgroundY - this.height / 2,
-        this.width,
-        this.height
-      );
-      ctx.restore();
+      // toDo spawn Animation
+      // ctx.save();
+      // ctx.drawImage(
+      //   this.image,
+      //   0, // X-Position der Spawn-Animation im Sprite
+      //   0, // Y-Position der Spawn-Animation im Sprite
+      //   16,
+      //   16,
+      //   this.x - this.width / 2,
+      //   this.y - this.height / 2,
+      //   this.width,
+      //   this.height
+      // );
+      // ctx.restore();
     } else if (this.status === "dying") {
       // Zeichne die Todesanimation, wenn der Zombie tot ist
       this.image.src = "./assets/tileset.png";
@@ -212,8 +204,8 @@ export default class Enemy {
         152, // Y-Position der Todesanimation im Sprite
         16,
         16,
-        this.x - backgroundX - this.width / 2,
-        this.y - backgroundY - this.height / 2,
+        this.x - this.width / 2,
+        this.y - this.height / 2,
         this.width,
         this.height
       );
@@ -226,10 +218,7 @@ export default class Enemy {
         if (this.indexX > 50) this.indexX = 0;
       }
 
-      const angle = Math.atan2(
-        this.y - backgroundY - playerY,
-        this.x - backgroundX - playerX
-      );
+      const angle = Math.atan2(this.y - playerY, this.x - playerX);
 
       let spriteY;
       if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
@@ -249,8 +238,8 @@ export default class Enemy {
         spriteY,
         16,
         16,
-        this.x - backgroundX - this.width / 2,
-        this.y - backgroundY - this.height / 2,
+        this.x - this.width / 2,
+        this.y - this.height / 2,
         this.width,
         this.height
       );
@@ -280,25 +269,6 @@ export default class Enemy {
     }
   }
 
-  attack(target) {
-    if (this.status === "alive") {
-      let damage;
-      switch (this.weaponType) {
-        case "assaultRifle":
-          damage = 10;
-          break;
-        case "deagle":
-          damage = 7;
-          break;
-        case "magic":
-          damage = 12;
-          break;
-        default:
-          damage = 5;
-      }
-      target.takeDamage(this.damage);
-    }
-  }
   bossHandler(
     player,
     ctx,
@@ -346,6 +316,8 @@ export default class Enemy {
     for (let i = 0; i < this.bullets.length; i++) {
       this.bullets[i].x += this.bullets[i].vx * deltaTime * 400;
       this.bullets[i].y += this.bullets[i].vy * deltaTime * 400;
+
+      // todo bulletimg?
       ctx.fillStyle = "lightgrey";
       ctx.fillRect(this.bullets[i].x, this.bullets[i].y, 8, 8);
       ///playerHit?

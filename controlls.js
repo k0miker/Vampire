@@ -1,5 +1,3 @@
-import Bullet from "./Bullet.js";
-
 export function mousemoveHandler(e) {
   this.mouseX = e.clientX * (this.gameWindowWidth / window.innerWidth);
   this.mouseY = e.clientY * (this.gameWindowHeight / window.innerHeight);
@@ -17,6 +15,9 @@ export function keyUpHandler(e) {
   }
   if (e.code === "KeyD") {
     this.player.vx = 0;
+  }
+  if (e.code === "ShiftLeft") {
+    this.player.speed = 4;
   }
 }
 
@@ -44,14 +45,10 @@ export function keyDownHandler(e) {
     this.player.vx = this.player.speed;
   }
   if (
-    e.code === "ShiftLeft" &&
-    (e.code === "KeyW" ||
-      e.code === "KeyS" ||
-      e.code === "KeyA" ||
-      e.code === "KeyD")
+    e.code === "ShiftLeft"
+   
   ) {
-    // console.log(e.code);
-    this.player.speed = 2;
+    this.player.speed = 8;
   }
 }
 

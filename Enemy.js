@@ -1,4 +1,6 @@
+import Bullet from "./Bullet.js";
 // enemy.js
+
 export default class Enemy {
   constructor(x, y, w, h, zombieType) {
     this.x = x;
@@ -73,17 +75,20 @@ export default class Enemy {
         this.damageSounds.forEach((sound) => (sound.volume = 0.2));
         break;
       case 5: // Boss 1
-        this.imageSrc = "./assets/zombi1.png";
-        this.speed = 1 + Math.random();
-        this.health = 12;
-        this.width = w * 1.5;
-        this.height = h * 1.5;
+        this.imageSrc = "./assets/zombi0.png";
+        this.speed = 3;
+        this.health = 1000;
+        this.width = w;
+        this.height = h;
         this.gold = 100;
         this.damage = 25;
-        this.aggroRange = 600;
+        this.aggroRange = 1400;
+        this.boss = true;
+        this.shootTimer = 30;
+        this.bullets = [];
         break;
       case 6: // Boss 2
-        this.imageSrc = "./assets/zombi0.png";
+        this.imageSrc = "./assets/zombi1.png";
         this.speed = 1.5 + Math.random();
         this.health = 20;
         this.width = w * 2;
@@ -110,7 +115,6 @@ export default class Enemy {
     this.isAggro = false;
     this.status = "alive";
     this.deathTimer = 15;
-    
   }
 
   update(
@@ -160,8 +164,8 @@ export default class Enemy {
 
     return topCollision;
   }
-//draw enemy
-  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY,image) {
+
+  draw(ctx, deltaTime, backgroundX, backgroundY, playerX, playerY) {
     if (this.status === "spawning") {
       this.image.src = "./assets/spawn.png";
       this.deathTimer -= 1 * deltaTime * 60;
@@ -293,6 +297,78 @@ export default class Enemy {
           damage = 5;
       }
       target.takeDamage(this.damage);
+    }
+  }
+  bossHandler(
+    player,
+    ctx,
+    gameWindowWidth,
+    gameWindowHeight,
+    deltaTime,
+    obstacleCollision
+  ) {
+    this.shootTimer--;
+    if (this.shootTimer <= 0 && this.health >= 0) {
+      this.shootTimer = 30;
+      let dx = player.x - this.x;
+      let dy = player.y - this.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+      this.bullets.push(
+        new Bullet(
+          this.x,
+          this.y,
+          dx / dist,
+          dy / dist,
+          20,
+          ctx,
+          gameWindowWidth,
+          gameWindowHeight,
+          2000
+        )
+      );
+    }
+    //healthBar;
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+      this.x - this.width / 2,
+      this.y - this.height / 2 - 10,
+      (120 / 1000) * this.health,
+      8
+    );
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(
+      this.x - this.width / 2,
+      this.y - this.height / 2 - 10,
+      120,
+      8
+    );
+    for (let i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].x += this.bullets[i].vx * deltaTime * 400;
+      this.bullets[i].y += this.bullets[i].vy * deltaTime * 400;
+      ctx.fillStyle = "lightgrey";
+      ctx.fillRect(this.bullets[i].x, this.bullets[i].y, 8, 8);
+      ///playerHit?
+      if (
+        player.x < this.bullets[i].x + this.bullets[i].width / 2 &&
+        player.x + player.width >
+          this.bullets[i].x - this.bullets[i].width / 2 &&
+        player.y < this.bullets[i].y + this.bullets[i].height / 2 &&
+        player.y + player.height >
+          this.bullets[i].y - this.bullets[i].height / 2
+      ) {
+        if (player.invinsibleTimer === 0) {
+          player.health -= this.bullets[i].dmg;
+          player.invinsibleTimer = 100;
+          this.bullets.splice(i, 1);
+          i--;
+        }
+      }
+      ///obstacleHit?
+      else if (obstacleCollision.collision(this.bullets[i])) {
+        this.bullets.splice(i, 1);
+        i--;
+      }
     }
   }
 }

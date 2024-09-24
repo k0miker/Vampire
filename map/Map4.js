@@ -9,14 +9,9 @@ export default class Map4 {
     this.ctx = ctx; // sSpeichern Sie den ctx-Parameter in der Instanz
     this.zombieCount = Math.ceil(Math.random() * 0);
     this.bossCount = 1;
-    this.shootTimer = 50;
-    this.boss = new Enemy(1400, 310, 120, 120, 0);
-    this.boss.health = 1700;
-    this.boss.aggroRange = 1200;
-    this.boss.speed = 3;
-    this.bossBullets = [];
-    this.bulletDmg = 20;
-    this.boss.image.src = "./assets/zombi0.png";
+
+    this.bossX = 1400;
+    this.bossY = 310;
 
     this.map = [
       29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
@@ -60,100 +55,5 @@ export default class Map4 {
     ];
     // console.log(this.map[1].length);
     this.mapInstance = new Map(ctx, this.map, this.mapDefinition);
-  }
-
-  bossHandler(
-    ctx,
-    deltaTime,
-    player,
-    obstacleCollision,
-    bullets,
-    bloodsplosions,
-    gameWindowWidth,
-    gameWindowHeight
-  ) {
-    this.boss.update(
-      player.x,
-      player.y,
-      deltaTime,
-      0,
-      0,
-      obstacleCollision,
-      player
-    );
-    // draw boss 
-    this.boss.draw(ctx, deltaTime, 0, 0, player.x, player.y, this.boss.image.src);
-    //bulletCollision
-    for (let i = 0; i < bullets.length; i++) {
-      let hitIndex = undefined;
-      hitIndex = bullets[i].collisionEnemy(
-        [this.boss],
-        deltaTime,
-        0,
-        0,
-        obstacleCollision
-      );
-
-      if (hitIndex === 0) {
-        bloodsplosions.push(
-          new Bloodsplosion(
-            bullets[i].x,
-            bullets[i].y,
-            bullets[i].vx,
-            bullets[i].vy,
-            12 // Assuming a count of 10 particles
-          )
-        );
-        bullets.splice(i, 1);
-        i--;
-      }
-    }
-
-    this.shootTimer--;
-    if (this.shootTimer <= 0 && this.boss.health >= 0) {
-      this.shootTimer = 50;
-      let dx = player.x - this.boss.x;
-      let dy = player.y - this.boss.y;
-      let dist = Math.sqrt(dx * dx + dy * dy);
-      this.bossBullets.push(
-        new Bullet(
-          this.boss.x,
-          this.boss.y,
-          dx / dist,
-          dy / dist,
-          this.bulletDmg,
-          ctx,
-          gameWindowWidth,
-          gameWindowHeight,
-          2000
-        )
-      );
-
-      console.log("shoot");
-    }
-    for (let i = 0; i < this.bossBullets.length; i++) {
-      this.bossBullets[i].x += this.bossBullets[i].vx * deltaTime * 400;
-      this.bossBullets[i].y += this.bossBullets[i].vy * deltaTime * 400;
-      ctx.fillStyle = "lightgrey";
-      ctx.fillRect(this.bossBullets[i].x, this.bossBullets[i].y, 8, 8);
-      ///playerHit?
-      if (
-        player.x < this.bossBullets[i].x + this.bossBullets[i].width / 2 &&
-        player.x + player.width >
-          this.bossBullets[i].x - this.bossBullets[i].width / 2 &&
-        player.y < this.bossBullets[i].y + this.bossBullets[i].height / 2 &&
-        player.y + player.height >
-          this.bossBullets[i].y - this.bossBullets[i].height / 2
-      ) {
-        player.health -= this.bulletDmg;
-        this.bossBullets.splice(i, 1);
-        i--;
-      }
-      ///obstacleHit?
-      else if (obstacleCollision.collision(this.bossBullets[i])) {
-        this.bossBullets.splice(i, 1);
-        i--;
-      }
-    }
   }
 }

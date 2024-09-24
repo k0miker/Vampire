@@ -25,6 +25,11 @@ export function keyDownHandler(e) {
     this.player.weapons[this.player.weapon].bullets = 0;
     this.player.reloadTimer = 120;
     this.player.weapons[this.player.weapon].reloading = true;
+    this.player.reloadSound.play();
+    setTimeout(() => {
+      this.player.reloadSound.pause();
+      this.player.reloadSound.currentTime = 0;
+    }, 1000); // Reload-Sound abspielen
   }
   if (e.code === "KeyW") {
     this.player.vy = -this.player.speed;

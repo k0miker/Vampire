@@ -32,6 +32,9 @@ export function keyDownHandler(e) {
       this.player.reloadSound.currentTime = 0;
     }, 1000); // Reload-Sound abspielen
   }
+  if (e.code === "ShiftLeft") {
+    this.player.speed = 8;
+  }
   if (e.code === "KeyW") {
     this.player.vy = -this.player.speed;
   }
@@ -43,12 +46,6 @@ export function keyDownHandler(e) {
   }
   if (e.code === "KeyD") {
     this.player.vx = this.player.speed;
-  }
-  if (
-    e.code === "ShiftLeft"
-   
-  ) {
-    this.player.speed = 8;
   }
 }
 

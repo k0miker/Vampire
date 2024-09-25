@@ -301,6 +301,7 @@ class Game {
     requestAnimationFrame(this.animate.bind(this));
     // HUD anzeigen
     this.hud.draw(this.enemies.length, this.player);
+    this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
@@ -310,6 +311,7 @@ class Game {
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
     this.enemies = [];
+    this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
     this.spawnZombies(this.currentMap.zombieCount);
     console.log(mapArray[this.mapIndex.y][this.mapIndex.x]);
   }

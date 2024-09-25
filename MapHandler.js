@@ -1,5 +1,5 @@
 import mapDefinition from "./map/mapDefinition.js";
-import mapArray from './map/mapArray.js';
+import mapArray from "./map/mapArray.js";
 export default class MapHandler {
   constructor(ctx, map, overlay) {
     this.ctx = ctx;
@@ -18,7 +18,7 @@ export default class MapHandler {
   }
 
   init() {
-    console.log(this.map);
+    // console.log(this.map);
     this.obstacles = [];
     for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 27; x++) {
@@ -57,9 +57,6 @@ export default class MapHandler {
     }
   }
 
-  
-
-
   drawOverlay() {
     for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 27; x++) {
@@ -79,36 +76,32 @@ export default class MapHandler {
         );
       }
     }
-    this.drawMiniMap(this.overlay);
   }
 
-drawMiniMap(currentMap) {
-  const miniMapWidth = 200;
-  const miniMapHeight = 100;
-  const miniMapX = 1500; // 10px Abstand vom rechten Rand
-  const miniMapY = 10; // 10px Abstand vom oberen Rand
+  drawMiniMap(x = 0, y = 2) {
+    const miniMapWidth = 200;
+    const miniMapHeight = 100;
+    const miniMapX = 1500; // 10px Abstand vom rechten Rand
+    const miniMapY = 10; // 10px Abstand vom oberen Rand
 
-  // Zeichne den Hintergrund der Minimap
-  this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-  this.ctx.fillRect(miniMapX, miniMapY, miniMapWidth, miniMapHeight);
+    // Zeichne den Hintergrund der Minimap
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    this.ctx.fillRect(miniMapX, miniMapY, miniMapWidth, miniMapHeight);
 
-  // Finde die Position der aktuellen Karte im mapArray
-  let mapPosX = 0;
-  let mapPosY = 2;
-  for (let y = 0; y < mapArray.length; y++) {
-    for (let x = 0; x < mapArray[y].length; x++) {
-      if (mapArray[y][x] === currentMap) {
-        mapPosX = x;
-        mapPosY = y;
-        break;
-      }
-    }
+    // Finde die Position der aktuellen Karte im mapArray
+    let mapPosX = x;
+    let mapPosY = y;
+    console.log(mapPosX, mapPosY);
+
+    // Zeichne die Position der aktuellen Karte auf der Minimap
+    const cellWidth = miniMapWidth / mapArray[0].length;
+    const cellHeight = miniMapHeight / mapArray.length;
+    this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+    this.ctx.fillRect(
+      miniMapX + mapPosX * cellWidth,
+      miniMapY + mapPosY * cellHeight,
+      cellWidth,
+      cellHeight
+    );
   }
-
-  // Zeichne die Position der aktuellen Karte auf der Minimap
-  const cellWidth = miniMapWidth / mapArray[0].length;
-  const cellHeight = miniMapHeight / mapArray.length;
-  this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-  this.ctx.fillRect(miniMapX + mapPosX * cellWidth, miniMapY + mapPosY * cellHeight, cellWidth, cellHeight);
-}
 }

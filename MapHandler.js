@@ -108,7 +108,7 @@ drawMiniMap(currentMap) {
   // Zeichne die Position der aktuellen Karte auf der Minimap
   const cellWidth = miniMapWidth / mapArray[0].length;
   const cellHeight = miniMapHeight / mapArray.length;
-  this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
+  this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
   this.ctx.fillRect(miniMapX + mapPosX * cellWidth, miniMapY + mapPosY * cellHeight, cellWidth, cellHeight);
 }
 }

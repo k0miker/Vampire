@@ -47,6 +47,12 @@ export default class Player {
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
+    this.playerSounds = [
+      document.getElementById("player-sound-1"),
+      document.getElementById("player-sound-2"),
+      document.getElementById("player-sound-3"),
+      document.getElementById("player-sound-4"),
+    ];
 
     this.pistolSounds = [
       document.getElementById("pistol-sound-1"),
@@ -163,14 +169,26 @@ export default class Player {
     }
   }
 
+
   takeDamage(damage) {
     if (this.isAlive) {
       this.health -= damage;
+
+      // Freie Instanz finden und abspielen
+      const playerSound = this.playerSounds.find((sound) => sound.paused);
+      if (playerSound) {
+        playerSound.currentTime = 0;
+        playerSound.play();
+        setTimeout(() => {
+          playerSound.pause();
+          playerSound.currentTime = 0;
+        }, 750); // 50 Millisekunden = 0,05 Sekunden
       if (this.health <= 0) {
-        this.isAlive = false;
+        this.isAlive = false;        
       }
     }
   }
+}
 
   draw(ctx, mouseX, mouseY, deltaTime) {
     //reloadTimer
@@ -288,3 +306,5 @@ export default class Player {
   //   }
   // }
 }
+
+

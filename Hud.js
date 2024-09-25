@@ -31,9 +31,8 @@ export default class Hud {
         this.score
       )} $                                                        R for reload${
         player.weapons[player.weapon].reloading
-          ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"
-          : ""
-      }`,
+          ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"      
+          : "" }          ${enemies.length} Enemies`,
       10,
       40
     );

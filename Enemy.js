@@ -134,6 +134,17 @@ export default class Enemy {
           if (player.invinsibleTimer === 0) {
             player.health -= 10; // Schaden an den Spieler
             player.invinsibleTimer = 100; // Spieler wird für kurze Zeit unverwundbar
+
+            // Freie Instanz finden und abspielen
+            const damageSound = player.playerSounds.find((sound) => sound.paused);
+            if (damageSound) {
+              damageSound.currentTime = 0;
+              damageSound.play();
+              setTimeout(() => {
+                damageSound.pause();
+                damageSound.currentTime = 0;
+              }, 2050); // 50 Millisekunden = 0,05 Sekunden
+            }
           }
         } else {
           this.x += (dx / dist) * this.speed * deltaTime * 60;
@@ -170,6 +181,7 @@ export default class Enemy {
       if (this.indexX > 78) {
         this.status = "alive";
       }
+
       // toDo spawn Animation
       // ctx.save();
       // ctx.drawImage(

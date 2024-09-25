@@ -81,7 +81,7 @@ export default class MapHandler {
   drawMiniMap(x = 0, y = 2) {
     const miniMapWidth = 200;
     const miniMapHeight = 100;
-    const miniMapX = 1500; // 10px Abstand vom rechten Rand
+    const miniMapX = window.innerWidth-160; // 10px Abstand vom rechten Rand
     const miniMapY = 0; // 10px Abstand vom oberen Rand
 
     // Zeichne den Hintergrund der Minimap
@@ -94,7 +94,7 @@ export default class MapHandler {
     // Finde die Position der aktuellen Karte im mapArray
     let mapPosX = x;
     let mapPosY = y;
-    console.log(mapPosX, mapPosY);
+    // console.log(mapPosX, mapPosY);
 
     // Zeichne die Position der aktuellen Karte auf der Minimap
     const cellWidth = miniMapWidth / (mapArray[0].length * 4);
@@ -118,13 +118,11 @@ export default class MapHandler {
         );
       }
     }
-
+    
     this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-    this.ctx.fillRect(
-      miniMapX + mapPosX * cellWidth * 4,
-      miniMapY + mapPosY * cellHeight * 4,
-      cellWidth * 4,
-      cellHeight * 4
-    );
+    this.ctx.fillText("X", miniMapX + 3* cellWidth * 4 +10, miniMapY + 1 * cellHeight * 3.8);
+   this.ctx.fillStyle = "rgba(0, 255, 0, 0.5)";
+    this.ctx.fillText("X", miniMapX + mapPosX* cellWidth * 4 +10, miniMapY + (mapPosY+1) * cellHeight * 3.8);
+    
   }
 }

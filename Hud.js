@@ -9,7 +9,7 @@ export default class Hud {
     this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
     this.ctx.fillRect(20, 20, player.health, 28);
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
-    this.ctx.fillRect(0, 0, 1500, 62);
+    this.ctx.fillRect(0, 0, 1550, 62);
     this.ctx.drawImage(
       this.img,
       17,

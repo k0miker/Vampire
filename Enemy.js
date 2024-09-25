@@ -67,12 +67,15 @@ export default class Enemy {
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
-        this.aggroSound = document.getElementById("vamp-sound-4");
+
+
+        //geht nicht... ergibt kein sinn
+        // this.aggroSound = document.getElementById("vamp-sound-4");
+        // this.aggroSound.volume = 0.05;
         this.damageSounds = [
           document.getElementById("vamp-sound-1"),
           document.getElementById("vamp-sound-2"),
           document.getElementById("vamp-sound-3"),
-          document.getElementById("vamp-sound-4"),
         ];
         this.damageSounds.forEach((sound) => (sound.volume = 0.05));
         break;

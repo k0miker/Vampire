@@ -347,6 +347,7 @@ const mapDefinition = [
 { index: 340, src: groundSheet, x: 595, y: 136, pass: true, spawn: false },
 { index: 341, src: groundSheet, x: 612, y: 136, pass: true, spawn: false },
 { index: 342, src: groundSheet, x: 629, y: 136, pass: true, spawn: false },
+
 ];
 
 export default mapDefinition;

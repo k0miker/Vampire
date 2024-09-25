@@ -1,6 +1,5 @@
 import Player from "./Player.js";
 import Enemy from "./Enemy.js";
-import Bullet from "./Bullet.js";
 import Settings from "./Settings.js";
 import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
@@ -15,7 +14,6 @@ import {
 } from "./controlls.js";
 import mapArray from "./map/mapArray.js";
 
-
 class Game {
   constructor(difficulty) {
     this.canvas = document.querySelector("#gameCanvas");
@@ -25,7 +23,7 @@ class Game {
     this.resizeCanvas();
     this.gameWindowHeight = 832;
     this.gameWindowWidth = 1728;
-    // this.zombiCount = 15;
+
     this.mouseX = this.canvas.width / 2;
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
@@ -43,11 +41,9 @@ class Game {
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.bloodsplosions = [];
-    const settings1 = new Settings(1, 1000, 60, 2, 1, 100, 50, 10, 5);
+    const settings1 = new Settings(difficulty, 1000, 60, 2, 1, 100, 50, 10, 5);
 
     this.hud = new Hud(this.ctx);
-
-
 
     // Zombies spawnen
     this.spawnZombies(this.currentMap.zombieCount);
@@ -215,16 +211,12 @@ class Game {
         this.player.x + this.player.width / 2,
         this.player.y + this.player.height / 2,
         deltaTime,
-        0,
-        0,
         this.obstacleCollision,
         this.player
       );
       enemy.draw(
         this.ctx,
         deltaTime,
-        0,
-        0,
         this.player.x + this.player.width / 2,
         this.player.y + this.player.height / 2
       );
@@ -261,8 +253,7 @@ class Game {
         hitIndex = this.bullets[i].update(
           deltaTime,
           this.enemies,
-          0,
-          0,
+
           this.obstacleCollision
         );
         if (hitIndex === 1000) {
@@ -299,7 +290,7 @@ class Game {
     }
 
     // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.bullets.length, this.player);
+    this.hud.draw(this.enemies.length, this.player);
 
     // Überprüfen, ob der Spieler tot ist
     if (this.player.health <= 0) {
@@ -309,7 +300,7 @@ class Game {
     this.mapHandler.drawOverlay();
     requestAnimationFrame(this.animate.bind(this));
     // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.bullets.length, this.player);
+    this.hud.draw(this.enemies.length, this.player);
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
@@ -341,12 +332,14 @@ document.addEventListener("DOMContentLoaded", () => {
     ambientSound.loop = true; // Sound in einer Schleife abspielen
     ambientSound.volume = 0.15; // Lautstärke auf 10% setzen
     ambientSound.play(); // Sound abspielen
+
     game = new Game(difficulty);
   });
 
   document.getElementById("restart-button").addEventListener("click", () => {
     document.getElementById("restart-overlay").style.display = "none";
     const difficulty = document.getElementById("difficulty-select").value;
+
     game = new Game(difficulty);
   });
 });

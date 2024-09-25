@@ -1,5 +1,3 @@
-import Bloodsplosion from "./Bloodsplosion.js";
-
 export default class Bullet {
   constructor(
     x,
@@ -41,48 +39,23 @@ export default class Bullet {
     );
   }
 
-  static updateAndDrawBullets(
-    bullets,
-    deltaTime,
-    enemies,
-    ctx,
-    bloodsplosions
-  ) {}
-
-  update(deltaTime, enemies, backgroundX, backgroundY, obstacleCollision) {
+  update(deltaTime, enemies, obstacleCollision) {
     let bulletDelete = -1;
     this.x += this.vx * deltaTime * this.speed;
     this.y += this.vy * deltaTime * this.speed;
-    this.draw(backgroundX, backgroundY);
+    this.draw();
     if (obstacleCollision.collision(this)) return 1000;
 
-    bulletDelete = this.collisionEnemy(
-      enemies,
-      deltaTime,
-      backgroundX,
-      backgroundY,
-      obstacleCollision
-    );
+    bulletDelete = this.collisionEnemy(enemies, obstacleCollision);
     return bulletDelete;
   }
 
-  draw(backgroundX, backgroundY) {
+  draw() {
     this.ctx.fillStyle = "lightgrey";
-    this.ctx.fillRect(
-      this.x - backgroundX,
-      this.y - backgroundY,
-      this.width,
-      this.height
-    );
+    this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-  collisionObstacles() {}
-  collisionEnemy(
-    enemies,
-    deltaTime,
-    backgroundX,
-    backgroundY,
-    obstacleCollision
-  ) {
+
+  collisionEnemy(enemies, obstacleCollision) {
     for (let i = 0; i < enemies.length; i++) {
       if (
         enemies[i].status === "alive" && // Überprüfen, ob der Gegner "alive" ist

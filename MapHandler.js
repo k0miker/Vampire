@@ -1,6 +1,6 @@
 import mapDefinition from "./map/mapDefinition.js";
 export default class MapHandler {
-  constructor(ctx, map,overlay) {
+  constructor(ctx, map, overlay) {
     this.ctx = ctx;
     this.map = map;
     this.overlay = overlay;
@@ -30,17 +30,6 @@ export default class MapHandler {
             width: this.width,
             height: this.height,
           });
-          // for (let y = 0; y < this.map.length; y++) {
-          //   for (let x = 0; x < this.map[y].length; x++) {
-          //     const tileIndex = this.map[y][x];
-          //     const tile = this.mapDefinition[tileIndex];
-          //     if (!tile.pass) {
-          //       this.obstacles.push({
-          //         x: x * this.width,
-          //         y: y * this.height,
-          //         width: this.width,
-          //         height: this.height,
-          //       });
         }
       }
     }
@@ -58,32 +47,33 @@ export default class MapHandler {
           tile.y,
           this.tileWidth,
           this.tileHeight,
-          x * this.width ,
-          y * this.height ,
+          x * this.width,
+          y * this.height,
           this.width,
           this.height
         );
       }
     }
-    
   }
 
-drawOverlay(){for (let y = 0; y < 13; y++) {
-  for (let x = 0; x < 27; x++) {
-    const tileIndex = this.overlay[x + y * 27];
-    const tile = this.mapDefinition[tileIndex];
+  drawOverlay() {
+    for (let y = 0; y < 13; y++) {
+      for (let x = 0; x < 27; x++) {
+        const tileIndex = this.overlay[x + y * 27];
+        const tile = this.mapDefinition[tileIndex];
 
-    this.ctx.drawImage(
-      tile.src,
-      tile.x,
-      tile.y,
-      this.tileWidth,
-      this.tileHeight,
-      x * this.width ,
-      y * this.height ,
-      this.width,
-      this.height
-    );
+        this.ctx.drawImage(
+          tile.src,
+          tile.x,
+          tile.y,
+          this.tileWidth,
+          this.tileHeight,
+          x * this.width,
+          y * this.height,
+          this.width,
+          this.height
+        );
+      }
+    }
   }
-}}
 }

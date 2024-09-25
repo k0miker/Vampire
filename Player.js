@@ -62,8 +62,8 @@ export default class Player {
     ];
     this.reloadSound = document.getElementById("reload"); // Reload-Sound laden
     this.reloadSound.volume = 0.5; // 25% Lautstärke
-    this.pistolSounds.forEach((sound) => (sound.volume = 0.25)); // 25% Lautstärke
-    this.shotgunSounds.forEach((sound) => (sound.volume = 0.25)); // 25% Lautstärke
+    this.pistolSounds.forEach((sound) => (sound.volume = 0.15)); // 25% Lautstärke
+    this.shotgunSounds.forEach((sound) => (sound.volume = 0.15)); // 25% Lautstärke
   }
 
   addPistolBullet(
@@ -182,7 +182,6 @@ export default class Player {
       this.weapons[this.weapon].bullets = this.weapons[this.weapon].magazin;
     }
     //invinsibleTimer
-
     // console.log(this.invinsibleTimer);
     if (this.invinsibleTimer < 1) this.invinsibleTimer = 0;
     else this.invinsibleTimer--;
@@ -268,4 +267,24 @@ export default class Player {
       ctx.restore(); // Restore the previous state of the canvas context
     }
   }
+  //todo attack?
+  // attack(target) {
+  //   if (this.status === "alive") {
+  //     let damage;
+  //     switch (this.weaponType) {
+  //       case "assaultRifle":
+  //         damage = 10;
+  //         break;
+  //       case "deagle":
+  //         damage = 7;
+  //         break;
+  //       case "magic":
+  //         damage = 12;
+  //         break;
+  //       default:
+  //         damage = 5;
+  //     }
+  //     target.takeDamage(this.damage);
+  //   }
+  // }
 }

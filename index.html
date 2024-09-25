@@ -7,7 +7,7 @@
     <title>Zombi-island</title>
 
     <style>
-      *{        
+      * {
         font-family: pixel;
         font-size: 36px;
         font-weight: bold;
@@ -68,12 +68,15 @@
   </head>
   <body>
     <div id="overlay">
-      
       <div id="description">
-        <p>Willkommen zu unserem Spiel! Wählen Sie eine Schwierigkeit und starten Sie das Spiel.</p>
+        <p>
+          Willkommen zu unserem Spiel! Wählen Sie eine Schwierigkeit und starten
+          Sie das Spiel.
+        </p>
         <p>nutze "W" "A" "S" "D" um dich zu bewegen</p>
         <p>Mausrad zum Waffenwechsel</p>
-        <p>"R" für reload </p>
+        <p>"R" für reload</p>
+        <p>"Shift left für sprint"</p>
         <p>nutze die Maus dich umzuschauen.</p>
       </div>
       <div id="difficulty">
@@ -91,42 +94,102 @@
       <button id="restart-button">Neustart</button>
     </div>
     <canvas id="gameCanvas"></canvas>
-    <script type="module" src="Game2.js"></script>
+    <script type="module" src="Game.js"></script>
 
+    <audio
+      id="pistol-sound-1"
+      src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
+    ></audio>
+    <audio
+      id="pistol-sound-2"
+      src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
+    ></audio>
+    <audio
+      id="pistol-sound-3"
+      src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
+    ></audio>
+    <audio
+      id="pistol-sound-4"
+      src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
+    ></audio>
 
+    <audio
+      id="shotgun-sound-1"
+      src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
+    ></audio>
+    <audio
+      id="shotgun-sound-2"
+      src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
+    ></audio>
+    <audio
+      id="shotgun-sound-3"
+      src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
+    ></audio>
+    <audio
+      id="shotgun-sound-4"
+      src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
+    ></audio>
 
-    <audio id="pistol-sound-1" src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"></audio>
-    <audio id="pistol-sound-2" src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"></audio>
-    <audio id="pistol-sound-3" src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"></audio>
-    <audio id="pistol-sound-4" src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"></audio>
+    <audio
+      id="enemy-damage-sound-1"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"
+    ></audio>
+    <audio
+      id="enemy-damage-sound-2"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"
+    ></audio>
+    <audio
+      id="enemy-damage-sound-3"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"
+    ></audio>
+    <audio
+      id="enemy-damage-sound-4"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"
+    ></audio>
 
-    <audio id="shotgun-sound-1" src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"></audio>
-    <audio id="shotgun-sound-2" src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"></audio>
-    <audio id="shotgun-sound-3" src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"></audio>
-    <audio id="shotgun-sound-4" src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"></audio>
+    <audio
+      id="enemy2-damage-sound-1"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"
+    ></audio>
+    <audio
+      id="enemy2-damage-sound-2"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"
+    ></audio>
+    <audio
+      id="enemy2-damage-sound-3"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"
+    ></audio>
+    <audio
+      id="enemy2-damage-sound-4"
+      src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"
+    ></audio>
 
-    <audio id="enemy-damage-sound-1" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"></audio>
-    <audio id="enemy-damage-sound-2" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"></audio>
-    <audio id="enemy-damage-sound-3" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"></audio>
-    <audio id="enemy-damage-sound-4" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_23.wav"></audio>
-
-    <audio id="enemy2-damage-sound-1" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"></audio>
-    <audio id="enemy2-damage-sound-2" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"></audio>
-    <audio id="enemy2-damage-sound-3" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"></audio>
-    <audio id="enemy2-damage-sound-4" src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"></audio>
-
-    <audio id="vamp-sound-1" src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"></audio>
-    <audio id="vamp-sound-2" src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"></audio>
-    <audio id="vamp-sound-3" src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"></audio>
-    <audio id="vamp-sound-4" src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"></audio>
+    <audio
+      id="vamp-sound-1"
+      src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"
+    ></audio>
+    <audio
+      id="vamp-sound-2"
+      src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"
+    ></audio>
+    <audio
+      id="vamp-sound-3"
+      src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"
+    ></audio>
+    <audio
+      id="vamp-sound-4"
+      src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"
+    ></audio>
 
     <audio id="reload" src="./assets/sound/mag-reload-81594.mp3"></audio>
 
-    <audio src="./assets/sound/Vocal/Attack/zombie_massacre_vocal_attack_short_03.wav"></audio>
+    <audio
+      src="./assets/sound/Vocal/Attack/zombie_massacre_vocal_attack_short_03.wav"
+    ></audio>
 
-
-    <audio id="ambient" src="./assets/sound/dark-background-ambience-17018.mp3"></audio>
-
-
+    <audio
+      id="ambient"
+      src="./assets/sound/dark-background-ambience-17018.mp3"
+    ></audio>
   </body>
 </html>

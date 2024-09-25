@@ -333,7 +333,10 @@ class Game {
 
   showRestartOverlay() {
     if (this.player.health <= 0) {
+      this.player.deathSound.play();
+      setTimeout(() => {
       document.getElementById("restart-overlay").style.display = "flex";
+      }, 1000);
     }
   }
 }

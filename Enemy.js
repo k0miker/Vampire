@@ -134,6 +134,9 @@ export default class Enemy {
           if (player.invinsibleTimer === 0) {
             player.health -= 10; // Schaden an den Spieler
             player.invinsibleTimer = 100; // Spieler wird für kurze Zeit unverwundbar
+            if (player.health <= 0) {
+              player.isAlive = false;
+            }
 
             // Freie Instanz finden und abspielen
             const damageSound = player.playerSounds.find((sound) => sound.paused);

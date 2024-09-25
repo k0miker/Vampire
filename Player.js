@@ -74,6 +74,8 @@ export default class Player {
     this.playerSounds.forEach((sound) => {
       sound.volume = 0.5;
     });
+    this.deathSound = document.getElementById("player-death-sound");
+    this.deathSound.volume = 0.5;
   }
 
   addPistolBullet(

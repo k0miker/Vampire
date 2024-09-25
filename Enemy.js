@@ -72,7 +72,7 @@ export default class Enemy {
           document.getElementById("vamp-sound-3"),
           document.getElementById("vamp-sound-4"),
         ];
-        this.damageSounds.forEach((sound) => (sound.volume = 0.1));
+        this.damageSounds.forEach((sound) => (sound.volume = 0.05));
         break;
       case 5: // Boss 1
         this.imageSrc = "./assets/zombi0.png";
@@ -138,7 +138,7 @@ export default class Enemy {
             // Freie Instanz finden und abspielen
             const damageSound = player.playerSounds.find((sound) => sound.paused);
             if (damageSound) {
-              damageSound.currentTime = 0;
+              damageSound.currentTime = -800;
               damageSound.play();
               setTimeout(() => {
                 damageSound.pause();

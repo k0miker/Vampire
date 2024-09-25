@@ -8,8 +8,8 @@ export default class Hud {
   draw(enemies, player) {
     this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
     this.ctx.fillRect(20, 20, player.health, 28);
-    this.ctx.fillStyle = "rgba(0, 0, 0, 0.6";
-    this.ctx.fillRect(0, 0, 1200, 62);
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
+    this.ctx.fillRect(0, 0, 1500, 62);
     this.ctx.drawImage(
       this.img,
       17,
@@ -29,10 +29,10 @@ export default class Hud {
     this.ctx.fillText(
       `        HP: ${player.health}             ${Math.ceil(
         this.score
-      )} $                                                        R for reload${
+      )} $                                                            ${enemies} Zombies                           R for reload${
         player.weapons[player.weapon].reloading
           ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"      
-          : "" }          ${enemies.length} Enemies`,
+          : "" }`,
       10,
       40
     );

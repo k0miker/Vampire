@@ -148,6 +148,21 @@ class Game {
     if (this.obstacleCollision.collision(this.player))
       this.player.y -= this.player.vy;
 
+    const walksound = this.player.walkSound;
+    if (this.player.vx !== 0 || this.player.vy !== 0) {
+
+            walksound.play();
+            walksound.volume = 0.4;
+            walksound.loop = true;
+        
+    } else {
+       
+          walksound.pause();
+          walksound.loop = false;
+          walksound.currentTime = 0;
+        
+    }
+
     if (this.player.x < 0) {
       this.mapIndex.x -= 1;
       this.levelChange();
@@ -331,8 +346,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const difficulty = document.getElementById("difficulty-select").value;
     document.getElementById("overlay").style.display = "none";
     const ambientSound = document.getElementById("ambient");
+    ambientSound.currentTime = -15000; // Sound von Anfang an abspielen
     ambientSound.loop = true; // Sound in einer Schleife abspielen
-    ambientSound.volume = 0.15; // Lautstärke auf 10% setzen
+    ambientSound.volume = 0.20; // Lautstärke auf 10% setzen
     ambientSound.play(); // Sound abspielen
 
     game = new Game(difficulty);

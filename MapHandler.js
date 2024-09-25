@@ -82,11 +82,14 @@ export default class MapHandler {
     const miniMapWidth = 200;
     const miniMapHeight = 100;
     const miniMapX = 1500; // 10px Abstand vom rechten Rand
-    const miniMapY = 10; // 10px Abstand vom oberen Rand
+    const miniMapY = 0; // 10px Abstand vom oberen Rand
 
     // Zeichne den Hintergrund der Minimap
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
     this.ctx.fillRect(miniMapX, miniMapY, miniMapWidth, miniMapHeight);
+
+    this.ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+    this.ctx.strokeRect(miniMapX, miniMapY, miniMapWidth, miniMapHeight);
 
     // Finde die Position der aktuellen Karte im mapArray
     let mapPosX = x;
@@ -94,14 +97,34 @@ export default class MapHandler {
     console.log(mapPosX, mapPosY);
 
     // Zeichne die Position der aktuellen Karte auf der Minimap
-    const cellWidth = miniMapWidth / mapArray[0].length;
-    const cellHeight = miniMapHeight / mapArray.length;
+    const cellWidth = miniMapWidth / (mapArray[0].length * 4);
+    const cellHeight = miniMapHeight / (mapArray.length * 4);
+
+    for (let i = 0; i < mapArray.length; i++) {
+      for (let j = 0; j < mapArray[i].length; j++) {
+        this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        this.ctx.fillRect(
+          miniMapX + j * cellWidth * 4,
+          miniMapY + i * cellHeight * 4,
+          cellWidth * 4,
+          cellHeight * 4
+        );
+        this.ctx.strokeStyle = "rgba(255, 255,255, 0.1)";
+        this.ctx.strokeRect(
+          miniMapX + j * cellWidth * 4,
+          miniMapY + i * cellHeight * 4,
+          cellWidth * 4,
+          cellHeight * 4
+        );
+      }
+    }
+
     this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
     this.ctx.fillRect(
-      miniMapX + mapPosX * cellWidth,
-      miniMapY + mapPosY * cellHeight,
-      cellWidth,
-      cellHeight
+      miniMapX + mapPosX * cellWidth * 4,
+      miniMapY + mapPosY * cellHeight * 4,
+      cellWidth * 4,
+      cellHeight * 4
     );
   }
 }

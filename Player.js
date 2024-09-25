@@ -47,7 +47,12 @@ export default class Player {
     this.vx = 0;
     this.vy = 0;
     this.wx = [1, 3, -1];
-
+    this.playerSounds = [
+      document.getElementById("player-damage-sound-1"),
+      document.getElementById("player-damage-sound-2"),
+      document.getElementById("player-damage-sound-3"),
+      document.getElementById("player-damage-sound-4"),
+    ];
     this.pistolSounds = [
       document.getElementById("pistol-sound-1"),
       document.getElementById("pistol-sound-2"),
@@ -64,6 +69,9 @@ export default class Player {
     this.reloadSound.volume = 0.5; // 25% Lautstärke
     this.pistolSounds.forEach((sound) => (sound.volume = 0.15)); // 25% Lautstärke
     this.shotgunSounds.forEach((sound) => (sound.volume = 0.15)); // 25% Lautstärke
+    this.playerSounds.forEach((sound) => {
+      sound.volume = 0.5;
+    });
   }
 
   addPistolBullet(
@@ -121,9 +129,7 @@ export default class Player {
     gameWindowWidth
   ) {
     if (this.weapons[this.weapon].reloading) {
-      console.log(this.reloadTimer);
     } else if (this.weapons[this.weapon].bullets <= 0) {
-      console.log("nachladen");
       this.reloadTimer = 120;
       this.weapons[this.weapon].reloading = true;
       this.reloadSound.currentTime = 0; // Reload-Sound von vorne starten
@@ -163,14 +169,27 @@ export default class Player {
     }
   }
 
-  takeDamage(damage) {
-    if (this.isAlive) {
-      this.health -= damage;
-      if (this.health <= 0) {
-        this.isAlive = false;
-      }
-    }
-  }
+
+  // takeDamage(damage) {
+  //   if (this.isAlive) {
+  //     this.health -= damage;
+  //     // Freie Instanz finden und abspielen
+  //     const playerSound = this.playerSounds.find((sound) => sound.paused);
+  //     if (playerSound) {
+  //       playerSound.currentTime = 0; // Spielt den Sound von Anfang an
+  //       playerSound.play();
+  //       setTimeout(() => {
+  //         playerSound.pause();
+  //         playerSound.currentTime = 0;
+  //       }, 4050); // 50 Millisekunden = 0,05 Sekunden
+  //     }
+
+  //     if (this.health <= 0) {
+  //       this.isAlive = false;
+  //     }
+  //   }
+  // }
+
 
   draw(ctx, mouseX, mouseY, deltaTime) {
     //reloadTimer
@@ -288,3 +307,5 @@ export default class Player {
   //   }
   // }
 }
+
+

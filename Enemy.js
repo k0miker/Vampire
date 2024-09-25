@@ -8,6 +8,7 @@ export default class Enemy {
     this.width = w;
     this.height = h;
     this.gold = 1;
+    this.aggroSound = document.getElementById("aggro-sound");
     this.damageSounds = [
       document.getElementById("enemy-damage-sound-1"),
       document.getElementById("enemy-damage-sound-2"),
@@ -66,6 +67,7 @@ export default class Enemy {
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
+        this.aggroSound = document.getElementById("vamp-sound-4");
         this.damageSounds = [
           document.getElementById("vamp-sound-1"),
           document.getElementById("vamp-sound-2"),
@@ -124,9 +126,13 @@ export default class Enemy {
       let dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.aggroRange) {
-        this.isAggro = true;
+        if (!this.isAggro) {
+          this.isAggro = true;
+          this.aggroSound.currentTime = 0;
+          this.aggroSound.volume = 0.1;
+          this.aggroSound.play();
+        }
       }
-
       if (this.isAggro) {
         // Spieler-Kollision
         if (this.isColliding(player)) {

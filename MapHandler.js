@@ -81,7 +81,7 @@ export default class MapHandler {
   drawMiniMap(x = 0, y = 2) {
     const miniMapWidth = 200;
     const miniMapHeight = 100;
-    const miniMapX = window.innerWidth-160; // 10px Abstand vom rechten Rand
+    const miniMapX = 1525; // 10px Abstand vom rechten Rand
     const miniMapY = 0; // 10px Abstand vom oberen Rand
 
     // Zeichne den Hintergrund der Minimap

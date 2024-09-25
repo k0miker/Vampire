@@ -137,11 +137,32 @@ export default class Enemy {
           }
         } else {
           this.x += (dx / dist) * this.speed * deltaTime * 60;
-          if (obstacleCollision.collision(this))
+          if (obstacleCollision.collision(this)) {
             this.x -= (dx / dist) * this.speed * deltaTime * 60;
+            if ((dx > 0 && dy > 0) || (dx < 0 && dy < 0)) {
+              this.y += (dx / dist) * this.speed * deltaTime * 60;
+              if (obstacleCollision.collision(this))
+                this.y -= (dx / dist) * this.speed * deltaTime * 60;
+            } else {
+              this.y -= (dx / dist) * this.speed * deltaTime * 60;
+              if (obstacleCollision.collision(this))
+                this.y += (dx / dist) * this.speed * deltaTime * 60;
+            }
+          }
+
           this.y += (dy / dist) * this.speed * deltaTime * 60;
-          if (obstacleCollision.collision(this))
+          if (obstacleCollision.collision(this)) {
             this.y -= (dy / dist) * this.speed * deltaTime * 60;
+            if ((dx > 0 && dy > 0) || (dx < 0 && dy < 0)) {
+              this.x += (dy / dist) * this.speed * deltaTime * 60;
+              if (obstacleCollision.collision(this))
+                this.x -= (dy / dist) * this.speed * deltaTime * 60;
+            } else {
+              this.x -= (dy / dist) * this.speed * deltaTime * 60;
+              if (obstacleCollision.collision(this))
+                this.x += (dy / dist) * this.speed * deltaTime * 60;
+            }
+          }
         }
       }
     }

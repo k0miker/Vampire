@@ -37,7 +37,7 @@ class Game {
       this.currentMap.overlay
     );
     this.mapHandler.init();
-    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles, this.mapHandler.vendorPosition);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.bloodsplosions = [];
@@ -137,6 +137,38 @@ class Game {
   }
 
   animate(currentTime) {
+   
+    
+    // if (this.obstacleCollision.collision(this.player) === "vendor") {
+    //   this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    //   this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
+    //   this.ctx.fillStyle = "white";
+    //   this.ctx.font = "20px Arial";
+
+    //   this.ctx.fillText(
+    //     "Welcome to the shop",
+    //     this.mapHandler.vendorPosition.x+120,
+    //     this.mapHandler.vendorPosition.y+30
+    //   );
+    //   this.ctx.fillText(
+    //     "Press 'E' to buy Health",
+    //     this.mapHandler.vendorPosition.x+120,
+    //     this.mapHandler.vendorPosition.y+60
+    //   );
+    //   this.ctx.fillText(
+    //     "Press 'R' to buy Ammo",
+    //     this.mapHandler.vendorPosition.x+120,
+    //     this.mapHandler.vendorPosition.y+90
+    //   );
+    //   this.ctx.fillText(
+    //     "press `u` to upgrade weapon(+2dmg)",
+    //     this.mapHandler.vendorPosition.x+120,
+    //     this.mapHandler.vendorPosition.y+120
+    //   );
+    // }
+
+
+       
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 

@@ -1,11 +1,15 @@
 export default class ObstacleCollision {
-  constructor(obstacles) {
+  constructor(obstacles, vendorPosition) {
     this.obstacles = obstacles;
+    this.vendorPosition = vendorPosition;
   }
   collision(entity) {
-    for (let i = 0; i < this.obstacles.length; i++) {
+    for (let i = 0; i < this.obstacles.length; i++) {    
       if (this.isColliding(entity, this.obstacles[i])) return true;
-    }
+    }    
+    // if (this.isColliding(entity, this.vendorPosition))
+    //   return "vendor";
+    
   }
 
   isColliding(entity, obstacle) {
@@ -17,6 +21,8 @@ export default class ObstacleCollision {
 
     if (Collision) {
       return true;
+    } else {
+      return false;
     }
   }
 }

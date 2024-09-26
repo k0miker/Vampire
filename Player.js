@@ -174,7 +174,7 @@ export default class Player {
     }
   }
 
-
+// toDO damage aus enemy swichcase 
   // takeDamage(damage) {
   //   if (this.isAlive) {
   //     this.health -= damage;
@@ -291,26 +291,4 @@ export default class Player {
       ctx.restore(); // Restore the previous state of the canvas context
     }
   }
-  //todo attack?
-  // attack(target) {
-  //   if (this.status === "alive") {
-  //     let damage;
-  //     switch (this.weaponType) {
-  //       case "assaultRifle":
-  //         damage = 10;
-  //         break;
-  //       case "deagle":
-  //         damage = 7;
-  //         break;
-  //       case "magic":
-  //         damage = 12;
-  //         break;
-  //       default:
-  //         damage = 5;
-  //     }
-  //     target.takeDamage(this.damage);
-  //   }
-  // }
 }
-
-

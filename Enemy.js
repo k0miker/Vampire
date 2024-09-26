@@ -251,7 +251,6 @@ export default class Enemy {
       if (this.indexX > 661) {
         this.status = "dead";
       }
-      ctx.save();
       ctx.drawImage(
         this.image,
         this.indexX, // X-Position der Todesanimation im Sprite
@@ -263,7 +262,6 @@ export default class Enemy {
         this.width,
         this.height
       );
-      ctx.restore();
     } else if (this.status === "alive") {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {

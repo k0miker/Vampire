@@ -3,28 +3,32 @@ export default class Vendor {
     this.ctx = ctx;
     this.img = new Image();
     this.img.src = "./assets/vendor.png";
-    this.frameIndex = 0;
+    this.indexX = 0;
     this.deltaTime = 0;
-    this.walkTimer = 10; 
-    this.numberOfFrames = 3; 
+    this.walkTimer = 0; 
   }
 
   draw(x, y) {
-    this.deltaTime++;
-    if (this.deltaTime > this.walkTimer) {
-      this.deltaTime = 0;
-      this.frameIndex = (this.frameIndex + 1) % this.numberOfFrames;
+    
+    if (this.walkTimer <= 0) {    
+      this.indexX+=17;      
+      this.walkTimer = 10;
+    if (this.indexX > 50) this.indexX = 0;
     }
-    this.ctx.drawImage(
+    this.ctx.save();
+    this.ctx.drawImage(      
       this.img,
-      this.frameIndex * 64, // Breite eines Frames im Sprite
+      this.indexX,
       0,
-      64,
-      64,
-      x,
-      y,
+      16,
+      16,
+      x * 64,
+      y * 64,
       64,
       64
     );
+    this.ctx.restore();
+  this.walkTimer--;
+
   }
 }

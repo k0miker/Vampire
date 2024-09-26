@@ -9,7 +9,7 @@ export default class Hud {
     this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
     this.ctx.fillRect(20, 20, player.health, 28);
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
-    this.ctx.fillRect(0, 0, 1500, 62);
+    this.ctx.fillRect(0, 0, 1525, 62);
     this.ctx.drawImage(
       this.img,
       17,
@@ -44,7 +44,16 @@ export default class Hud {
       20,
       81
     );
-    this.ctx.fillStyle = "rgba(255, 255, 255, 0.8";
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
     this.ctx.fillRect(515, 22, player.reloadTimer / 2, 16);
+    this.ctx.fillRect(1525,100,200,50);
+    this.ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+    this.ctx.strokeRect(1525,100,200,50);
+    this.ctx.font = "12px mono";
+    this.ctx.fontWeight = "100";
+    this.ctx.fillStyle = "green";
+    this.ctx.fillText(`"grünes X" = Spieler`, 1530, 120,200);
+    this.ctx.fillStyle = "red";
+    this.ctx.fillText(`"rotes X" = Boss`, 1530, 140,200);
   }
 }

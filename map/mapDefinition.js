@@ -4,7 +4,7 @@ groundSheet.src = "../assets/tileset3.png";
 
 
 const mapDefinition = [
-  { index: 0, src: groundSheet, x: 187, y: 136, pass: true, spawn: false },
+{ index: 0, src: groundSheet, x: 187, y: 136, pass: true, spawn: false },
 { index: 1, src: groundSheet, x: 0, y: 0, pass: false, spawn: false },
 { index: 2, src: groundSheet, x: 17, y: 0, pass: true, spawn: false },
 { index: 3, src: groundSheet, x: 34, y: 0, pass: true, spawn: false },

@@ -1,5 +1,6 @@
 import mapDefinition from "./map/mapDefinition.js";
 import mapArray from "./map/mapArray.js";
+import Vendor from "./Vendor.js";
 export default class MapHandler {
   constructor(ctx, map, overlay) {
     this.ctx = ctx;
@@ -42,6 +43,8 @@ export default class MapHandler {
         const tileIndex = this.map[x + y * 27];
         const tile = this.mapDefinition[tileIndex];
 
+        // toDO vendor animieren
+
         this.ctx.drawImage(
           tile.src,
           tile.x,
@@ -53,6 +56,10 @@ export default class MapHandler {
           this.width,
           this.height
         );
+        if (tileIndex === 228) {
+        const vendor = new Vendor(this.ctx);
+        vendor.draw(x, y);
+        }
       }
     }
   }
@@ -118,11 +125,18 @@ export default class MapHandler {
         );
       }
     }
-    
+
     this.ctx.fillStyle = "rgba(255, 0, 0, 0.9)";
-    this.ctx.fillText("X", miniMapX + 3* cellWidth * 4 +20, miniMapY + 1 * cellHeight * 3.8);
+    this.ctx.fillText(
+      "X",
+      miniMapX + 3 * cellWidth * 4 + 20,
+      miniMapY + 1 * cellHeight * 3.8
+    );
     this.ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
-    this.ctx.fillText("X", miniMapX + mapPosX* cellWidth * 4 +20, miniMapY + (mapPosY+1) * cellHeight * 3.8);
-    
+    this.ctx.fillText(
+      "X",
+      miniMapX + mapPosX * cellWidth * 4 + 20,
+      miniMapY + (mapPosY + 1) * cellHeight * 3.8
+    );
   }
 }

@@ -51,7 +51,7 @@ export default class Enemy {
         break;
       case 3:
         this.imageSrc = "./assets/zombi3.png";
-        this.speed = 3.0 + Math.random();
+        this.speed = 3 + Math.random();
         this.health = 75;
         this.width = w;
         this.height = h;
@@ -61,8 +61,8 @@ export default class Enemy {
         break;
       case 4:
         this.imageSrc = "./assets/vamp.png";
-        this.speed = 5 + Math.random();
-        this.health = 100;
+        this.speed = 4 + Math.random();
+        this.health = 75;
         this.width = w ;
         this.height = h;
         this.gold = 1;
@@ -142,7 +142,7 @@ export default class Enemy {
           // Schaden anwenden
           if (player.invinsibleTimer === 0) {
             player.health -= 10; // Schaden an den Spieler           
-            player.invinsibleTimer = 500; // Spieler wird für kurze Zeit unverwundbar
+            player.invinsibleTimer = 250; // Spieler wird für kurze Zeit unverwundbar
             this.screenDamageTimer = 50; // Bildschirm-Schaden-Timer setzen
             if (player.health <= 0) {
               player.isAlive = false;
@@ -304,7 +304,7 @@ export default class Enemy {
     if (this.screenDamageTimer > 0) {
       ctx.save();
       ctx.fillStyle = "rgba(255, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.fillRect(0, 0, 1728, 832);
       ctx.restore();
       this.screenDamageTimer -= deltaTime * 500; // Timer verringern
     }

@@ -26,11 +26,12 @@ export function keyDownHandler(e) {
     this.player.weapons[this.player.weapon].bullets = 0;
     this.player.reloadTimer = 120;
     this.player.weapons[this.player.weapon].reloading = true;
+    this.player.reloadSound.currentTime = -350; // Reload-Sound -350ms, geht aber nicht Oo
     this.player.reloadSound.play();
     setTimeout(() => {
       this.player.reloadSound.pause();
-      this.player.reloadSound.currentTime = 0;
-    }, 1000); // Reload-Sound abspielen
+      this.player.reloadSound.currentTime = -350;
+    }, 1700); // Reload-Sound abspielen
   }
   if (e.code === "ShiftLeft") {
     this.player.speed = 8;

@@ -119,10 +119,10 @@ export default class MapHandler {
       }
     }
     
-    this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-    this.ctx.fillText("X", miniMapX + 3* cellWidth * 4 +10, miniMapY + 1 * cellHeight * 3.8);
-   this.ctx.fillStyle = "rgba(0, 255, 0, 0.5)";
-    this.ctx.fillText("X", miniMapX + mapPosX* cellWidth * 4 +10, miniMapY + (mapPosY+1) * cellHeight * 3.8);
+    this.ctx.fillStyle = "rgba(255, 0, 0, 0.9)";
+    this.ctx.fillText("X", miniMapX + 3* cellWidth * 4 +20, miniMapY + 1 * cellHeight * 3.8);
+    this.ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
+    this.ctx.fillText("X", miniMapX + mapPosX* cellWidth * 4 +20, miniMapY + (mapPosY+1) * cellHeight * 3.8);
     
   }
 }

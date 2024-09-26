@@ -76,6 +76,7 @@ export default class Player {
     });
     this.deathSound = document.getElementById("player-death-sound");
     this.deathSound.volume = 0.5;
+    this.hurtSound = document.getElementById("player-hurt-sound-1");
   }
 
   addPistolBullet(

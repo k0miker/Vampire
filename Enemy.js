@@ -62,12 +62,11 @@ export default class Enemy {
         this.imageSrc = "./assets/vamp.png";
         this.speed = 5 + Math.random();
         this.health = 100;
-        this.width = w * 1.5;
-        this.height = h * 1.5;
+        this.width = w ;
+        this.height = h;
         this.gold = 1;
         this.damage = 5;
         this.aggroRange = 250;
-
 
         //geht nicht... ergibt kein sinn
         // this.aggroSound = document.getElementById("vamp-sound-4");
@@ -141,21 +140,26 @@ export default class Enemy {
         if (this.isColliding(player)) {
           // Schaden anwenden
           if (player.invinsibleTimer === 0) {
-            player.health -= 10; // Schaden an den Spieler
-            player.invinsibleTimer = 100; // Spieler wird für kurze Zeit unverwundbar
+            player.health -= 10; // Schaden an den Spieler           
+            player.invinsibleTimer = 500; // Spieler wird für kurze Zeit unverwundbar
             if (player.health <= 0) {
               player.isAlive = false;
             }
 
             // Freie Instanz finden und abspielen
-            const damageSound = player.playerSounds.find((sound) => sound.paused);
+            const damageSound = player.playerSounds.find(
+              (sound) => sound.paused
+            );
             if (damageSound) {
-              damageSound.currentTime = -800;
+              damageSound.currentTime = -1550;
               damageSound.play();
               setTimeout(() => {
                 damageSound.pause();
                 damageSound.currentTime = 0;
-              }, 2050); // 50 Millisekunden = 0,05 Sekunden
+              }, 1250); 
+              player.hurtSound.currentTime =-550;
+              player.hurtSound.volume = 0.8;
+              player.hurtSound.play();
             }
           }
         } else {
@@ -214,6 +218,9 @@ export default class Enemy {
       if (this.indexX > 78) {
         this.status = "alive";
       }
+    
+
+
 
       // toDo spawn Animation
       // ctx.save();

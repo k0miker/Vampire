@@ -150,17 +150,13 @@ class Game {
 
     const walksound = this.player.walkSound;
     if (this.player.vx !== 0 || this.player.vy !== 0) {
-
-            walksound.play();
-            walksound.volume = 0.4;
-            walksound.loop = true;
-        
+      walksound.play();
+      walksound.volume = 0.4;
+      walksound.loop = true;
     } else {
-       
-          walksound.pause();
-          walksound.loop = false;
-          walksound.currentTime = 0;
-        
+      walksound.pause();
+      walksound.loop = false;
+      walksound.currentTime = 0;
     }
 
     if (this.player.x < 0) {
@@ -216,7 +212,6 @@ class Game {
       if (this.enemies[i].status === "dying") {
         //gold hinzufügen /10 weil eine sec "dying"
         this.hud.score += this.enemies[i].gold / 10;
-        
       }
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
@@ -336,7 +331,7 @@ class Game {
     if (this.player.health <= 0) {
       this.player.deathSound.play();
       setTimeout(() => {
-      document.getElementById("restart-overlay").style.display = "flex";
+        document.getElementById("restart-overlay").style.display = "flex";
       }, 1000);
     }
   }
@@ -352,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ambientSound = document.getElementById("ambient");
     ambientSound.currentTime = -15000; // Sound von Anfang an abspielen
     ambientSound.loop = true; // Sound in einer Schleife abspielen
-    ambientSound.volume = 0.20; // Lautstärke auf 10% setzen
+    ambientSound.volume = 0.2; // Lautstärke auf 10% setzen
     ambientSound.play(); // Sound abspielen
 
     game = new Game(difficulty);

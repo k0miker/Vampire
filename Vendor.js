@@ -9,9 +9,8 @@ export default class Vendor {
 
   draw(x, y) {
     this.walkTimer--;
-    console.log(this.walkTimer);
+
     if (this.walkTimer <= 0) {
-      console.log("huhu");
       this.indexX += 17;
       this.walkTimer = 10;
       if (this.indexX > 50) this.indexX = 0;

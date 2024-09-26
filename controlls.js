@@ -54,7 +54,7 @@ export function clickHandler(e) {
   let dx = this.player.x - this.mouseX;
   let dy = this.player.y - this.mouseY;
   let dist = Math.sqrt(dx * dx + dy * dy);
-  this.player.weapons[this.player.weapon].addBullet(
+  this.player.addBullet(
     this.bullets,
     dx,
     dy,

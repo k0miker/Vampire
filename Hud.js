@@ -13,7 +13,7 @@ export default class Hud {
     this.ctx.drawImage(
       this.img,
       17,
-      player.weapons[player.weapon].indexYPos,
+      weapons[player.weapon].indexYPos,
       16,
       16,
       400,
@@ -21,7 +21,7 @@ export default class Hud {
       96,
       64
     );
-    for (let i = 0; i < player.weapons[player.weapon].bullets; i++) {
+    for (let i = 0; i < weapons[player.weapon].bullets; i++) {
       this.ctx.drawImage(this.img, 68, 194, 16, 16, 500 + i * 20, 10, 64, 64);
     }
     this.ctx.font = "32px pixel";
@@ -30,30 +30,27 @@ export default class Hud {
       `        HP: ${player.health}             ${Math.ceil(
         this.score
       )} $                                                            ${enemies} Zombies                           R for reload${
-        player.weapons[player.weapon].reloading
-          ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"      
-          : "" }`,
+        weapons[player.weapon].reloading
+          ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"
+          : ""
+      }`,
       10,
       40
     );
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-    this.ctx.fillRect(0,62, 280,32);
+    this.ctx.fillRect(0, 62, 280, 32);
     this.ctx.fillStyle = "white";
-    this.ctx.fillText(
-      `invinsible timer: ${player.invinsibleTimer}`,
-      20,
-      81
-    );
+    this.ctx.fillText(`invinsible timer: ${player.invinsibleTimer}`, 20, 81);
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
     this.ctx.fillRect(515, 22, player.reloadTimer / 2, 16);
-    this.ctx.fillRect(1525,100,200,50);
+    this.ctx.fillRect(1525, 100, 200, 50);
     this.ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-    this.ctx.strokeRect(1525,100,200,50);
+    this.ctx.strokeRect(1525, 100, 200, 50);
     this.ctx.font = "12px mono";
     this.ctx.fontWeight = "100";
     this.ctx.fillStyle = "green";
-    this.ctx.fillText(`"grünes X" = Spieler`, 1530, 120,200);
+    this.ctx.fillText(`"grünes X" = Spieler`, 1530, 120, 200);
     this.ctx.fillStyle = "red";
-    this.ctx.fillText(`"rotes X" = Boss`, 1530, 140,200);
+    this.ctx.fillText(`"rotes X" = Boss`, 1530, 140, 200);
   }
 }

@@ -209,9 +209,61 @@ export default class Enemy {
 
   draw(ctx, deltaTime, playerX, playerY) {
     if (this.status === "spawning") {
-      // ... (restlicher Code bleibt unverändert)
+      this.image.src = "./assets/spawn.png";
+      this.deathTimer -= 1 * deltaTime * 60;
+      this.indexX = 0;
+
+      if (this.deathTimer <= 0) {
+        this.indexX += 17;
+        this.deathTimer = 15;
+      }
+      if (this.indexX > 78) {
+        this.status = "alive";
+      }
+    
+
+
+
+      // toDo spawn Animation
+      // ctx.save();
+      // ctx.drawImage(
+      //   this.image,
+      //   0, // X-Position der Spawn-Animation im Sprite
+      //   0, // Y-Position der Spawn-Animation im Sprite
+      //   16,
+      //   16,
+      //   this.x - this.width / 2,
+      //   this.y - this.height / 2,
+      //   this.width,
+      //   this.height
+      // );
+      // ctx.restore();
     } else if (this.status === "dying") {
-      // ... (restlicher Code bleibt unverändert)
+      // Zeichne die Todesanimation, wenn der Zombie tot ist
+      this.image.src = "./assets/tileset.png";
+      this.deathTimer -= 1 * deltaTime * 60;
+
+      if (this.deathTimer <= 0) {
+        this.indexX += 17;
+        this.deathTimer = 15;
+      }
+
+      if (this.indexX > 661) {
+        this.status = "dead";
+      }
+      ctx.save();
+      ctx.drawImage(
+        this.image,
+        this.indexX, // X-Position der Todesanimation im Sprite
+        152, // Y-Position der Todesanimation im Sprite
+        16,
+        16,
+        this.x - this.width / 2,
+        this.y - this.height / 2,
+        this.width,
+        this.height
+      );
+      ctx.restore();
     } else if (this.status === "alive") {
       this.walkTimer -= 1 * deltaTime * 60;
       if (this.walkTimer <= 0) {

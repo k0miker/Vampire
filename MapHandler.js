@@ -16,6 +16,7 @@ export default class MapHandler {
     // this.gap = 1;
     this.tiles = [];
     this.obstacles = [];
+    this.vendor = new Vendor(this.ctx);
   }
 
   init() {
@@ -57,8 +58,7 @@ export default class MapHandler {
           this.height
         );
         if (tileIndex === 228) {
-        const vendor = new Vendor(this.ctx);
-        vendor.draw(x, y);
+          this.vendor.draw(x, y);
         }
       }
     }

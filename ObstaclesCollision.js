@@ -4,11 +4,19 @@ export default class ObstacleCollision {
     this.vendorPosition = vendorPosition;
   }
   collision(entity) {
-    for (let i = 0; i < this.obstacles.length; i++) {    
-      if (this.isColliding(entity, this.obstacles[i])) return true;
+    for (let i = 0; i < this.obstacles.length; i++) {  
+      
+      if (this.isColliding(entity, this.obstacles[i])){        
+     // console.log("Kollision mit Hindernis erkannt");
+        return true;
+      }   
+      if (this.isColliding(entity, this.vendorPosition)){
+        console.log("Kollision mit Vendor erkannt");
+        
+          return "vendor";  
+        }      
     }    
-    // if (this.isColliding(entity, this.vendorPosition))
-    //   return "vendor";
+   return false;
     
   }
 
@@ -21,8 +29,7 @@ export default class ObstacleCollision {
 
     if (Collision) {
       return true;
-    } else {
-      return false;
-    }
+    } 
+    return false;
   }
 }

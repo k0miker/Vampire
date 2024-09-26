@@ -18,8 +18,8 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.weapon = 0;
-    this.weapons = [0];
+    this.weapon = 1;
+    this.weapons = [0, 1];
     this.reloadTimer = 0;
     // this.weapons = [
     //   {

@@ -36,6 +36,14 @@ export default class Hud {
       10,
       40
     );
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    this.ctx.fillRect(0,62, 280,32);
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText(
+      `invinsible timer: ${player.invinsibleTimer}`,
+      20,
+      81
+    );
     this.ctx.fillStyle = "rgba(255, 255, 255, 0.8";
     this.ctx.fillRect(515, 22, player.reloadTimer / 2, 16);
   }

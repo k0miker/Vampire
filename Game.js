@@ -139,9 +139,9 @@ class Game {
   animate(currentTime) {
 
     
-    console.log(this.obstacleCollision.collision(this.player));
+    console.log(this.obstacleCollision.collision(this.player)=== "vendor");
     
-    if (this.obstacleCollision.collision(this.player)) {
+    if (this.obstacleCollision.collision(this.player)==="vendor") {
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
       this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
       this.ctx.fillStyle = "white";

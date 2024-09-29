@@ -28,7 +28,7 @@ export default class Hud {
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
       `        HP: ${player.health}             ${Math.ceil(
-        this.score
+        player.gold
       )} $                                                            ${enemies} Zombies                           R for reload${
         weapons[player.weapon].reloading
           ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"

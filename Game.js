@@ -214,7 +214,6 @@ class Game {
       if (this.enemies[i].status === "dying") {
         //gold hinzufügen /10 weil eine sec "dying"
         this.player.gold += this.enemies[i].gold / 10;
-        this.hud.score += this.enemies[i].gold / 10;
       }
       if (this.enemies[i].status === "dead") {
         this.enemies.splice(i, 1);
@@ -321,12 +320,12 @@ class Game {
     this.hud.draw(this.enemies.length, this.player);
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
 
-   
+    // vendor menue
     if (this.obstacleCollision.vendorDetected) {          
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
       this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
       this.ctx.fillStyle = "white";
-      this.ctx.font = "20px Arial";   
+      this.ctx.font = "16px Arial";   
       this.ctx.fillText(
         "Welcome to the shop",
         this.mapHandler.vendorPosition.x+120,
@@ -343,7 +342,7 @@ class Game {
         this.mapHandler.vendorPosition.y+90
       );
       this.ctx.fillText(
-        "press `u` to upgrade weapon(+2dmg)",
+        "press `u` to upgrade weapon",
         this.mapHandler.vendorPosition.x+120,
         this.mapHandler.vendorPosition.y+120
       );

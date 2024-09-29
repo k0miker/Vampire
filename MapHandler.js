@@ -16,12 +16,13 @@ export default class MapHandler {
     // this.gap = 1;
     this.tiles = [];
     this.obstacles = [];
-    this.vendor = new Vendor(this.ctx);
+    this.vendor;
   }
 
   init() {
     // console.log(this.map);
     this.obstacles = [];
+    this.vendorPosition = {};
     for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 27; x++) {
         const tileIndex = this.map[x + y * 27];
@@ -35,8 +36,9 @@ export default class MapHandler {
           });
         }
         if (tileIndex === 228) {
-          this.vendorPosition = { x: x * this.width, y: y * this.height, width: this.width, height: this.height };
-        }
+          this.vendorPosition = { x: x * this.width, y: y * this.height, width: this.width, height: this.height };          
+          this.vendor = new Vendor(this.ctx);
+        } 
       }
     }
   }

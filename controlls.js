@@ -23,10 +23,12 @@ export function keyUpHandler(e) {
 
 export function keyDownHandler(e) {
   if (e.code === "KeyR") {
-    this.player.weapons[this.player.weapon].bullets = 0;
+    console.log(this.player.weapons[this.player.weapon]);
+    weapons[this.player.weapon].bullets = 0;
     this.player.reloadTimer = 120;
-    this.player.weapons[this.player.weapon].reloading = true;
-    this.player.reloadSound.currentTime = -350; // Reload-Sound -350ms, geht aber nicht Oo
+
+    weapons[this.player.weapon].reloading = true;
+    this.player.reloadSound.currentTime = 0; // Reload-Sound -350ms, geht aber nicht Oo
     this.player.reloadSound.play();
     setTimeout(() => {
       this.player.reloadSound.pause();

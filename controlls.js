@@ -48,6 +48,28 @@ export function keyDownHandler(e) {
   if (e.code === "KeyD") {
     this.player.vx = this.player.speed;
   }
+
+
+  ///vendorkeys
+  if (e.code === "KeyE") {
+    if (this.player.gold >= 100){
+      this.player.gold -= 100;
+      this.player.health =200;
+    }   
+  }
+  if (e.code === "KeyZ") {
+    if (this.player.gold >= 50){
+      this.player.gold -= 50;
+      this.player.magazines += 1;
+    }
+  }
+  if (e.code === "KeyU") {
+    if (this.player.gold >= 50){
+      this.player.gold -= 50;
+      this.player.weapons[this.player.weapon].dmg += 5;
+    }
+  }
+
 }
 
 export function clickHandler(e) {

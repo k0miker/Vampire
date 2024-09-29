@@ -17,7 +17,7 @@ export default class ObstacleCollision {
       if (this.vendorDetected) {
       setTimeout(() => {
         this.vendorDetected = false;
-      }, 15000);
+      }, 10000);
     }     
   }
     return false;

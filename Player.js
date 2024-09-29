@@ -21,6 +21,7 @@ export default class Player {
     this.weapon = 1;
     this.weapons = [0, 1];
     this.reloadTimer = 0;
+    this.gold = 0;
     // this.weapons = [
     //   {
     //     name: "Pistol",
@@ -80,8 +81,8 @@ export default class Player {
     this.hurtSound = document.getElementById("player-hurt-sound-1");
   }
   addBullet(bullets, dx, dy, dist, ctx, gameWindowHeight, gameWindowWidth) {
-    console.log(weapons[this.weapon].reloading);
-    console.log(weapons[this.weapon].bullets);
+  //   console.log(weapons[this.weapon].reloading);
+  //   console.log(weapons[this.weapon].bullets);
     if (weapons[this.weapon].reloading) {
     } else if (weapons[this.weapon].bullets <= 0) {
       this.reloadTimer = 120;

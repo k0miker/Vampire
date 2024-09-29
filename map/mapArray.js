@@ -18,6 +18,6 @@ const mapArray = [
     [ Map1,  Map2,  Map3,  Map4 ],
     [ Map5,  Map6,  Map7,  Map8 ], 
     [ Map9, Map10, Map11, Map12 ], 
-    [Map13, Map14, Map15, Map16 ]];
+    [ Map13,Map14, Map15, Map16 ]];
 
 export default mapArray;

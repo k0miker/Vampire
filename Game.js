@@ -137,7 +137,7 @@ class Game {
   
   animate(currentTime) {
     
-console.log(this.vendorDetect);
+// console.log(this.vendorDetect);
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
@@ -213,6 +213,7 @@ console.log(this.vendorDetect);
     this.enemies.forEach((enemy, i) => {
       if (this.enemies[i].status === "dying") {
         //gold hinzufügen /10 weil eine sec "dying"
+        this.player.gold += this.enemies[i].gold / 10;
         this.hud.score += this.enemies[i].gold / 10;
       }
       if (this.enemies[i].status === "dead") {
@@ -248,34 +249,7 @@ console.log(this.vendorDetect);
     // Kollisionserkennung
     this.obstacleCollision.collision(this.player);
 
-    console.log(this.vendorDetect);
-    if (this.obstacleCollision.vendorDetected) {
-      this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-      this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
-      this.ctx.fillStyle = "white";
-      this.ctx.font = "20px Arial";
    
-      this.ctx.fillText(
-        "Welcome to the shop",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+30
-      );
-      this.ctx.fillText(
-        "Press 'E' to buy Health",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+60
-      );
-      this.ctx.fillText(
-        "Press 'z' to buy Ammo",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+90
-      );
-      this.ctx.fillText(
-        "press `u` to upgrade weapon(+2dmg)",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+120
-      );
-    }  
 
 
  
@@ -346,6 +320,34 @@ console.log(this.vendorDetect);
     // HUD anzeigen
     this.hud.draw(this.enemies.length, this.player);
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
+
+   
+    if (this.obstacleCollision.vendorDetected) {          
+      this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
+      this.ctx.fillStyle = "white";
+      this.ctx.font = "20px Arial";   
+      this.ctx.fillText(
+        "Welcome to the shop",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+30
+      );
+      this.ctx.fillText(
+        "Press 'E' to buy Health",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+60
+      );
+      this.ctx.fillText(
+        "Press 'z' to buy Ammo",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+90
+      );
+      this.ctx.fillText(
+        "press `u` to upgrade weapon(+2dmg)",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+120
+      );
+    }  
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
@@ -368,6 +370,7 @@ console.log(this.vendorDetect);
       }, 1000);
     }
   }
+  
 }
 
 // Initialisiere das Spiel erst, wenn der Button gedrückt wird

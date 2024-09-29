@@ -92,27 +92,27 @@
   <body>
     <div id="overlay">
       <div id="description">
-        <h4>Willkommen zu unserem Spiel!</h4>
-        <p>Wählen Sie eine Schwierigkeit und starten Sie das Spiel.</p>
-        <p>nutze "W" "A" "S" "D" um dich zu bewegen</p>
-        <p>nutze die Maus dich umzuschauen.</p>
-        <p>Mausrad zum Waffenwechsel</p>
-        <p>"R" für reload</p>
-        <p>"Shift left" für sprint</p>
+        <h4>Welcome to our game!</h4>
+        <p>Select a difficulty level and start the game.</p>
+        <p>Use "W", "A", "S", "D" to move.</p>
+        <p>Use the mouse to look around.</p>
+        <p>Use the mouse wheel to switch weapons.</p>
+        <p>Press "R" to reload.</p>
+        <p>Hold "Left Shift" to sprint.</p>
       </div>
       <div id="difficulty">
-        <label for="difficulty-select">Schwierigkeit:</label>
+        <label for="difficulty-select">Difficulty:</label>
         <select id="difficulty-select">
-          <option value="1">Leicht</option>
-          <option value="2">Mittel</option>
-          <option value="3">Schwer</option>
+          <option value="1">Easy</option>
+          <option value="2">Medium</option>
+          <option value="3">Hard</option>
         </select>
       </div>
-      <button id="start-button">Spiel Starten</button>
+      <button id="start-button">Start Game</button>
     </div>
     <div id="restart-overlay">
-      <p>Du bist gestorben! Möchtest du das Spiel neu starten?</p>
-      <button id="restart-button">Neustart</button>
+      <p>You have died! Do you want to restart the game?</p>
+      <button id="restart-button">Restart</button>
     </div>
     <canvas id="gameCanvas"></canvas>
     <script src="weapons.js"></script>

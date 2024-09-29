@@ -6,7 +6,7 @@ export default class Vendor {
     this.indexX = 0;
     this.walkTimer = 10;
   }
-
+  
   draw(x, y) {
     this.walkTimer--;
 

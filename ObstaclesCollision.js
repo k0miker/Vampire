@@ -1,11 +1,26 @@
 export default class ObstacleCollision {
-  constructor(obstacles) {
+  constructor(obstacles, vendorPosition) {
     this.obstacles = obstacles;
+    this.vendorPosition = vendorPosition;
+    this.vendorDetected = false;
   }
   collision(entity) {
-    for (let i = 0; i < this.obstacles.length; i++) {
-      if (this.isColliding(entity, this.obstacles[i])) return true;
-    }
+    for (let i = 0; i < this.obstacles.length; i++) {        
+      if (this.isColliding(entity, this.obstacles[i])){        
+    //  console.log("Kollision mit Hindernis erkannt");
+        return true;
+      } 
+      if (this.isColliding(entity, this.vendorPosition)){
+        console.log("Kollision mit Vendor erkannt");      
+        this.vendorDetected = true;           
+      } 
+      if (this.vendorDetected) {
+      setTimeout(() => {
+        this.vendorDetected = false;
+      }, 10000);
+    }     
+  }
+    return false;
   }
 
   isColliding(entity, obstacle) {
@@ -17,6 +32,7 @@ export default class ObstacleCollision {
 
     if (Collision) {
       return true;
-    }
+    } 
+    return false;
   }
 }

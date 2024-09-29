@@ -37,12 +37,11 @@ class Game {
       this.currentMap.overlay
     );
     this.mapHandler.init();
-    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles, this.mapHandler.vendorPosition);
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.bloodsplosions = [];
-    const settings1 = new Settings(difficulty, 1000, 60, 2, 1, 100, 50, 10, 5);
-
+    this.settings1 = new Settings(difficulty, 1000, 60, 2, 1, 100, 50, 10, 5);
     this.hud = new Hud(this.ctx);
 
     // Zombies spawnen
@@ -135,8 +134,10 @@ class Game {
       window.innerHeight / this.gameWindowHeight
     );
   }
-
+  
   animate(currentTime) {
+    
+// console.log(this.vendorDetect);
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
@@ -147,6 +148,7 @@ class Game {
     this.player.y += this.player.vy * deltaTime * 30;
     if (this.obstacleCollision.collision(this.player))
       this.player.y -= this.player.vy;
+    
 
     const walksound = this.player.walkSound;
     if (this.player.vx !== 0 || this.player.vy !== 0) {
@@ -211,6 +213,7 @@ class Game {
     this.enemies.forEach((enemy, i) => {
       if (this.enemies[i].status === "dying") {
         //gold hinzufügen /10 weil eine sec "dying"
+        this.player.gold += this.enemies[i].gold / 10;
         this.hud.score += this.enemies[i].gold / 10;
       }
       if (this.enemies[i].status === "dead") {
@@ -246,6 +249,11 @@ class Game {
     // Kollisionserkennung
     this.obstacleCollision.collision(this.player);
 
+   
+
+
+ 
+
     //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       // console.log(this.bullets[i].dmg);
@@ -264,7 +272,6 @@ class Game {
         hitIndex = this.bullets[i].update(
           deltaTime,
           this.enemies,
-
           this.obstacleCollision
         );
         if (hitIndex === 1000) {
@@ -313,6 +320,34 @@ class Game {
     // HUD anzeigen
     this.hud.draw(this.enemies.length, this.player);
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
+
+   
+    if (this.obstacleCollision.vendorDetected) {          
+      this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
+      this.ctx.fillStyle = "white";
+      this.ctx.font = "20px Arial";   
+      this.ctx.fillText(
+        "Welcome to the shop",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+30
+      );
+      this.ctx.fillText(
+        "Press 'E' to buy Health",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+60
+      );
+      this.ctx.fillText(
+        "Press 'z' to buy Ammo",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+90
+      );
+      this.ctx.fillText(
+        "press `u` to upgrade weapon(+2dmg)",
+        this.mapHandler.vendorPosition.x+120,
+        this.mapHandler.vendorPosition.y+120
+      );
+    }  
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
@@ -320,7 +355,7 @@ class Game {
     this.mapHandler.map = this.currentMap.map;
     this.mapHandler.overlay = this.currentMap.overlay;
     this.mapHandler.init();
-    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles);
+    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles, this.mapHandler.vendorPosition);
     this.enemies = [];
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
     this.spawnZombies(this.currentMap.zombieCount);
@@ -335,6 +370,7 @@ class Game {
       }, 1000);
     }
   }
+  
 }
 
 // Initialisiere das Spiel erst, wenn der Button gedrückt wird

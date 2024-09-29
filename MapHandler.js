@@ -34,6 +34,9 @@ export default class MapHandler {
             height: this.height,
           });
         }
+        if (tileIndex === 228) {
+          this.vendorPosition = { x: x * this.width, y: y * this.height, width: this.width, height: this.height };
+        }
       }
     }
   }

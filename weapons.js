@@ -1,7 +1,7 @@
 const weapons = [
   {
     name: "Pistol",
-    range: 1000,
+    range: 350,
     dmg: 25,
 
     indexYPos: 150,

@@ -23,8 +23,9 @@ export default class Vendor {
         mapHandler.vendorPosition.x + 120,
         mapHandler.vendorPosition.y + 30
       );
+      this.ctx.font = "12px Arial";
       this.ctx.fillText(
-        "Press 'E' to buy Health",
+        "Press 'E' to buy Health 100$",
         mapHandler.vendorPosition.x + 120,
         mapHandler.vendorPosition.y + 60
       );
@@ -34,9 +35,14 @@ export default class Vendor {
         mapHandler.vendorPosition.y + 90
       );
       this.ctx.fillText(
-        "press `u` to upgrade weapon",
+        "press `u` to upgrade currrent weapon 50$ (+2)",
         mapHandler.vendorPosition.x + 120,
         mapHandler.vendorPosition.y + 120
+      );
+      this.ctx.fillText(
+        "press `o` to upgrade range 50$ (+5)",
+        mapHandler.vendorPosition.x + 120,
+        mapHandler.vendorPosition.y + 150
       );
     }
   }

@@ -2,7 +2,7 @@ import mapDefinition from "./map/mapDefinition.js";
 import mapArray from "./map/mapArray.js";
 import Vendor from "./Vendor.js";
 export default class MapHandler {
-  constructor(ctx, map, overlay) {
+  constructor(ctx, map, overlay, currentMap, player) {
     this.ctx = ctx;
     this.map = map;
     this.overlay = overlay;
@@ -17,9 +17,17 @@ export default class MapHandler {
     this.tiles = [];
     this.obstacles = [];
     this.vendor;
+    this.currentMap = currentMap;
+    this.frameCount = 0;
+    this.frameTime = 0;
+    this.player = player;
   }
 
   init() {
+    if (this.currentMap.weaponSpawn) {
+      if (this.player.weapons.includes(this.currentMap.weaponSpawn.number))
+        this.currentMap.weaponSpawn = undefined;
+    }
     // console.log(this.map);
     this.obstacles = [];
     this.vendorPosition = {};
@@ -36,9 +44,14 @@ export default class MapHandler {
           });
         }
         if (tileIndex === 228) {
-          this.vendorPosition = { x: x * this.width, y: y * this.height, width: this.width, height: this.height };          
+          this.vendorPosition = {
+            x: x * this.width,
+            y: y * this.height,
+            width: this.width,
+            height: this.height,
+          };
           this.vendor = new Vendor(this.ctx);
-        } 
+        }
       }
     }
   }
@@ -70,6 +83,27 @@ export default class MapHandler {
   }
 
   drawOverlay() {
+    this.frameTime++;
+    if (this.frameTime > 10) {
+      this.frameTime = 0;
+      this.frameCount++;
+      if (this.frameCount > 3) this.frameCount = 0;
+    }
+
+    if (this.currentMap.weaponSpawn) {
+      this.ctx.drawImage(
+        this.image,
+        17,
+        weapons[this.currentMap.weaponSpawn.number].indexYPos,
+        16,
+        16,
+        this.currentMap.weaponSpawn.x,
+        this.currentMap.weaponSpawn.y + this.frameCount * 2,
+        64,
+        64
+      );
+    }
+    console.log(this.currentMap.weaponSpawn);
     for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 27; x++) {
         const tileIndex = this.overlay[x + y * 27];

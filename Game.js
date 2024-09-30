@@ -29,20 +29,22 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 1, y: 0 };
+    this.mapIndex = { x: 3, y: 3 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
+    this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.mapHandler = new MapHandler(
       this.ctx,
       this.currentMap.map,
-      this.currentMap.overlay
+      this.currentMap.overlay,
+      this.currentMap,
+      this.player
     );
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(
       this.mapHandler.obstacles,
       this.mapHandler.vendorPosition
     );
-    this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.bloodsplosions = [];
     this.settings1 = new Settings(difficulty, 1000, 60, 2, 1, 100, 50, 10, 5);
@@ -250,6 +252,22 @@ class Game {
     // Kollisionserkennung
     this.obstacleCollision.collision(this.player);
 
+    //item aufnehmen wenn collision
+    if (this.currentMap.weaponSpawn) {
+      if (
+        this.obstacleCollision.isColliding(this.player, {
+          x: this.currentMap.weaponSpawn.x,
+          y: this.currentMap.weaponSpawn.y,
+          width: 64,
+          height: 64,
+        })
+      ) {
+        this.player.weapons.push(this.currentMap.weaponSpawn.number);
+        this.currentMap.weaponSpawn = undefined;
+        console.log();
+      }
+    }
+
     //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       // console.log(this.bullets[i].dmg);
@@ -315,14 +333,20 @@ class Game {
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
 
     // vendor menue
-    this.mapHandler.vendor.vendorMenu(this.obstacleCollision, this.mapHandler);
+    if (this.mapHandler.vendor)
+      this.mapHandler.vendor.vendorMenu(
+        this.obstacleCollision,
+        this.mapHandler
+      );
   }
 
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
     this.bullets = [];
     this.mapHandler.map = this.currentMap.map;
+
     this.mapHandler.overlay = this.currentMap.overlay;
+    this.mapHandler.currentMap = this.currentMap;
     this.mapHandler.init();
     this.obstacleCollision = new ObstacleCollision(
       this.mapHandler.obstacles,

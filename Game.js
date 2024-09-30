@@ -37,7 +37,10 @@ class Game {
       this.currentMap.overlay
     );
     this.mapHandler.init();
-    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles, this.mapHandler.vendorPosition);
+    this.obstacleCollision = new ObstacleCollision(
+      this.mapHandler.obstacles,
+      this.mapHandler.vendorPosition
+    );
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst
     this.enemies = [];
     this.bloodsplosions = [];
@@ -134,10 +137,9 @@ class Game {
       window.innerHeight / this.gameWindowHeight
     );
   }
-  
+
   animate(currentTime) {
-    
-// console.log(this.vendorDetect);
+    // console.log(this.vendorDetect);
     const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
@@ -148,7 +150,6 @@ class Game {
     this.player.y += this.player.vy * deltaTime * 30;
     if (this.obstacleCollision.collision(this.player))
       this.player.y -= this.player.vy;
-    
 
     const walksound = this.player.walkSound;
     if (this.player.vx !== 0 || this.player.vy !== 0) {
@@ -248,11 +249,6 @@ class Game {
     // Kollisionserkennung
     this.obstacleCollision.collision(this.player);
 
-   
-
-
- 
-
     //Update und Zeichne Kugeln
     for (let i = 0; i < this.bullets.length; i++) {
       // console.log(this.bullets[i].dmg);
@@ -321,32 +317,38 @@ class Game {
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
 
     // vendor menue
-    if (this.obstacleCollision.vendorDetected) {          
+    test();
+    if (this.obstacleCollision.vendorDetected) {
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-      this.ctx.fillRect(this.mapHandler.vendorPosition.x+100,this.mapHandler.vendorPosition.y,250,250);
+      this.ctx.fillRect(
+        this.mapHandler.vendorPosition.x + 100,
+        this.mapHandler.vendorPosition.y,
+        250,
+        250
+      );
       this.ctx.fillStyle = "white";
-      this.ctx.font = "16px Arial";   
+      this.ctx.font = "16px Arial";
       this.ctx.fillText(
         "Welcome to the shop",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+30
+        this.mapHandler.vendorPosition.x + 120,
+        this.mapHandler.vendorPosition.y + 30
       );
       this.ctx.fillText(
         "Press 'E' to buy Health",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+60
+        this.mapHandler.vendorPosition.x + 120,
+        this.mapHandler.vendorPosition.y + 60
       );
       this.ctx.fillText(
         "Press 'z' to buy Ammo",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+90
+        this.mapHandler.vendorPosition.x + 120,
+        this.mapHandler.vendorPosition.y + 90
       );
       this.ctx.fillText(
         "press `u` to upgrade weapon",
-        this.mapHandler.vendorPosition.x+120,
-        this.mapHandler.vendorPosition.y+120
+        this.mapHandler.vendorPosition.x + 120,
+        this.mapHandler.vendorPosition.y + 120
       );
-    }  
+    }
   }
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
@@ -354,7 +356,10 @@ class Game {
     this.mapHandler.map = this.currentMap.map;
     this.mapHandler.overlay = this.currentMap.overlay;
     this.mapHandler.init();
-    this.obstacleCollision = new ObstacleCollision(this.mapHandler.obstacles, this.mapHandler.vendorPosition);
+    this.obstacleCollision = new ObstacleCollision(
+      this.mapHandler.obstacles,
+      this.mapHandler.vendorPosition
+    );
     this.enemies = [];
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
     this.spawnZombies(this.currentMap.zombieCount);
@@ -369,7 +374,6 @@ class Game {
       }, 1000);
     }
   }
-  
 }
 
 // Initialisiere das Spiel erst, wenn der Button gedrückt wird

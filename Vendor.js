@@ -7,6 +7,39 @@ export default class Vendor {
     this.walkTimer = 10;
   }
 
+  vendorMenu(obstacleCollision, mapHandler) {
+    if (obstacleCollision.vendorDetected) {
+      this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+      this.ctx.fillRect(
+        mapHandler.vendorPosition.x + 100,
+        mapHandler.vendorPosition.y,
+        250,
+        250
+      );
+      this.ctx.fillStyle = "white";
+      this.ctx.font = "16px Arial";
+      this.ctx.fillText(
+        "Welcome to the shop",
+        mapHandler.vendorPosition.x + 120,
+        mapHandler.vendorPosition.y + 30
+      );
+      this.ctx.fillText(
+        "Press 'E' to buy Health",
+        mapHandler.vendorPosition.x + 120,
+        mapHandler.vendorPosition.y + 60
+      );
+      this.ctx.fillText(
+        "Press 'z' to buy Ammo",
+        mapHandler.vendorPosition.x + 120,
+        mapHandler.vendorPosition.y + 90
+      );
+      this.ctx.fillText(
+        "press `u` to upgrade weapon",
+        mapHandler.vendorPosition.x + 120,
+        mapHandler.vendorPosition.y + 120
+      );
+    }
+  }
   draw(x, y) {
     this.walkTimer--;
 

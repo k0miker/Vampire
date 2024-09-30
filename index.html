@@ -86,6 +86,42 @@
         z-index: 10;
         display: none;
       }
+      #gameCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .fa-volume-high {
+        position: absolute;
+        top: 20px;
+        right: 15%;
+        color: white;
+        font-size: 24px;
+        z-index: 10;
+      }
+      #ambient {
+        position: absolute;
+
+        top: 4px;
+        left: 25px;
+        height: 12px;
+        width: 180px;
+        opacity: 0.2;
+      }
+      #ambient::-webkit-media-controls-play-button,
+      #ambient::-webkit-media-controls-start-playback-button,
+      #ambient::-webkit-media-controls-timeline,
+      #ambient::-webkit-media-controls-current-time-display,
+      #ambient::-webkit-media-controls-time-remaining-display,
+      #ambient::-webkit-media-controls-options-button {
+        display: none;
+      }
+      #ambient:hover {
+        opacity: 1;
+      }
     </style>
   </head>
 
@@ -114,11 +150,22 @@
       <p>You have died! Do you want to restart the game?</p>
       <button id="restart-button">Restart</button>
     </div>
+
     <canvas id="gameCanvas"></canvas>
-    <script src="./test.js"></script>
+    <!-- <script src="vendor.js"></script> -->
     <script src="weapons.js"></script>
     <script type="module" src="Game.js"></script>
-    /* Background Music */
+
+    <!-- /* Background Music */ -->
+    <div class="audio-player">
+      <audio
+        controls
+        id="ambient"
+        src="./assets/sound/dark-background-ambience-17018.mp3"
+      ></audio>
+    </div>
+
+    <!-- /* Pistol Sounds */ -->
     <audio
       id="pistol-sound-1"
       src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
@@ -135,7 +182,7 @@
       id="pistol-sound-4"
       src="./assets/sound/Weapons/Desert Eagle/gun_rifle_pistol.wav"
     ></audio>
-    /* Shotgun Sounds */
+    <!-- /* Shotgun Sounds */ -->
     <audio
       id="shotgun-sound-1"
       src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
@@ -152,7 +199,7 @@
       id="shotgun-sound-4"
       src="./assets/sound/Weapons/Rusty Machine Gun/rusty_machine_gun_fire_single.wav"
     ></audio>
-    /* Enemy Sounds */
+    <!-- /* Enemy Sounds */ -->
     <audio
       id="enemy-damage-sound-1"
       src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_11.wav"
@@ -185,7 +232,7 @@
       id="enemy2-damage-sound-4"
       src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_27.wav"
     ></audio>
-    /* Vampir Sound */
+    <!-- /* Vampir Sound */ -->
     <audio
       id="vamp-sound-1"
       src="./assets/sound/Single Bat Call - QuickSounds.com.mp3"
@@ -209,12 +256,7 @@
       src="./assets/sound/Vocal/Attack/zombie_massacre_vocal_attack_short_03.wav"
     ></audio>
 
-    <audio
-      id="ambient"
-      src="./assets/sound/dark-background-ambience-17018.mp3"
-    ></audio>
-
-    /* Player Damage Sound */
+    <!-- /* Player Damage Sound */ -->
     <audio
       id="player-damage-sound-1"
       src="./assets/sound/Flesh Blood and Gore/zombie_massacre_sfx_flesh_blood_gore_stereo_01.wav"
@@ -232,7 +274,7 @@
       src="./assets/sound/Flesh Blood and Gore/zombie_massacre_sfx_flesh_blood_gore_stereo_04.wav"
     ></audio>
 
-    /*player walk sound */
+    <!-- /*player walk sound */ -->
     <audio
       id="walk-sound-1"
       src="./assets/sound/running_on_gravel-42832.mp3"
@@ -242,19 +284,19 @@
       src="./assets/sound/running_on_gravel-42832.mp3"
     ></audio>
 
-    /*player death sound */
+    <!-- /*player death sound */ -->
     <audio
       id="player-death-sound"
       src="./assets/sound/man-death-scream-186763.mp3"
     ></audio>
 
-    /*enemy aggro Sound */
+    <!-- /*enemy aggro Sound */ -->
     <audio
       id="aggro-sound"
       src="./assets/sound/Vocal/Impact Pain Hurt/zombie_massacre_vocal_impact_pain_hurt_18.wav"
     ></audio>
 
-    /* player hurt /*
+    <!-- /* player hurt /* -->
     <audio
       id="player-hurt-sound-1"
       src="./assets/sound/male_hurt7-48124.mp3"

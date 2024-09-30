@@ -5,6 +5,7 @@ import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import MapHandler from "./MapHandler.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
+import Vendor from "./Vendor.js";
 import {
   mouseWheelHandler,
   mousemoveHandler,
@@ -302,9 +303,6 @@ class Game {
       }
     }
 
-    // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.player);
-
     // Überprüfen, ob der Spieler tot ist
     if (this.player.health <= 0) {
       this.showRestartOverlay();
@@ -317,39 +315,9 @@ class Game {
     this.mapHandler.drawMiniMap(this.mapIndex.x, this.mapIndex.y);
 
     // vendor menue
-    test();
-    if (this.obstacleCollision.vendorDetected) {
-      this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-      this.ctx.fillRect(
-        this.mapHandler.vendorPosition.x + 100,
-        this.mapHandler.vendorPosition.y,
-        250,
-        250
-      );
-      this.ctx.fillStyle = "white";
-      this.ctx.font = "16px Arial";
-      this.ctx.fillText(
-        "Welcome to the shop",
-        this.mapHandler.vendorPosition.x + 120,
-        this.mapHandler.vendorPosition.y + 30
-      );
-      this.ctx.fillText(
-        "Press 'E' to buy Health",
-        this.mapHandler.vendorPosition.x + 120,
-        this.mapHandler.vendorPosition.y + 60
-      );
-      this.ctx.fillText(
-        "Press 'z' to buy Ammo",
-        this.mapHandler.vendorPosition.x + 120,
-        this.mapHandler.vendorPosition.y + 90
-      );
-      this.ctx.fillText(
-        "press `u` to upgrade weapon",
-        this.mapHandler.vendorPosition.x + 120,
-        this.mapHandler.vendorPosition.y + 120
-      );
-    }
+    this.mapHandler.vendor.vendorMenu(this.obstacleCollision, this.mapHandler);
   }
+
   levelChange() {
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
     this.bullets = [];

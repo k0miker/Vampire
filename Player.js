@@ -18,8 +18,8 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.weapon = 1;
-    this.weapons = [0, 1];
+    this.weapon = 0;
+    this.weapons = [0];
     this.reloadTimer = 0;
     this.gold = 0;
     // this.weapons = [
@@ -81,8 +81,8 @@ export default class Player {
     this.hurtSound = document.getElementById("player-hurt-sound-1");
   }
   addBullet(bullets, dx, dy, dist, ctx, gameWindowHeight, gameWindowWidth) {
-  //   console.log(weapons[this.weapon].reloading);
-  //   console.log(weapons[this.weapon].bullets);
+    //   console.log(weapons[this.weapon].reloading);
+    //   console.log(weapons[this.weapon].bullets);
     if (weapons[this.weapon].reloading) {
     } else if (weapons[this.weapon].bullets <= 0) {
       this.reloadTimer = 120;
@@ -127,121 +127,6 @@ export default class Player {
       }
     }
   }
-  // addPistolBullet(
-  //   bullets,
-  //   dx,
-  //   dy,
-  //   dist,
-  //   ctx,
-  //   gameWindowHeight,
-  //   gameWindowWidth
-  // ) {
-  //   if (this.weapons[this.weapon].reloading) {
-  //     console.log(this.reloadTimer);
-  //   } else if (this.weapons[this.weapon].bullets <= 0) {
-  //     console.log("nachladen");
-  //     this.reloadTimer = 120;
-  //     this.weapons[this.weapon].reloading = true;
-  //     this.reloadSound.currentTime = 0; // Reload-Sound von vorne starten
-  //     this.reloadSound.play(); // Reload-Sound abspielen
-  //   } else {
-  //     const bullet = new Bullet(
-  //       this.x,
-  //       this.y,
-  //       (dx / dist) * -15,
-  //       (dy / dist) * -15,
-  //       this.weapons[this.weapon].dmg,
-  //       ctx,
-  //       gameWindowWidth,
-  //       gameWindowHeight,
-  //       this.weapons[this.weapon].range
-  //     );
-  //     bullets.push(bullet);
-  //     this.weapons[this.weapon].bullets -= 1;
-
-  //     // Freie Instanz finden und abspielen
-  //     const pistolSound = this.pistolSounds.find((sound) => sound.paused);
-  //     if (pistolSound) {
-  //       pistolSound.currentTime = 0;
-  //       pistolSound.play();
-  //       setTimeout(() => {
-  //         pistolSound.pause();
-  //         pistolSound.currentTime = 0;
-  //       }, 1050); // 50 Millisekunden = 0,05 Sekunden
-  //     }
-  //   }
-  // }
-
-  // addShotgunBullet(
-  //   bullets,
-  //   dx,
-  //   dy,
-  //   dist,
-  //   ctx,
-  //   gameWindowHeight,
-  //   gameWindowWidth
-  // ) {
-  //   if (this.weapons[this.weapon].reloading) {
-  //   } else if (this.weapons[this.weapon].bullets <= 0) {
-  //     this.reloadTimer = 120;
-  //     this.weapons[this.weapon].reloading = true;
-  //     this.reloadSound.currentTime = 0; // Reload-Sound von vorne starten
-  //     this.reloadSound.play();
-  //     setTimeout(() => {
-  //       this.reloadSound.pause();
-  //       this.reloadSound.currentTime = 0;
-  //     }, 1000); // Reload-Sound abspielen
-  //   } else {
-  //     for (let i = 0; i < 10; i++) {
-  //       const bullet = new Bullet(
-  //         this.x,
-  //         this.y,
-  //         (dx / dist) * -15 + (Math.random() * 6 - 3),
-  //         (dy / dist) * -15 + (Math.random() * 6 - 3),
-  //         this.weapons[this.weapon].dmg,
-  //         ctx,
-  //         gameWindowWidth,
-  //         gameWindowHeight,
-  //         this.weapons[this.weapon].range
-  //       );
-  //       bullets.push(bullet);
-  //     }
-
-  //     this.weapons[this.weapon].bullets -= 1;
-
-  //     // Freie Instanz finden und abspielen
-  //     const shotgunSound = this.shotgunSounds.find((sound) => sound.paused);
-  //     if (shotgunSound) {
-  //       shotgunSound.currentTime = 0;
-  //       shotgunSound.play();
-  //       setTimeout(() => {
-  //         shotgunSound.pause();
-  //         shotgunSound.currentTime = 0;
-  //       }, 1050); // 50 Millisekunden = 0,05 Sekunden
-  //     }
-  //   }
-  // }
-
-  // toDO damage aus enemy swichcase
-  // takeDamage(damage) {
-  //   if (this.isAlive) {
-  //     this.health -= damage;
-  //     // Freie Instanz finden und abspielen
-  //     const playerSound = this.playerSounds.find((sound) => sound.paused);
-  //     if (playerSound) {
-  //       playerSound.currentTime = 0; // Spielt den Sound von Anfang an
-  //       playerSound.play();
-  //       setTimeout(() => {
-  //         playerSound.pause();
-  //         playerSound.currentTime = 0;
-  //       }, 4050); // 50 Millisekunden = 0,05 Sekunden
-  //     }
-
-  //     if (this.health <= 0) {
-  //       this.isAlive = false;
-  //     }
-  //   }
-  // }
 
   draw(ctx, mouseX, mouseY, deltaTime) {
     //reloadTimer

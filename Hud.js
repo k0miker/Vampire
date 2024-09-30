@@ -29,11 +29,7 @@ export default class Hud {
     this.ctx.fillText(
       `        HP: ${player.health}             ${Math.ceil(
         player.gold
-      )} $                                                            ${enemies} Zombies                           R for reload${
-        weapons[player.weapon].reloading
-          ? "   0." + player.reloadTimer.toFixed(0) + " Sekunden"
-          : ""
-      }`,
+      )} $                                                            ${enemies} Zombies                          `,
       10,
       40
     );
@@ -41,7 +37,7 @@ export default class Hud {
     this.ctx.fillRect(0, 62, 280, 32);
     this.ctx.fillStyle = "white";
     this.ctx.fillText(`invinsible timer: ${player.invinsibleTimer}`, 20, 81);
-    this.ctx.fillStyle = "rgba(0, 0, 0, 0.3";
+    this.ctx.fillStyle = "rgba(255, 255, 255, 0.5";
     this.ctx.fillRect(515, 22, player.reloadTimer / 2, 16);
     this.ctx.fillRect(1525, 100, 200, 50);
     this.ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";

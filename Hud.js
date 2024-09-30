@@ -29,7 +29,7 @@ export default class Hud {
     this.ctx.fillText(
       `        HP: ${player.health}             ${Math.ceil(
         player.gold
-      )} $                                                            ${enemies} Zombies                          `,
+      )} $                                                        Weapon Damage: ${weapons[player.weapon].dmg}            ${enemies} Zombies                          `,
       10,
       40
     );

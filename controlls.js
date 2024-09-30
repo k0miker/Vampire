@@ -68,7 +68,7 @@ export function keyDownHandler(e) {
   if (e.code === "KeyU") {
     if (this.player.gold >= 50){
       this.player.gold -= 50;
-      this.player.weapons[this.player.weapon].dmg += 5;
+      weapons[this.player.weapon].dmg += 5;
     }
   }
 

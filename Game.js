@@ -307,8 +307,6 @@ class Game {
       }
     }
 
-    // HUD anzeigen
-    this.hud.draw(this.enemies.length, this.player);
 
     // Überprüfen, ob der Spieler tot ist
     if (this.player.health <= 0) {

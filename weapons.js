@@ -3,7 +3,6 @@ const weapons = [
     name: "Pistol",
     range: 350,
     dmg: 25,
-
     indexYPos: 150,
     bullets: 8,
     magazin: 8,
@@ -15,7 +14,6 @@ const weapons = [
     name: "Shotgun",
     range: 45,
     dmg: 13,
-
     indexYPos: 133,
     bullets: 4,
     magazin: 4,

@@ -21,4 +21,26 @@ const weapons = [
     bulletCount: 10,
     bulletSpread: 6,
   },
+  {
+    name: "knive",
+    range: 10,
+    dmg: 100,
+    indexYPos: 168,
+    bullets: 1,
+    magazin: 1,
+    reloading: false,
+    bulletCount: 1,
+    bulletSpread: 6,
+  },
+  // {
+  //   name: granade,
+  //   range: 100,
+  //   dmg: 100,
+  //   indexYPos: 116,
+  //   bullets: 1,
+  //   magazin: 1,
+  //   reloading: false,
+  //   bulletCount: 1,
+  //   bulletSpread: 0,
+  // }  
 ];

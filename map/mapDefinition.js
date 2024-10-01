@@ -4,7 +4,7 @@ groundSheet.src = "../assets/tileset3.png";
 
 
 const mapDefinition = [
-{ index: 0, src: groundSheet, x: 187, y: 136, pass: true, spawn: false },
+{ index: 0, src: groundSheet, x: 629, y: 136, pass: true, spawn: false },
 { index: 1, src: groundSheet, x: 0, y: 0, pass: false, spawn: false },
 { index: 2, src: groundSheet, x: 17, y: 0, pass: true, spawn: false },
 { index: 3, src: groundSheet, x: 34, y: 0, pass: true, spawn: false },
@@ -332,12 +332,12 @@ const mapDefinition = [
 { index: 325, src: groundSheet, x: 340, y: 136, pass: true, spawn: false },
 { index: 326, src: groundSheet, x: 357, y: 136, pass: true, spawn: false },
 { index: 327, src: groundSheet, x: 374, y: 136, pass: true, spawn: false },
-{ index: 328, src: groundSheet, x: 391, y: 136, pass: true, spawn: false },
+{ index: 328, src: groundSheet, x: 391, y: 136, pass: false, spawn: false },
 { index: 329, src: groundSheet, x: 408, y: 136, pass: true, spawn: false },
 { index: 330, src: groundSheet, x: 425, y: 136, pass: true, spawn: false },
 { index: 331, src: groundSheet, x: 442, y: 136, pass: true, spawn: false },
-{ index: 332, src: groundSheet, x: 459, y: 136, pass: true, spawn: false },
-{ index: 333, src: groundSheet, x: 476, y: 136, pass: true, spawn: false },
+{ index: 332, src: groundSheet, x: 459, y: 136, pass: false, spawn: false },
+{ index: 333, src: groundSheet, x: 476, y: 136, pass: false, spawn: false },
 { index: 334, src: groundSheet, x: 493, y: 136, pass: true, spawn: false },
 { index: 335, src: groundSheet, x: 510, y: 136, pass: true, spawn: false },
 { index: 336, src: groundSheet, x: 527, y: 136, pass: true, spawn: false },

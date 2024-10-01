@@ -18,8 +18,8 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
-    this.weapon = 0;
-    this.weapons = [0];
+    this.weapon = 2;
+    this.weapons = [2];
     this.reloadTimer = 0;
     this.gold = 0;
     // this.weapons = [
@@ -73,9 +73,7 @@ export default class Player {
     this.reloadSound.volume = 0.5; // 25% Lautstärke
     this.pistolSounds.forEach((sound) => (sound.volume = 0.1)); // 25% Lautstärke
     this.shotgunSounds.forEach((sound) => (sound.volume = 0.1)); // 25% Lautstärke
-    this.playerSounds.forEach((sound) => {
-      sound.volume = 0.5;
-    });
+    this.playerSounds.forEach((sound) => (sound.volume = 0.5));
     this.deathSound = document.getElementById("player-death-sound");
     this.deathSound.volume = 0.5;
     this.hurtSound = document.getElementById("player-hurt-sound-1");

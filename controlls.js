@@ -51,33 +51,31 @@ export function keyDownHandler(e) {
     this.player.vx = this.player.speed;
   }
 
-
   ///vendorkeys
   if (e.code === "KeyE") {
-    if (this.player.gold >= 100){
+    if (this.player.gold >= 100) {
       this.player.gold -= 100;
-      this.player.health =200;
-    }   
+      this.player.health = 200;
+    }
   }
   if (e.code === "KeyZ") {
-    if (this.player.gold >= 50){
+    if (this.player.gold >= 50) {
       this.player.gold -= 50;
       this.player.magazines += 1;
     }
   }
   if (e.code === "KeyU") {
-    if (this.player.gold >= 50){
+    if (this.player.gold >= 50) {
       this.player.gold -= 50;
       weapons[this.player.weapon].dmg += 2;
     }
   }
   if (e.code === "KeyO") {
-    if (this.player.gold >= 50){
+    if (this.player.gold >= 50) {
       this.player.gold -= 50;
       weapons[this.player.weapon].range += 5;
     }
   }
-
 }
 
 export function clickHandler(e) {
@@ -95,8 +93,10 @@ export function clickHandler(e) {
   );
 }
 export function mouseWheelHandler(e) {
-  this.player.weapon +=1;
-  if (this.player.weapon >= this.player.weapons.length) this.player.weapon = 0;
-  else if (this.player.weapon < 0)
-    this.player.weapon = this.player.weapons.length;
+  this.player.weaponIndex += 1;
+  if (this.player.weaponIndex >= this.player.weapons.length)
+    this.player.weaponIndex = 0;
+  else if (this.player.weaponIndex < 0)
+    this.player.weaponIndex = this.player.weapons.length - 1;
+  this.player.weapon = this.player.weapons[this.player.weaponIndex];
 }

@@ -23,7 +23,7 @@ const weapons = [
   },
   {
     name: "knive",
-    range: 20,
+    range: 15,
     dmg: 100,
     indexYPos: 168,
     bullets: 1,
@@ -42,5 +42,5 @@ const weapons = [
   //   reloading: false,
   //   bulletCount: 1,
   //   bulletSpread: 0,
-  // }  
+  // }
 ];

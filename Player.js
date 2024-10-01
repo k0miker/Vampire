@@ -18,8 +18,9 @@ export default class Player {
     this.weaponY = -2;
     this.weaponXIndex = 0;
     this.walkTimer = 6;
+    this.weaponIndex = 1;
     this.weapon = 2;
-    this.weapons = [2];
+    this.weapons = [0, 2];
     this.reloadTimer = 0;
     this.gold = 0;
 
@@ -91,7 +92,7 @@ export default class Player {
       }
 
       //wenn messer keine munition reduzieren
-      if (this.weapon ===2) {
+      if (this.weapon === 2) {
         weapons[this.weapon].bullets = 1;
       } else {
         weapons[this.weapon].bullets -= 1;

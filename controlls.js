@@ -95,7 +95,7 @@ export function clickHandler(e) {
   );
 }
 export function mouseWheelHandler(e) {
-  this.player.weapon += 1;
+  this.player.weapon +=1;
   if (this.player.weapon >= this.player.weapons.length) this.player.weapon = 0;
   else if (this.player.weapon < 0)
     this.player.weapon = this.player.weapons.length;

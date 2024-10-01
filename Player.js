@@ -22,28 +22,7 @@ export default class Player {
     this.weapons = [2];
     this.reloadTimer = 0;
     this.gold = 0;
-    // this.weapons = [
-    //   {
-    //     name: "Pistol",
-    //     range: 1000,
-    //     dmg: 25,
-    //     // addBullet: this.addPistolBullet.bind(this),
-    //     indexYPos: 150,
-    //     bullets: 8,
-    //     magazin: 8,
-    //     reloading: false,
-    //   },
-    //   {
-    //     name: "Shotgun",
-    //     range: 45,
-    //     dmg: 13,
-    //     // addBullet: this.addShotgunBullet.bind(this),
-    //     indexYPos: 133,
-    //     bullets: 4,
-    //     magazin: 4,
-    //     reloading: false,
-    //   },
-    // ];
+
     this.invinsibleTimer = 0;
     this.invFlip = 0;
     this.vx = 0;
@@ -111,7 +90,12 @@ export default class Player {
         bullets.push(bullet);
       }
 
-      weapons[this.weapon].bullets -= 1;
+      //wenn messer keine munition reduzieren
+      if (this.weapon ===2) {
+        weapons[this.weapon].bullets = 1;
+      } else {
+        weapons[this.weapon].bullets -= 1;
+      }
 
       // Freie Instanz finden und abspielen
       const shotgunSound = this.shotgunSounds.find((sound) => sound.paused);

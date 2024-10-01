@@ -103,7 +103,7 @@ export default class MapHandler {
         64
       );
     }
-    console.log(this.currentMap.weaponSpawn);
+    // console.log(this.currentMap.weaponSpawn);
     for (let y = 0; y < 13; y++) {
       for (let x = 0; x < 27; x++) {
         const tileIndex = this.overlay[x + y * 27];

@@ -23,14 +23,14 @@ const weapons = [
   },
   {
     name: "knive",
-    range: 10,
+    range: 20,
     dmg: 100,
     indexYPos: 168,
     bullets: 1,
     magazin: 1,
     reloading: false,
-    bulletCount: 1,
-    bulletSpread: 6,
+    bulletCount: 10,
+    bulletSpread: 16,
   },
   // {
   //   name: granade,

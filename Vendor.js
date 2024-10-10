@@ -19,7 +19,7 @@ export default class Vendor {
       this.ctx.fillStyle = "white";
       this.ctx.font = "16px Arial";
       this.ctx.fillText(
-        "Welcome to the shop",
+        "Welcome to the shop!\nWhat would you like to buy?\nYou allways upgrade the cuurent weapon",
         mapHandler.vendorPosition.x + 120,
         mapHandler.vendorPosition.y + 30
       );
@@ -35,7 +35,7 @@ export default class Vendor {
         mapHandler.vendorPosition.y + 90
       );
       this.ctx.fillText(
-        "press `u` to upgrade currrent weapon 50$ (+2)",
+        "press `u` to upgrade 50$ (+2)",
         mapHandler.vendorPosition.x + 120,
         mapHandler.vendorPosition.y + 120
       );

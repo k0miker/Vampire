@@ -167,15 +167,27 @@ export default class MapHandler {
 
     this.ctx.fillStyle = "rgba(255, 0, 0, 0.9)";
     this.ctx.fillText(
-      "X",
+      "B",
       miniMapX + 3 * cellWidth * 4 + 20,
       miniMapY + 1 * cellHeight * 3.8
     );
     this.ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
     this.ctx.fillText(
-      "X",
+      "S",
       miniMapX + mapPosX * cellWidth * 4 + 20,
       miniMapY + (mapPosY + 1) * cellHeight * 3.8
+    );
+    this.ctx.fillStyle = "rgba(150, 150, 255, 0.9)";
+    this.ctx.fillText(
+      "V",
+      miniMapX + 1 * cellWidth * 4 + 20,
+      miniMapY + 1 * cellHeight * 3.8
+    );
+    this.ctx.fillStyle = "rgba(255, 255, 0, 0.9)";
+    this.ctx.fillText(
+      "W",
+      miniMapX + 3 * cellWidth * 4 + 20,
+      miniMapY + 4 * cellHeight * 3.8
     );
   }
 }

@@ -5,7 +5,6 @@ import Bloodsplosion from "./Bloodsplosion.js";
 import Hud from "./Hud.js";
 import MapHandler from "./MapHandler.js";
 import ObstacleCollision from "./ObstaclesCollision.js";
-import Vendor from "./Vendor.js";
 import {
   mouseWheelHandler,
   mousemoveHandler,
@@ -29,7 +28,7 @@ class Game {
     this.mouseY = this.canvas.height / 2;
     this.bullets = [];
     this.mapArray = mapArray;
-    this.mapIndex = { x: 3, y: 3 };
+    this.mapIndex = { x: 0, y: 2 };
     this.currentMap = new mapArray[this.mapIndex.y][this.mapIndex.x]();
 
     this.player = new Player(); // Initialisieren Sie den Spieler zuerst

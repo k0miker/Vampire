@@ -39,14 +39,19 @@ export default class Hud {
     this.ctx.fillText(`invinsible timer: ${player.invinsibleTimer}`, 20, 81);
     this.ctx.fillStyle = "rgba(255, 255, 255, 0.5";
     this.ctx.fillRect(515, 22, player.reloadTimer / 2, 16);
-    this.ctx.fillRect(1525, 100, 200, 50);
+    this.ctx.fillRect(1525, 100, 200, 90);
     this.ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     this.ctx.strokeRect(1525, 100, 200, 50);
     this.ctx.font = "12px mono";
     this.ctx.fontWeight = "100";
     this.ctx.fillStyle = "green";
-    this.ctx.fillText(`"grünes X" = Spieler`, 1530, 120, 200);
+    this.ctx.fillText(`"S" = Spieler`, 1530, 120, 200);
     this.ctx.fillStyle = "red";
-    this.ctx.fillText(`"rotes X" = Boss`, 1530, 140, 200);
+    this.ctx.fillText(`"B" = Boss`, 1530, 140, 200);
+    this.ctx.fillStyle = "rgba(0, 0, 255, 1)";
+    this.ctx.fillText(`"V" = Vendor`, 1530, 160, 200);
+    this.ctx.fillStyle = "rgba(255, 255, 0, 1)";
+    this.ctx.fillText(`"W" = Waffe`, 1530, 180, 200);
+
   }
 }

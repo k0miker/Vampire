@@ -190,7 +190,7 @@ export default class Player {
           this.width,
           this.height
         );
-        ctx.drawImage(
+        ctx.drawImage(          
           this.image,
           weaponAnimX + 17,
           weapons[this.weapon].indexYPos,

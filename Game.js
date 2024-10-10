@@ -285,7 +285,8 @@ class Game {
         hitIndex = this.bullets[i].update(
           deltaTime,
           this.enemies,
-          this.obstacleCollision
+          this.obstacleCollision,
+          this.player
         );
         if (hitIndex === 1000) {
           this.bullets.splice(i, 1);

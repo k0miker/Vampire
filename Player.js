@@ -47,6 +47,11 @@ export default class Player {
       document.getElementById("shotgun-sound-3"),
       document.getElementById("shotgun-sound-4"),
     ];
+    this.kniveSounds = [
+      document.getElementById("knive-sound-1"),
+      document.getElementById("knive-sound-2"),
+    ];
+
     this.walkSound = document.getElementById("walk-sound-1");
 
     this.reloadSound = document.getElementById("reload"); // Reload-Sound laden
@@ -54,6 +59,7 @@ export default class Player {
     this.pistolSounds.forEach((sound) => (sound.volume = 0.1)); // 25% Lautstärke
     this.shotgunSounds.forEach((sound) => (sound.volume = 0.1)); // 25% Lautstärke
     this.playerSounds.forEach((sound) => (sound.volume = 0.5));
+    this.kniveSounds.forEach((sound) => (sound.volume = 0.5));
     this.deathSound = document.getElementById("player-death-sound");
     this.deathSound.volume = 0.5;
     this.hurtSound = document.getElementById("player-hurt-sound-1");
@@ -91,23 +97,41 @@ export default class Player {
         bullets.push(bullet);
       }
 
+
+
+
+      let gunSound = this.shotgunSounds.find((sound) => sound.paused);
       //wenn messer keine munition reduzieren
       if (this.weapon === 2) {
-        weapons[this.weapon].bullets = 1;
+        gunSound = this.kniveSounds.find((sound) => sound.paused);
+        weapons[this.weapon].bullets = 1;   
+        if (gunSound) {
+          gunSound.currentTime = 0;
+          gunSound.play();
+          setTimeout(() => {
+            gunSound.pause();
+            gunSound.currentTime = 1200;
+            
+          }, 1050); // 50 Millisekunden = 0,05 Sekunden
+        }      
       } else {
         weapons[this.weapon].bullets -= 1;
+        if (gunSound) {
+          gunSound.currentTime = 0;
+          gunSound.play();
+          setTimeout(() => {
+            gunSound.pause();
+            gunSound.currentTime = 0;
+          }, 1050); // 50 Millisekunden = 0,05 Sekunden
+        }        
       }
 
       // Freie Instanz finden und abspielen
-      const shotgunSound = this.shotgunSounds.find((sound) => sound.paused);
-      if (shotgunSound) {
-        shotgunSound.currentTime = 0;
-        shotgunSound.play();
-        setTimeout(() => {
-          shotgunSound.pause();
-          shotgunSound.currentTime = 0;
-        }, 1050); // 50 Millisekunden = 0,05 Sekunden
-      }
+   
+
+
+
+   
     }
   }
 

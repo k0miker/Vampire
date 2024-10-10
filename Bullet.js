@@ -22,6 +22,7 @@ export default class Bullet {
     this.gameWindowWidth = gameWindowWidth;
     this.speed = 20;
     this.range = range;
+    this.bulletColor = "lightgrey";
   }
 
   static createBullet(player, mouseX, mouseY, ctx) {
@@ -39,21 +40,23 @@ export default class Bullet {
     );
   }
 
-  update(deltaTime, enemies, obstacleCollision) {
+  update(deltaTime, enemies, obstacleCollision,player) {
     let bulletDelete = -1;
     this.x += this.vx * deltaTime * this.speed;
     this.y += this.vy * deltaTime * this.speed;
-    this.draw();
+    this.draw(player);
     if (obstacleCollision.collision(this)) return 1000;
 
     bulletDelete = this.collisionEnemy(enemies, obstacleCollision);
     return bulletDelete;
   }
 
-  draw() {
-    this.ctx.fillStyle = "lightgrey";
+  draw(player) {  
+    if (player.weapon === 2) this.bulletColor ="rgba(0, 0, 0, 0)";
+    this.ctx.fillStyle = this.bulletColor;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
-  }
+    }
+  
 
   collisionEnemy(enemies, obstacleCollision) {
     for (let i = 0; i < enemies.length; i++) {
